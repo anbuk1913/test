@@ -1,0 +1,35 @@
+// types/ollama.d.ts
+declare module 'ollama' {
+  export function generate(options: {
+    model: string;
+    prompt: string;
+  }): Promise<{ response: string }>;
+}
+
+tsconfig.json:
+
+{
+  "compilerOptions": {
+    "typeRoots": ["./types", "./node_modules/@types"]
+  }
+}
+
+Check your tsconfig.json:
+
+{
+  "compilerOptions": {
+    "strict": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true
+  }
+}
+
+
+Want me to create a safe Ollama helper with TS typings?
+
+I can generate a ready-to-plug helper like this:
+
+export async function askOllama(prompt: string): Promise<string> {
+  const res = await ollama.generate({ model: "llama2", prompt });
+  return res.response;
+}
