@@ -106,3 +106,90 @@ export default function UserDataForm() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * MessageBubble Component
+ * 
+ * Renders an individual chat message with styling differentiated by sender type.
+ * Features:
+ * - Fade-in animation on mount
+ * - Different avatars for user vs bot messages
+ * - Markdown rendering for bot messages
+ * - Timestamp display
+ * - Responsive layout with flexbox
+ */
+const MessageBubble = ({ message }: { message: Message }) => {
+  // Determine if the current message is from the user (vs bot)
+  const isUser = message.sender === "user";
+  
+  // State to control fade-in animation visibility
+  const [isVisible, setIsVisible] = useState(false);
+  
+  /**
+   * Effect: Triggers fade-in animation after component mounts
+   * Adds a 100ms delay before making the message visible for smooth entrance
+   */
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), 100);
+    // Cleanup: Clear timeout if component unmounts before timer completes
+    return () => clearTimeout(timer);
+  }, []); // Empty dependency array = runs once on mount
+  
+  return (
+    // Main container: applies different classes based on sender and visibility state
+    <div className={`message-container ${isUser ? "user-message" : "bot-message"} ${isVisible ? "visible" : ""}`}>
+      
+      {/* Avatar Section: Displays user or bot icon */}
+      <div className="message-avatar">
+        <div className={`avatar-wrapper ${isUser ? "user-avatar" : "bot-avatar"}`}>
+          {/* Conditionally render User or Bot icon from lucide-react */}
+          {isUser ? <User className="avatar-icon" /> : <Bot className="avatar-icon" />}
+        </div>
+      </div>
+      
+      {/* Message Content Section: Contains the actual message and timestamp */}
+      <div className="message-content">
+        
+        {/* Message Bubble: The main text container */}
+        <div className={`message-bubble ${isUser ? "user-bubble" : "bot-bubble"}`}>
+          {isUser ? (
+            // User messages: Simple paragraph rendering
+            <p className="message-text">{message.content}</p>
+          ) : (
+            // Bot messages: Markdown rendering with custom component styling
+            <ReactMarkdown
+              children={message.content}
+              remarkPlugins={[remarkGfm]} // GitHub Flavored Markdown support (tables, strikethrough, etc.)
+              components={{
+                // Custom renderers for markdown elements to apply consistent styling
+                p: (props) => <p className="message-text" {...props} />,
+                strong: (props) => <strong className="markdown-strong" {...props} />,
+                ul: (props) => <ul className="markdown-list" {...props} />,
+                ol: (props) => <ol className="markdown-ordered-list" {...props} />,
+                li: (props) => <li className="markdown-list-item" {...props} />,
+                code: (props) => <code className="markdown-code" {...props} />,
+                pre: (props) => <pre className="markdown-pre" {...props} />,
+              }}
+            />
+          )}
+        </div>
+        
+        {/* Timestamp: Shows when the message was sent in 12-hour format */}
+        <div className="message-time">
+          {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+        </div>
+      </div>
+    </div>
+  );
+};
