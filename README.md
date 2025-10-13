@@ -1,224 +1,19 @@
-Skip to content
-Chat history
+📁 Folder Structure
+frontend/
 
-You said:
-How to set oauth in react ts app and use cookies 
-ChatGPT said:
-Let’s go step-by-step 👇
-You’ll learn how to set up OAuth (Google, GitHub, etc.) in a React + TypeScript app and use cookies to store the authentication token securely.
-
-🧩 Overview
-We’ll use this flow:
-
-Frontend (React + TS) → Backend (Node/Express) → OAuth Provider (Google, GitHub)
-Then:
-
-Backend handles OAuth login and issues JWT
-
-JWT is stored in a HTTP-only cookie
-
-Frontend reads user info via an authenticated API
-
-🏗 Step 1: Backend (Node.js + Express)
-1. Install dependencies
-        npm install express passport passport-google-oauth20 cookie-parser jsonwebtoken cors dotenv
-2. Example backend structure
-
-        backend/
-        ├── server.ts
-        ├── routes/
-        │   └── auth.ts
-        └── .env
-3. .env
-
-        GOOGLE_CLIENT_ID=your_google_client_id
-        GOOGLE_CLIENT_SECRET=your_google_client_secret
-        JWT_SECRET=super_secret_key
-        CLIENT_URL=http://localhost:5173
-        
-4. server.ts
-
-        import express from "express";
-        import passport from "passport";
-        import cookieParser from "cookie-parser";
-        import session from "express-session";
-        import cors from "cors";
-        import dotenv from "dotenv";
-        import "./strategies/google";
-        
-        dotenv.config();
-        
-        const app = express();
-        app.use(cookieParser());
-        app.use(
-          cors({
-            origin: process.env.CLIENT_URL,
-            credentials: true,
-          })
-        );
-        
-        app.use(
-          session({
-            secret: process.env.JWT_SECRET!,
-            resave: false,
-            saveUninitialized: false,
-          })
-        );
-        
-        app.use(passport.initialize());
-        app.use(passport.session());
-        
-        app.use("/auth", require("./routes/auth"));
-        
-        app.listen(4000, () => console.log("Server running on http://localhost:4000"));
-        5. strategies/google.ts
-        import passport from "passport";
-        import { Strategy as GoogleStrategy } from "passport-google-oauth20";
-        import jwt from "jsonwebtoken";
-        import dotenv from "dotenv";
-        
-        dotenv.config();
-        
-        passport.use(
-          new GoogleStrategy(
-            {
-              clientID: process.env.GOOGLE_CLIENT_ID!,
-              clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-              callbackURL: "http://localhost:4000/auth/google/callback",
-            },
-            async (accessToken, refreshToken, profile, done) => {
-              const user = {
-                id: profile.id,
-                name: profile.displayName,
-                email: profile.emails?.[0].value,
-              };
-              done(null, user);
-            }
-          )
-        );
-        
-        passport.serializeUser((user, done) => {
-          done(null, user);
-        });
-        
-        passport.deserializeUser((user: any, done) => {
-          done(null, user);
-        });
-6. routes/auth.ts
- 
-        import express from "express";
-        import passport from "passport";
-        import jwt from "jsonwebtoken";
-
-        const router = express.Router();
-        
-        // Step 1: Redirect to Google
-        router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
-        
-        // Step 2: Google callback
-        router.get(
-          "/google/callback",
-          passport.authenticate("google", { failureRedirect: "/" }),
-          (req: any, res) => {
-            const token = jwt.sign(req.user, process.env.JWT_SECRET!, { expiresIn: "1h" });
-            res.cookie("token", token, {
-              httpOnly: true,
-              secure: false, // use true in production with HTTPS
-              sameSite: "lax",
-            });
-            res.redirect(`${process.env.CLIENT_URL}/dashboard`);
-          }
-        );
-        
-        // Protected route example
-        router.get("/me", (req, res) => {
-          const token = req.cookies.token;
-          if (!token) return res.status(401).json({ message: "No token" });
-          try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET!);
-            res.json(decoded);
-          } catch {
-            res.status(401).json({ message: "Invalid token" });
-          }
-        });
-        
-        module.exports = router;
-⚛️ Step 2: Frontend (React + TypeScript)
-1. Install dependencies
-
-        npm install axios react-router-dom
-    
-2. Setup AuthButton.tsx
-
-        import React from "react";
-        
-        export const AuthButton: React.FC = () => {
-          const handleLogin = () => {
-            window.open("http://localhost:4000/auth/google", "_self");
-          };
-        
-          return (
-            <button
-              onClick={handleLogin}
-              className="bg-blue-500 text-white px-4 py-2 rounded-md"
-            >
-              Login with Google
-            </button>
-          );
-        };
-
-3. Use cookies with Axios
-By default, Axios doesn’t send cookies — you need to enable it:
-
-        import axios from "axios";
-        
-        axios.defaults.withCredentials = true;
-        
-        export const getUser = async () => {
-          const res = await axios.get("http://localhost:4000/auth/me");
-          return res.data;
-        };
-
-🍪 Step 3: How cookies work here
-✅ httpOnly: frontend cannot access token via JS → safer
-✅ secure: cookie only sent over HTTPS
-✅ sameSite: reduces CSRF risk
-✅ Browser automatically attaches cookie on requests to your backend
-
-🧠 Optional: Logout
-
-      router.get("/logout", (req, res) => {
-        res.clearCookie("token");
-        res.json({ message: "Logged out" });
-      });
-
-Frontend:
-
-    const logout = async () => {
-    await axios.get("http://localhost:4000/auth/logout", { withCredentials: true });
-    window.location.href = "/";
-    };
-
-✅ Summary
-Step	Task	Tool
-1	Setup OAuth Strategy	passport-google-oauth20
-2	Issue JWT	jsonwebtoken
-3	Store token in cookie	res.cookie()
-4	Access protected route	Axios with withCredentials
-5	Logout by clearing cookie	res.clearCookie()
-Would you like me to show you the same setup but using GitHub OAuth instead of Google (or both)?
-
-📁 Minimal Folder Structure
-
-        src/
-        ├── api/
-        │   └── authAPI.ts
-        ├── components/
-        │   └── AuthButton.tsx
-        ├── hooks/
-        │   └── useAuth.ts
-        ├── App.tsx
-        ├── main.tsx
+        ├── src/
+        │   ├── api/
+        │   │   └── authAPI.ts
+        │   ├── components/
+        │   │   ├── AuthButton.tsx
+        │   │   └── LogoutButton.tsx
+        │   ├── hooks/
+        │   │   └── useAuth.ts
+        │   ├── App.tsx
+        │   └── main.tsx
+        ├── tsconfig.json
+        ├── package.json
+        └── vite.config.ts
 
 🔘 components/AuthButton.tsx
 
@@ -226,18 +21,39 @@ Would you like me to show you the same setup but using GitHub OAuth instead of G
         
         const AuthButton: React.FC = () => {
           const handleLogin = () => {
+            // Opens the backend OAuth route
             window.open("http://localhost:4000/auth/google", "_self");
           };
         
           return (
-            <button onClick={handleLogin}>
+            <button onClick={handleLogin} style={{ padding: "10px", margin: "10px" }}>
               Login with Google
             </button>
           );
         };
         
         export default AuthButton;
+
+🔘 components/LogoutButton.tsx
+
+        import React from "react";
+        import axios from "axios";
         
+        const LogoutButton: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
+          const handleLogout = async () => {
+            await axios.get("http://localhost:4000/auth/logout", { withCredentials: true });
+            onLogout();
+          };
+        
+          return (
+            <button onClick={handleLogout} style={{ padding: "10px", margin: "10px" }}>
+              Logout
+            </button>
+          );
+        };
+        
+        export default LogoutButton;
+
 🌐 api/authAPI.ts
 
         import axios from "axios";
@@ -258,7 +74,7 @@ Would you like me to show you the same setup but using GitHub OAuth instead of G
 
 🪝 hooks/useAuth.ts
 
-        import { useEffect, useState } from "react";
+        import { useState, useEffect } from "react";
         import { getUser } from "../api/authAPI";
         
         export const useAuth = () => {
@@ -272,34 +88,39 @@ Would you like me to show you the same setup but using GitHub OAuth instead of G
             });
           }, []);
         
-          return { user, loading };
+          return { user, setUser, loading };
         };
 
 🚀 App.tsx
 
+        import React from "react";
         import AuthButton from "./components/AuthButton";
+        import LogoutButton from "./components/LogoutButton";
         import { useAuth } from "./hooks/useAuth";
         
-        function App() {
-          const { user, loading } = useAuth();
+        const App: React.FC = () => {
+          const { user, setUser, loading } = useAuth();
         
           if (loading) return <p>Loading...</p>;
         
           return (
-            <div>
+            <div style={{ textAlign: "center", marginTop: "50px" }}>
               {!user ? (
                 <AuthButton />
               ) : (
-                <h2>Welcome, {user.name}</h2>
+                <div>
+                  <h2>Welcome, {user.name}</h2>
+                  <p>Email: {user.email}</p>
+                  <LogoutButton onLogout={() => setUser(null)} />
+                </div>
               )}
             </div>
           );
-        }
+        };
         
         export default App;
-
-🎯 main.tsx
-
+        
+        🔹 main.tsx
         import React from "react";
         import ReactDOM from "react-dom/client";
         import App from "./App";
@@ -310,6 +131,121 @@ Would you like me to show you the same setup but using GitHub OAuth instead of G
           </React.StrictMode>
         );
 
+⚡ Notes
 
-That’s it!
-A clean OAuth-ready base with only button + API + hook.
+Backend routes expected:
+
+GET /auth/google → redirect to Google login
+
+GET /auth/google/callback → exchange code, set cookie, redirect
+
+GET /auth/me → return user from JWT cookie
+
+GET /auth/logout → clear cookie
+
+Axios withCredentials: true is important for cookies.
+
+You can expand with React Router, context, or loading spinners later.
+
+
+
+Flow:
+
+1️⃣ User clicks "Login with Google"
+2️⃣ Frontend redirects to Google OAuth URL
+3️⃣ Google sends code to backend
+4️⃣ Backend exchanges code for access token + user info
+5️⃣ Backend creates JWT & sets in HTTP-only cookie
+
+⚙️ Key Library (Backend)
+
+Just install:
+
+npm install google-auth-library jsonwebtoken axios cookie-parser
+
+🔁 Minimal Code Flow (No Passport)
+🛑 Backend – Create Google URL (No Passport)
+
+        import express from "express";
+        import axios from "axios";
+        import jwt from "jsonwebtoken";
+        import cookieParser from "cookie-parser";
+        import dotenv from "dotenv";
+        
+        dotenv.config();
+        const app = express();
+        app.use(cookieParser());
+        
+        const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
+        const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
+        const REDIRECT_URL = "http://localhost:4000/auth/google/callback";
+        const FRONTEND_URL = "http://localhost:5173";
+        
+        app.get("/auth/google", (req, res) => {
+          const url =
+            `https://accounts.google.com/o/oauth2/v2/auth?` +
+            `client_id=${GOOGLE_CLIENT_ID}&` +
+            `redirect_uri=${REDIRECT_URL}&` +
+            `response_type=code&` +
+            `scope=profile email`;
+        
+          res.redirect(url);
+        });
+        
+        app.get("/auth/google/callback", async (req, res) => {
+          const code = req.query.code as string;
+        
+          const tokenRes = await axios.post(
+            `https://oauth2.googleapis.com/token`,
+            {
+              code,
+              client_id: GOOGLE_CLIENT_ID,
+              client_secret: GOOGLE_CLIENT_SECRET,
+              redirect_uri: REDIRECT_URL,
+              grant_type: "authorization_code",
+            }
+          );
+        
+          const { access_token } = tokenRes.data;
+        
+          const userRes = await axios.get(
+            `https://www.googleapis.com/oauth2/v2/userinfo`,
+            {
+              headers: { Authorization: `Bearer ${access_token}` },
+            }
+          );
+        
+          const user = userRes.data;
+        
+          const jwtToken = jwt.sign(user, process.env.JWT_SECRET!, { expiresIn: "1h" });
+        
+          res.cookie("token", jwtToken, {
+            httpOnly: true,
+          });
+        
+          res.redirect(`${FRONTEND_URL}/dashboard`);
+        });
+        
+        app.get("/auth/me", (req, res) => {
+          const token = req.cookies.token;
+          if (!token) return res.json(null);
+        
+          try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+            res.json(decoded);
+          } catch (err) {
+            res.json(null);
+          }
+        });
+
+        app.listen(4000, () => console.log("Server running"));
+
+🎯 Why Use This (Over Passport)?
+Feature	Passport	Custom OAuth
+Simplicity	Heavy setup	Lightweight
+Control	Limited	Full control
+Login Logic	Hidden	Transparent
+Best for	Legacy apps	Modern SPA (React/Vue)
+🧠 Frontend → Same Code You Already Saw
+
+Use same AuthButton, getUser, useAuth.
