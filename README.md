@@ -210,6 +210,129 @@ Would you like me to show you the same setup but using GitHub OAuth instead of G
 
 
 
+📁 Recommended Folder Structure (React + TS)
 
-No file chosenNo file chosen
-ChatGPT can make mistakes. Check important info. See Cookie Preferences.
+                frontend/
+                ├── src/
+                │   ├── api/
+                │   │   └── authAPI.ts
+                │   │
+                │   ├── components/
+                │   │   ├── buttons/
+                │   │   │   └── AuthButton.tsx
+                │   │   ├── Navbar.tsx
+                │   │   └── Loader.tsx
+                │   │
+                │   ├── context/
+                │   │   └── AuthContext.tsx
+                │   │
+                │   ├── hooks/
+                │   │   └── useAuth.ts
+                │   │
+                │   ├── pages/
+                │   │   ├── Home.tsx
+                │   │   ├── Dashboard.tsx
+                │   │   └── NotFound.tsx
+                │   │
+                │   ├── routes/
+                │   │   └── PrivateRoute.tsx
+                │   │
+                │   ├── utils/
+                │   │   └── axiosConfig.ts
+                │   │
+                │   ├── App.tsx
+                │   ├── main.tsx
+                │   └── vite-env.d.ts
+                │
+                ├── public/
+                │   └── favicon.ico
+                │
+                ├── tsconfig.json
+                ├── package.json
+                └── vite.config.ts
+
+🗂 Folder Purpose Explained
+Folder	Purpose
+api/	        Central place to call backend (/auth/me, /logout)
+components/	Reusable UI components (buttons, layouts)
+context/	Global auth state (user, login, logout)
+hooks/	        Custom hooks like useAuth, useFetch
+pages/	        Page screens (Home, Dashboard, Login)
+routes/	        Protected Routes (PrivateRoute)
+utils/	        Utility functions, axios configuration
+
+🔐 Auth with Context Example
+
+context/AuthContext.tsx
+
+        import React, { createContext, useState, useEffect } from "react";
+        import { getUser } from "../api/authAPI";
+        
+        interface User {
+          name: string;
+          email: string;
+        }
+        
+        interface AuthContextType {
+          user: User | null;
+          loading: boolean;
+        }
+        
+        export const AuthContext = createContext<AuthContextType>({
+          user: null,
+          loading: true,
+        });
+        
+        export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+          const [user, setUser] = useState<User | null>(null);
+          const [loading, setLoading] = useState(true);
+        
+          useEffect(() => {
+            getUser().then(setUser).finally(() => setLoading(false));
+          }, []);
+        
+          return (
+            <AuthContext.Provider value={{ user, loading }}>
+              {children}
+            </AuthContext.Provider>
+          );
+        };
+
+⚙️ Axios Cookie Config
+
+utils/axiosConfig.ts
+
+        import axios from "axios";
+        
+        const api = axios.create({
+          baseURL: "http://localhost:4000",
+          withCredentials: true,
+        });
+        
+        export default api;
+        
+        🧭 Protected Route
+        
+        routes/PrivateRoute.tsx
+        
+        import { Navigate } from "react-router-dom";
+        import { useAuth } from "../hooks/useAuth";
+        
+        export const PrivateRoute = ({ children }: any) => {
+          const { user, loading } = useAuth();
+          if (loading) return <div>Loading...</div>;
+          return user ? children : <Navigate to="/" />;
+        };
+        
+        🚀 Usage Example in App.tsx
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+        </Routes>
