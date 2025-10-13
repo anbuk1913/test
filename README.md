@@ -35,6 +35,9 @@ Frontend reads user info via an authenticated API
         GOOGLE_CLIENT_SECRET=your_google_client_secret
         JWT_SECRET=super_secret_key
         CLIENT_URL=http://localhost:5173
+        GOOGLE_CLIENT_SECRET = "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"
+        GOOGLE_CLIENT_ID = "7624508137-5v3ajgmheegei28qpkunntkb8k36m20v.apps.googleusercontent.com"
+        
 4. server.ts
 
         import express from "express";
