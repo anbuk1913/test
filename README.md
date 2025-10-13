@@ -208,99 +208,37 @@ Step	Task	Tool
 5	Logout by clearing cookie	res.clearCookie()
 Would you like me to show you the same setup but using GitHub OAuth instead of Google (or both)?
 
+📁 Minimal Folder Structure
 
+        src/
+        ├── api/
+        │   └── authAPI.ts
+        ├── components/
+        │   └── AuthButton.tsx
+        ├── hooks/
+        │   └── useAuth.ts
+        ├── App.tsx
+        ├── main.tsx
 
-📁 Recommended Folder Structure (React + TS)
+🔘 components/AuthButton.tsx
 
-                frontend/
-                ├── src/
-                │   ├── api/
-                │   │   └── authAPI.ts
-                │   │
-                │   ├── components/
-                │   │   ├── buttons/
-                │   │   │   └── AuthButton.tsx
-                │   │   ├── Navbar.tsx
-                │   │   └── Loader.tsx
-                │   │
-                │   ├── context/
-                │   │   └── AuthContext.tsx
-                │   │
-                │   ├── hooks/
-                │   │   └── useAuth.ts
-                │   │
-                │   ├── pages/
-                │   │   ├── Home.tsx
-                │   │   ├── Dashboard.tsx
-                │   │   └── NotFound.tsx
-                │   │
-                │   ├── routes/
-                │   │   └── PrivateRoute.tsx
-                │   │
-                │   ├── utils/
-                │   │   └── axiosConfig.ts
-                │   │
-                │   ├── App.tsx
-                │   ├── main.tsx
-                │   └── vite-env.d.ts
-                │
-                ├── public/
-                │   └── favicon.ico
-                │
-                ├── tsconfig.json
-                ├── package.json
-                └── vite.config.ts
-
-🗂 Folder Purpose Explained
-Folder	Purpose
-api/	        Central place to call backend (/auth/me, /logout)
-components/	Reusable UI components (buttons, layouts)
-context/	Global auth state (user, login, logout)
-hooks/	        Custom hooks like useAuth, useFetch
-pages/	        Page screens (Home, Dashboard, Login)
-routes/	        Protected Routes (PrivateRoute)
-utils/	        Utility functions, axios configuration
-
-🔐 Auth with Context Example
-
-context/AuthContext.tsx
-
-        import React, { createContext, useState, useEffect } from "react";
-        import { getUser } from "../api/authAPI";
+        import React from "react";
         
-        interface User {
-          name: string;
-          email: string;
-        }
-        
-        interface AuthContextType {
-          user: User | null;
-          loading: boolean;
-        }
-        
-        export const AuthContext = createContext<AuthContextType>({
-          user: null,
-          loading: true,
-        });
-        
-        export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-          const [user, setUser] = useState<User | null>(null);
-          const [loading, setLoading] = useState(true);
-        
-          useEffect(() => {
-            getUser().then(setUser).finally(() => setLoading(false));
-          }, []);
+        const AuthButton: React.FC = () => {
+          const handleLogin = () => {
+            window.open("http://localhost:4000/auth/google", "_self");
+          };
         
           return (
-            <AuthContext.Provider value={{ user, loading }}>
-              {children}
-            </AuthContext.Provider>
+            <button onClick={handleLogin}>
+              Login with Google
+            </button>
           );
         };
-
-⚙️ Axios Cookie Config
-
-utils/axiosConfig.ts
+        
+        export default AuthButton;
+        
+🌐 api/authAPI.ts
 
         import axios from "axios";
         
@@ -309,30 +247,69 @@ utils/axiosConfig.ts
           withCredentials: true,
         });
         
-        export default api;
-        
-        🧭 Protected Route
-        
-        routes/PrivateRoute.tsx
-        
-        import { Navigate } from "react-router-dom";
-        import { useAuth } from "../hooks/useAuth";
-        
-        export const PrivateRoute = ({ children }: any) => {
-          const { user, loading } = useAuth();
-          if (loading) return <div>Loading...</div>;
-          return user ? children : <Navigate to="/" />;
+        export const getUser = async () => {
+          try {
+            const res = await api.get("/auth/me");
+            return res.data;
+          } catch (err) {
+            return null;
+          }
         };
+
+🪝 hooks/useAuth.ts
+
+        import { useEffect, useState } from "react";
+        import { getUser } from "../api/authAPI";
         
-        🚀 Usage Example in App.tsx
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/dashboard"
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          />
-        </Routes>
+        export const useAuth = () => {
+          const [user, setUser] = useState<any>(null);
+          const [loading, setLoading] = useState(true);
+        
+          useEffect(() => {
+            getUser().then((data) => {
+              setUser(data);
+              setLoading(false);
+            });
+          }, []);
+        
+          return { user, loading };
+        };
+
+🚀 App.tsx
+
+        import AuthButton from "./components/AuthButton";
+        import { useAuth } from "./hooks/useAuth";
+        
+        function App() {
+          const { user, loading } = useAuth();
+        
+          if (loading) return <p>Loading...</p>;
+        
+          return (
+            <div>
+              {!user ? (
+                <AuthButton />
+              ) : (
+                <h2>Welcome, {user.name}</h2>
+              )}
+            </div>
+          );
+        }
+        
+        export default App;
+
+🎯 main.tsx
+
+        import React from "react";
+        import ReactDOM from "react-dom/client";
+        import App from "./App";
+        
+        ReactDOM.createRoot(document.getElementById("root")!).render(
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        );
+
+
+That’s it!
+A clean OAuth-ready base with only button + API + hook.
