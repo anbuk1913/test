@@ -1,251 +1,164 @@
-📁 Folder Structure
-frontend/
+Project Structure
 
-        ├── src/
-        │   ├── api/
-        │   │   └── authAPI.ts
-        │   ├── components/
-        │   │   ├── AuthButton.tsx
-        │   │   └── LogoutButton.tsx
-        │   ├── hooks/
-        │   │   └── useAuth.ts
-        │   ├── App.tsx
-        │   └── main.tsx
-        ├── tsconfig.json
-        ├── package.json
-        └── vite.config.ts
+        local-gemma-chat-sql/
+        ├─ src/
+        │  ├─ index.ts        # Express entry point
+        │  ├─ chat.ts         # Chatbot logic
+        │  ├─ db.ts           # SQL connection
+        │  └─ entity/
+        │       └─ Chat.ts    # Chat entity
+        ├─ package.json
+        ├─ tsconfig.json
+        └─ .env               # MYSQL credentials
 
-🔘 components/AuthButton.tsx
+Step 1: Install Dependencies
 
-        import React from "react";
-        
-        const AuthButton: React.FC = () => {
-          const handleLogin = () => {
-            // Opens the backend OAuth route
-            window.open("http://localhost:4000/auth/google", "_self");
-          };
-        
-          return (
-            <button onClick={handleLogin} style={{ padding: "10px", margin: "10px" }}>
-              Login with Google
-            </button>
-          );
-        };
-        
-        export default AuthButton;
+        npm init -y
+        npm install express cors dotenv typeorm mysql2 reflect-metadata @langchain/community langchain
+        npm install --save-dev @types/express ts-node typescript
 
-🔘 components/LogoutButton.tsx
+Step 2: Environment Variables – .env
 
-        import React from "react";
-        import axios from "axios";
+        DB_HOST=localhost
+        DB_PORT=3306
+        DB_USER=root
+        DB_PASSWORD=yourpassword
+        DB_NAME=gemma_chat
         
-        const LogoutButton: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
-          const handleLogout = async () => {
-            await axios.get("http://localhost:4000/auth/logout", { withCredentials: true });
-            onLogout();
-          };
+        Step 3: Database Connection – src/db.ts
+        import { DataSource } from "typeorm";
+        import dotenv from "dotenv";
+        import { Chat } from "./entity/Chat";
         
-          return (
-            <button onClick={handleLogout} style={{ padding: "10px", margin: "10px" }}>
-              Logout
-            </button>
-          );
-        };
+        dotenv.config();
         
-        export default LogoutButton;
-
-🌐 api/authAPI.ts
-
-        import axios from "axios";
-        
-        const api = axios.create({
-          baseURL: "http://localhost:4000",
-          withCredentials: true,
+        export const AppDataSource = new DataSource({
+          type: "mysql",
+          host: process.env.DB_HOST,
+          port: parseInt(process.env.DB_PORT || "3306"),
+          username: process.env.DB_USER,
+          password: process.env.DB_PASSWORD,
+          database: process.env.DB_NAME,
+          entities: [Chat],
+          synchronize: true, // Auto create table
+          logging: false,
         });
         
-        export const getUser = async () => {
-          try {
-            const res = await api.get("/auth/me");
-            return res.data;
-          } catch (err) {
-            return null;
+        export async function connectDB() {
+          await AppDataSource.initialize();
+          console.log("MySQL connected");
+        }
+
+Step 4: Chat Entity – src/entity/Chat.ts
+
+        import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
+        
+        @Entity()
+        export class Chat {
+          @PrimaryGeneratedColumn()
+          id!: number;
+        
+          @Column()
+          userId!: string;
+        
+          @Column({ type: "enum", enum: ["user", "bot"] })
+          role!: "user" | "bot";
+        
+          @Column("text")
+          message!: string;
+        
+          @CreateDateColumn()
+          createdAt!: Date;
+        }
+
+Step 5: Chatbot Logic – src/chat.ts
+
+        import { Ollama } from "@langchain/community/llms/ollama";
+        import { ConversationChain } from "langchain/chains";
+        import { BufferMemory } from "langchain/memory";
+        import { AppDataSource } from "./db";
+        import { Chat } from "./entity/Chat";
+        
+        const model = new Ollama({ model: "gemma3:4b" });
+        
+        // Map to store per-user conversation chains
+        const userChains: Record<string, ConversationChain> = {};
+        
+        async function loadUserMemory(userId: string) {
+          const messages = await AppDataSource.getRepository(Chat).find({
+            where: { userId },
+            order: { createdAt: "ASC" },
+          });
+        
+          return messages.map((m) => ({
+            role: m.role === "user" ? "human" : "ai",
+            content: m.message,
+          }));
+        }
+        
+        export async function getUserChatbot(userId: string) {
+          if (!userChains[userId]) {
+            const memory = new BufferMemory({ returnMessages: true });
+            const pastMessages = await loadUserMemory(userId);
+            memory.chatHistory = pastMessages;
+        
+            userChains[userId] = new ConversationChain({ llm: model, memory });
           }
-        };
-
-🪝 hooks/useAuth.ts
-
-        import { useState, useEffect } from "react";
-        import { getUser } from "../api/authAPI";
+          return userChains[userId];
+        }
         
-        export const useAuth = () => {
-          const [user, setUser] = useState<any>(null);
-          const [loading, setLoading] = useState(true);
+        export async function getResponse(userId: string, message: string) {
+          const chatbot = await getUserChatbot(userId);
+          const res = await chatbot.call({ input: message });
         
-          useEffect(() => {
-            getUser().then((data) => {
-              setUser(data);
-              setLoading(false);
-            });
-          }, []);
+          // Save user and bot messages to SQL
+          const repo = AppDataSource.getRepository(Chat);
+          await repo.save({ userId, role: "user", message });
+          await repo.save({ userId, role: "bot", message: res.response });
         
-          return { user, setUser, loading };
-        };
+          return res.response;
+        }
 
-🚀 App.tsx
-
-        import React from "react";
-        import AuthButton from "./components/AuthButton";
-        import LogoutButton from "./components/LogoutButton";
-        import { useAuth } from "./hooks/useAuth";
-        
-        const App: React.FC = () => {
-          const { user, setUser, loading } = useAuth();
-        
-          if (loading) return <p>Loading...</p>;
-        
-          return (
-            <div style={{ textAlign: "center", marginTop: "50px" }}>
-              {!user ? (
-                <AuthButton />
-              ) : (
-                <div>
-                  <h2>Welcome, {user.name}</h2>
-                  <p>Email: {user.email}</p>
-                  <LogoutButton onLogout={() => setUser(null)} />
-                </div>
-              )}
-            </div>
-          );
-        };
-        
-        export default App;
-        
-        🔹 main.tsx
-        import React from "react";
-        import ReactDOM from "react-dom/client";
-        import App from "./App";
-        
-        ReactDOM.createRoot(document.getElementById("root")!).render(
-          <React.StrictMode>
-            <App />
-          </React.StrictMode>
-        );
-
-⚡ Notes
-
-Backend routes expected:
-
-GET /auth/google → redirect to Google login
-
-GET /auth/google/callback → exchange code, set cookie, redirect
-
-GET /auth/me → return user from JWT cookie
-
-GET /auth/logout → clear cookie
-
-Axios withCredentials: true is important for cookies.
-
-You can expand with React Router, context, or loading spinners later.
-
-
-
-Flow:
-
-1️⃣ User clicks "Login with Google"
-2️⃣ Frontend redirects to Google OAuth URL
-3️⃣ Google sends code to backend
-4️⃣ Backend exchanges code for access token + user info
-5️⃣ Backend creates JWT & sets in HTTP-only cookie
-
-⚙️ Key Library (Backend)
-
-Just install:
-
-npm install google-auth-library jsonwebtoken axios cookie-parser
-
-🔁 Minimal Code Flow (No Passport)
-🛑 Backend – Create Google URL (No Passport)
+Step 6: Express Server – src/index.ts
 
         import express from "express";
-        import axios from "axios";
-        import jwt from "jsonwebtoken";
-        import cookieParser from "cookie-parser";
+        import cors from "cors";
         import dotenv from "dotenv";
+        import { connectDB } from "./db";
+        import { getResponse } from "./chat";
         
         dotenv.config();
         const app = express();
-        app.use(cookieParser());
+        app.use(cors());
+        app.use(express.json());
         
-        const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
-        const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
-        const REDIRECT_URL = "http://localhost:4000/auth/google/callback";
-        const FRONTEND_URL = "http://localhost:5173";
+        const PORT = 4000;
         
-        app.get("/auth/google", (req, res) => {
-          const url =
-            `https://accounts.google.com/o/oauth2/v2/auth?` +
-            `client_id=${GOOGLE_CLIENT_ID}&` +
-            `redirect_uri=${REDIRECT_URL}&` +
-            `response_type=code&` +
-            `scope=profile email`;
+        // Connect to MySQL
+        connectDB();
         
-          res.redirect(url);
-        });
+        // Health check
+        app.get("/", (req, res) => res.send("Gemma 3 Chatbot Server with SQL is running!"));
         
-        app.get("/auth/google/callback", async (req, res) => {
-          const code = req.query.code as string;
-        
-          const tokenRes = await axios.post(
-            `https://oauth2.googleapis.com/token`,
-            {
-              code,
-              client_id: GOOGLE_CLIENT_ID,
-              client_secret: GOOGLE_CLIENT_SECRET,
-              redirect_uri: REDIRECT_URL,
-              grant_type: "authorization_code",
-            }
-          );
-        
-          const { access_token } = tokenRes.data;
-        
-          const userRes = await axios.get(
-            `https://www.googleapis.com/oauth2/v2/userinfo`,
-            {
-              headers: { Authorization: `Bearer ${access_token}` },
-            }
-          );
-        
-          const user = userRes.data;
-        
-          const jwtToken = jwt.sign(user, process.env.JWT_SECRET!, { expiresIn: "1h" });
-        
-          res.cookie("token", jwtToken, {
-            httpOnly: true,
-          });
-        
-          res.redirect(`${FRONTEND_URL}/dashboard`);
-        });
-        
-        app.get("/auth/me", (req, res) => {
-          const token = req.cookies.token;
-          if (!token) return res.json(null);
-        
+        // Chat endpoint
+        app.post("/chat", async (req, res) => {
           try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET!);
-            res.json(decoded);
-          } catch (err) {
-            res.json(null);
+            const { userId, message } = req.body;
+            if (!userId || !message)
+              return res.status(400).json({ error: "userId and message are required" });
+        
+            const response = await getResponse(userId, message);
+            res.json({ response });
+          } catch (error: any) {
+            console.error(error);
+            res.status(500).json({ error: "Something went wrong" });
           }
         });
+        
+        app.listen(PORT, () => {
+          console.log(`Server running on http://localhost:${PORT}`);
+        });
 
-        app.listen(4000, () => console.log("Server running"));
+Step 7: Run the Server
 
-🎯 Why Use This (Over Passport)?
-Feature	Passport	Custom OAuth
-Simplicity	Heavy setup	Lightweight
-Control	Limited	Full control
-Login Logic	Hidden	Transparent
-Best for	Legacy apps	Modern SPA (React/Vue)
-🧠 Frontend → Same Code You Already Saw
-
-Use same AuthButton, getUser, useAuth.
+        npx ts-node src/index.ts
