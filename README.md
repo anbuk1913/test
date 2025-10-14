@@ -25,7 +25,8 @@ Step 2: Environment Variables – .env
         DB_PASSWORD=yourpassword
         DB_NAME=gemma_chat
         
-        Step 3: Database Connection – src/db.ts
+Step 3: Database Connection – src/db.ts
+        
         import { DataSource } from "typeorm";
         import dotenv from "dotenv";
         import { Chat } from "./entity/Chat";
