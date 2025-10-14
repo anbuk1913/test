@@ -1,3 +1,1 @@
-ID  = "121115713419-9k0i0icdjnqo957lig0f9o9j1o9ji8gq.apps.googleusercontent.com"
 
-Secre = "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"
