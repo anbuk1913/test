@@ -163,3 +163,75 @@ Step 6: Express Server – src/index.ts
 Step 7: Run the Server
 
         npx ts-node src/index.ts
+
+
+
+🧩 Full Updated Code with System Message (Option 1)
+
+        import { Ollama } from "@langchain/community/llms/ollama";
+        import { ConversationChain } from "langchain/chains";
+        import { BufferMemory } from "langchain/memory";
+        import { ChatPromptTemplate } from "langchain/prompts";
+        import { AppDataSource } from "./db";
+        import { Chat } from "./entity/Chat";
+        
+        // 1️⃣ Initialize LLM Model
+        const model = new Ollama({ model: "gemma3:4b" });
+        
+        // 2️⃣ Store per-user Chatbot Chains
+        const userChains: Record<string, ConversationChain> = {};
+        
+        // 3️⃣ Load chat history from DB and convert to memory format
+        async function loadUserMemory(userId: string) {
+          const messages = await AppDataSource.getRepository(Chat).find({
+            where: { userId },
+            order: { createdAt: "ASC" },
+          });
+        
+          return messages.map((m) => ({
+            role: m.role === "user" ? "human" : "ai",
+            content: m.message,
+          }));
+        }
+        
+        // 4️⃣ Get or Create a Chatbot with System Prompt
+        export async function getUserChatbot(userId: string) {
+          if (!userChains[userId]) {
+            // Create memory for chat history
+            const memory = new BufferMemory({ returnMessages: true });
+            const pastMessages = await loadUserMemory(userId);
+            memory.chatHistory = pastMessages;
+        
+            // 🧠 System Prompt (Global Personality/Instructions)
+            const prompt = ChatPromptTemplate.fromMessages([
+              [
+                "system",
+                "You are a helpful, friendly assistant. Always provide clear and concise answers.",
+              ],
+              ["human", "{input}"],
+            ]);
+        
+            // Create conversation chain with system prompt + memory
+            userChains[userId] = new ConversationChain({
+              llm: model,
+              memory,
+              prompt,
+            });
+          }
+        
+          return userChains[userId];
+        }
+        
+        // 5️⃣ Handle New User Message and Save to Database
+        export async function getResponse(userId: string, message: string) {
+          const chatbot = await getUserChatbot(userId);
+        
+          const res = await chatbot.call({ input: message });
+        
+          // Save to DB
+          const repo = AppDataSource.getRepository(Chat);
+          await repo.save({ userId, role: "user", message });
+          await repo.save({ userId, role: "bot", message: res.response });
+        
+          return res.response;
+        }
