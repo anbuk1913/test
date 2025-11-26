@@ -1,0 +1,119 @@
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: What are the symptoms of fever?
+Answer: Common symptoms include elevated temperature, chills, sweating, fatigue, and mild body aches. Seek medical guidance if symptoms persist.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: What are the symptoms of diabetes?
+Answer: Typical signs include increased thirst, frequent urination, fatigue, blurry vision, and slow wound healing. Testing by a professional is required for confirmation.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: What are the symptoms of dehydration?
+Answer: Dry mouth, dark urine, dizziness, fatigue, and reduced urination may occur. Severe dehydration requires medical attention.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: What are the symptoms of kidney-related diseases?
+Answer: Possible symptoms include lower back pain, swelling in the legs, fatigue, and changes in urination. Persistent symptoms should be evaluated.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: What are the symptoms of anemia?
+Answer: Fatigue, pale skin, dizziness, and shortness of breath are common. A blood test is needed for diagnosis.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: What are the symptoms of a common cold?
+Answer: Runny nose, sneezing, mild cough, sore throat, and low energy are common symptoms.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: What are the symptoms of flu?
+Answer: More intense symptoms like high fever, body aches, chills, and fatigue can occur.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: What are the symptoms of asthma?
+Answer: Shortness of breath, chest tightness, and wheezing may occur.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: What are the symptoms of vitamin D deficiency?
+Answer: Fatigue, bone discomfort, weakness, and low mood are common signs.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: What are the symptoms of thyroid imbalance?
+Answer: Unusual weight changes, fatigue, and changes in mood or temperature sensitivity can occur.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: How can I ease a headache naturally?
+Answer: Rest, hydration, reducing screen time, and using a warm or cold compress may help.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: How can I reduce stress naturally?
+Answer: Breathing exercises, relaxation, and light movement can help reduce stress.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: How can I sleep better at night?
+Answer: Maintain a regular sleep schedule, reduce screen time, and keep the room calm and dark.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: How can I soothe a sore throat?
+Answer: Warm fluids, hydration, and avoiding irritants can help soothe discomfort.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: How can I ease mild fatigue?
+Answer: Resting, hydrating, and eating balanced meals may ease mild fatigue.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: How can I maintain good digestion?
+Answer: Staying hydrated, eating fiber-rich foods, and avoiding overeating can support digestion.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: How can I support healthy breathing?
+Answer: Deep breathing exercises and avoiding polluted air can help.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: How can I reduce mild back discomfort?
+Answer: Gentle stretching, posture correction, and short breaks from sitting may help.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: How can I support my immune system naturally?
+Answer: Adequate sleep, balanced nutrition, and hydration support immunity.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: How can I stay hydrated effectively?
+Answer: Drink water evenly throughout the day, especially in warm weather or during activity.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: How can I prevent infections?
+Answer: Good hygiene, hydration, and avoiding contact with sick individuals can help reduce risk.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: How can I prevent dehydration?
+Answer: Drink water consistently throughout the day, especially in heat or activity.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: How can I prevent seasonal illnesses?
+Answer: Rest well, hydrate, wash hands, and maintain a clean environment.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: How can I prevent headaches?
+Answer: Hydration, posture, and regular breaks from screens help prevent headaches.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: How can I maintain good lung health?
+Answer: Avoid pollutants, stay active, and maintain clean air indoors.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: How can I prevent stomach-related discomfort?
+Answer: Eat balanced meals, stay hydrated, and avoid overeating.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: How can I prevent low energy levels?
+Answer: Rest, hydration, balanced meals, and light exercise can help maintain energy.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: How can I prevent sleep disturbances?
+Answer: Consistent sleep routines and minimizing late caffeine can prevent disturbances.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: How can I prevent minor fatigue?
+Answer: Hydration, nutrition, rest, and light activity help reduce fatigue.
+
+Instruction: If you are a doctor, please answer the medical questions below with general wellness guidance only.
+Question: How can I prevent cold and cough?
+Answer: Handwashing, hydration, and avoiding cold exposure help reduce risk.
