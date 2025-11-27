@@ -11,3 +11,7 @@
 .
 
     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
+
+.
+
+    https://huggingface.co/google/gemma-3-1b-it
