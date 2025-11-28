@@ -10,7 +10,6 @@
     python -m pip install --upgrade pip
 .
 
-    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
 
 .
 
