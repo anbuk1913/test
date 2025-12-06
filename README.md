@@ -1,3 +1,5 @@
+http://localhost:3900/profileTX/d5a25f5a-cae3-43d5-834b-7a2f10c27ba3?action=invite&token=86c600e789a8818d177e417d3e3b8200
+    
     python -m venv venv
     .\venv\Scripts\activate
     python train_cpu.py
