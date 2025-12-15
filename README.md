@@ -1,4 +1,4 @@
-http://localhost:4320/profileTX/a4579106-5079-4fd4-bac4-56e56c5b5759?action=invite&token=db983a4e827f3abdfd14bc9550c5583f
+curl -fsSL https://ollama.com/install.sh | sh
     
     python -m venv venv
     .\venv\Scripts\activate
