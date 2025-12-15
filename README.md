@@ -1,4 +1,6 @@
-http://localhost:4320/auth/practice/verification/af0e4753-2dab-4551-90a4-1aea4fd06e72
+[http://localhost:4320/auth/practice/verification/af0e4753-2dab-4551-90a4-1aea4fd06e72](http://localhost:4320/auth/location/verification/4e13a7f6-10dd-4661-ac6c-0766e9ce0203)
+
+http://localhost:4320/auth/location/verification/4e13a7f6-10dd-4661-ac6c-0766e9ce0203
     
     python -m venv venv
     .\venv\Scripts\activate
