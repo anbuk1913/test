@@ -17,7 +17,8 @@ src/
 │   ├── useFileStorage.ts
 │   └── useNotification.ts
 ├── services/
-│   └── fileStorage.service.ts
+│   ├── fileStorage.service.ts
+│   └── api.service.ts
 ├── types/
 │   └── index.ts
 ├── utils/
@@ -44,6 +45,8 @@ export interface FileData {
   receiverPhone: string;
   communicationMethod: 'email' | 'sms';
   isNew?: boolean;
+  uploadedBy?: string;
+  fileUrl?: string;
 }
 
 export interface ReceiverDetails {
@@ -55,6 +58,17 @@ export interface ReceiverDetails {
 export interface ValidationErrors {
   email?: string;
   phone?: string;
+}
+
+export interface UploadResponse {
+  success: boolean;
+  message: string;
+  files: Array<{
+    id: string;
+    name: string;
+    size: number;
+    url: string;
+  }>;
 }
 ```
 
@@ -113,6 +127,106 @@ export const formatFileSize = (bytes: number): string => {
 
 export const formatDate = (timestamp: number): string => {
   return new Date(timestamp).toLocaleString();
+};
+```
+
+---
+
+## File: `src/services/api.service.ts`
+
+```typescript
+import { ReceiverDetails, UploadResponse } from '../types';
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
+
+export const apiService = {
+  uploadFiles: async (
+    files: File[],
+    receiverDetails: ReceiverDetails
+  ): Promise<UploadResponse> => {
+    try {
+      const formData = new FormData();
+
+      // Append all files
+      files.forEach((file) => {
+        formData.append('files', file);
+      });
+
+      // Append receiver details
+      formData.append('receiverEmail', receiverDetails.email);
+      formData.append('receiverPhone', receiverDetails.phone);
+      formData.append('communicationMethod', receiverDetails.communicationMethod);
+      formData.append('timestamp', Date.now().toString());
+
+      const response = await fetch(`${API_BASE_URL}/upload`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Upload failed: ${response.statusText}`);
+      }
+
+      const data: UploadResponse = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Upload error:', error);
+      throw error;
+    }
+  },
+
+  getFiles: async (): Promise<any[]> => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/files`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch files: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      return data.files || [];
+    } catch (error) {
+      console.error('Fetch files error:', error);
+      throw error;
+    }
+  },
+
+  downloadFile: async (fileId: string): Promise<Blob> => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/download/${fileId}`, {
+        method: 'GET',
+      });
+
+      if (!response.ok) {
+        throw new Error(`Download failed: ${response.statusText}`);
+      }
+
+      return await response.blob();
+    } catch (error) {
+      console.error('Download error:', error);
+      throw error;
+    }
+  },
+
+  deleteFile: async (fileId: string): Promise<void> => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/files/${fileId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error(`Delete failed: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('Delete error:', error);
+      throw error;
+    }
+  },
 };
 ```
 
@@ -214,11 +328,13 @@ export const useNotification = () => {
 import { useState, useEffect, useCallback } from 'react';
 import { FileData, ReceiverDetails } from '../types';
 import { fileStorageService } from '../services/fileStorage.service';
+import { apiService } from '../services/api.service';
 
 export const useFileStorage = () => {
   const [storedFiles, setStoredFiles] = useState<FileData[]>([]);
   const [newFilesCount, setNewFilesCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const loadFiles = useCallback(() => {
     const files = fileStorageService.getAllFiles();
@@ -235,42 +351,87 @@ export const useFileStorage = () => {
     receiverDetails: ReceiverDetails
   ): Promise<void> => {
     setIsLoading(true);
+    setUploadProgress(0);
 
     try {
-      for (const file of files) {
-        const data = await fileStorageService.readFileAsBase64(file);
-        const fileData: FileData = {
-          id: `file_${Date.now()}_${Math.random()}`,
-          name: file.name,
-          size: file.size,
-          type: file.type,
-          data,
-          timestamp: Date.now(),
-          receiverEmail: receiverDetails.email,
-          receiverPhone: receiverDetails.phone,
-          communicationMethod: receiverDetails.communicationMethod,
-          isNew: true
-        };
-        fileStorageService.saveFile(fileData);
+      // Call backend API
+      const response = await apiService.uploadFiles(files, receiverDetails);
+
+      if (response.success) {
+        // Save to localStorage with backend response data
+        response.files.forEach((uploadedFile) => {
+          const fileData: FileData = {
+            id: uploadedFile.id,
+            name: uploadedFile.name,
+            size: uploadedFile.size,
+            type: files.find(f => f.name === uploadedFile.name)?.type || '',
+            data: uploadedFile.url,
+            timestamp: Date.now(),
+            receiverEmail: receiverDetails.email,
+            receiverPhone: receiverDetails.phone,
+            communicationMethod: receiverDetails.communicationMethod,
+            isNew: true,
+            fileUrl: uploadedFile.url
+          };
+          fileStorageService.saveFile(fileData);
+        });
+
+        setUploadProgress(100);
+        loadFiles();
+      } else {
+        throw new Error(response.message || 'Upload failed');
       }
-      loadFiles();
+    } catch (error) {
+      console.error('Upload failed:', error);
+      throw error;
     } finally {
       setIsLoading(false);
+      setUploadProgress(0);
     }
   };
 
-  const deleteFile = useCallback((id: string) => {
-    fileStorageService.deleteFile(id);
-    loadFiles();
+  const deleteFile = useCallback(async (id: string) => {
+    try {
+      setIsLoading(true);
+      // Delete from backend
+      await apiService.deleteFile(id);
+      // Delete from localStorage
+      fileStorageService.deleteFile(id);
+      loadFiles();
+    } catch (error) {
+      console.error('Delete failed:', error);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
   }, [loadFiles]);
 
-  const downloadFile = useCallback((fileData: FileData) => {
-    const link = document.createElement('a');
-    link.href = fileData.data;
-    link.download = fileData.name;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const downloadFile = useCallback(async (fileData: FileData) => {
+    try {
+      if (fileData.fileUrl) {
+        // Download from backend URL
+        const blob = await apiService.downloadFile(fileData.id);
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileData.name;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      } else {
+        // Fallback to base64 data
+        const link = document.createElement('a');
+        link.href = fileData.data;
+        link.download = fileData.name;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    } catch (error) {
+      console.error('Download failed:', error);
+      throw error;
+    }
   }, []);
 
   const markAsRead = useCallback((id: string) => {
@@ -283,15 +444,51 @@ export const useFileStorage = () => {
     loadFiles();
   }, [loadFiles]);
 
+  const syncWithBackend = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const backendFiles = await apiService.getFiles();
+      
+      // Merge backend files with local storage
+      backendFiles.forEach((file: any) => {
+        const existingFile = fileStorageService.getFile(file.id);
+        if (!existingFile) {
+          const fileData: FileData = {
+            id: file.id,
+            name: file.name,
+            size: file.size,
+            type: file.type || '',
+            data: file.url,
+            timestamp: file.timestamp,
+            receiverEmail: file.receiverEmail,
+            receiverPhone: file.receiverPhone,
+            communicationMethod: file.communicationMethod,
+            isNew: true,
+            fileUrl: file.url
+          };
+          fileStorageService.saveFile(fileData);
+        }
+      });
+      
+      loadFiles();
+    } catch (error) {
+      console.error('Sync failed:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [loadFiles]);
+
   return {
     storedFiles,
     newFilesCount,
     isLoading,
+    uploadProgress,
     uploadFiles,
     deleteFile,
     downloadFile,
     markAsRead,
-    markAllAsRead
+    markAllAsRead,
+    syncWithBackend
   };
 };
 ```
@@ -836,8 +1033,8 @@ export const StoredFilesList: React.FC<StoredFilesListProps> = ({
 ## File: `src/app/App.tsx`
 
 ```typescript
-import React, { useState } from 'react';
-import { Upload, Download, Bell } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Upload, Download, Bell, RefreshCw } from 'lucide-react';
 import { FileUploadZone } from '../components/FileUploadZone';
 import { FileList } from '../components/FileList';
 import { ReceiverModal } from '../components/ReceiverModal';
@@ -863,11 +1060,17 @@ const App: React.FC = () => {
     deleteFile, 
     downloadFile,
     markAsRead,
-    markAllAsRead
+    markAllAsRead,
+    syncWithBackend
   } = useFileStorage();
   const { notification, showNotification } = useNotification();
 
   const newFiles = storedFiles.filter(file => file.isNew);
+
+  // Sync with backend on mount
+  useEffect(() => {
+    syncWithBackend();
+  }, [syncWithBackend]);
 
   const handleFilesSelected = (newFiles: File[]) => {
     setFiles(prev => [...prev, ...newFiles]);
@@ -887,24 +1090,55 @@ const App: React.FC = () => {
 
   const handleSubmitReceiverDetails = async (details: ReceiverDetails) => {
     setShowModal(false);
-    await uploadFiles(files, details);
-    showNotification(`${files.length} file(s) uploaded successfully via ${details.communicationMethod}!`);
-    setFiles([]);
+    
+    try {
+      await uploadFiles(files, details);
+      showNotification(`${files.length} file(s) uploaded successfully via ${details.communicationMethod}!`);
+      setFiles([]);
+    } catch (error) {
+      showNotification('Upload failed. Please try again.');
+      console.error('Upload error:', error);
+    }
   };
 
-  const handleDownload = (file: any) => {
-    downloadFile(file);
-    showNotification(`Downloading ${file.name}`);
+  const handleDownload = async (file: any) => {
+    try {
+      await downloadFile(file);
+      showNotification(`Downloading ${file.name}`);
+    } catch (error) {
+      showNotification('Download failed. Please try again.');
+      console.error('Download error:', error);
+    }
   };
 
-  const handleDelete = (id: string) => {
-    deleteFile(id);
-    showNotification('File deleted');
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteFile(id);
+      showNotification('File deleted');
+    } catch (error) {
+      showNotification('Delete failed. Please try again.');
+      console.error('Delete error:', error);
+    }
   };
 
-  const handleNotificationDownload = (file: any) => {
-    downloadFile(file);
-    showNotification(`Downloading ${file.name}`);
+  const handleNotificationDownload = async (file: any) => {
+    try {
+      await downloadFile(file);
+      showNotification(`Downloading ${file.name}`);
+    } catch (error) {
+      showNotification('Download failed. Please try again.');
+      console.error('Download error:', error);
+    }
+  };
+
+  const handleRefresh = async () => {
+    try {
+      await syncWithBackend();
+      showNotification('Files synced successfully');
+    } catch (error) {
+      showNotification('Sync failed. Please try again.');
+      console.error('Sync error:', error);
+    }
   };
 
   return (
@@ -914,17 +1148,27 @@ const App: React.FC = () => {
           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6 relative">
             <h1 className="text-3xl font-bold text-white text-center">File Transfer</h1>
             
-            <button
-              onClick={() => setShowNotificationPanel(true)}
-              className="absolute right-6 top-1/2 -translate-y-1/2 text-white hover:bg-white hover:bg-opacity-20 p-2 rounded-lg transition-colors relative"
-            >
-              <Bell size={24} />
-              {newFilesCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                  {newFilesCount > 9 ? '9+' : newFilesCount}
-                </span>
-              )}
-            </button>
+            <div className="absolute right-6 top-1/2 -translate-y-1/2 flex gap-2">
+              <button
+                onClick={handleRefresh}
+                className="text-white hover:bg-white hover:bg-opacity-20 p-2 rounded-lg transition-colors"
+                title="Sync with server"
+              >
+                <RefreshCw size={24} />
+              </button>
+              
+              <button
+                onClick={() => setShowNotificationPanel(true)}
+                className="text-white hover:bg-white hover:bg-opacity-20 p-2 rounded-lg transition-colors relative"
+              >
+                <Bell size={24} />
+                {newFilesCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                    {newFilesCount > 9 ? '9+' : newFilesCount}
+                  </span>
+                )}
+              </button>
+            </div>
           </div>
 
           <Notification message={notification} />
@@ -1146,3 +1390,403 @@ npm run build
 ```
 
 This structure follows React best practices with clear separation of concerns, making the codebase maintainable and scalable!
+
+---
+
+# Backend Server Implementation
+
+## Backend Structure
+```
+backend/
+├── src/
+│   ├── controllers/
+│   │   └── fileController.ts
+│   ├── routes/
+│   │   └── fileRoutes.ts
+│   ├── middleware/
+│   │   └── upload.ts
+│   ├── config/
+│   │   └── db.ts
+│   └── server.ts
+├── uploads/
+├── package.json
+└── tsconfig.json
+```
+
+---
+
+## File: `backend/src/server.ts`
+
+```typescript
+import express from 'express';
+import cors from 'cors';
+import path from 'path';
+import fileRoutes from './routes/fileRoutes';
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Serve uploaded files statically
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
+// Routes
+app.use('/api', fileRoutes);
+
+// Health check
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', message: 'Server is running' });
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+export default app;
+```
+
+---
+
+## File: `backend/src/middleware/upload.ts`
+
+```typescript
+import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
+
+// Ensure uploads directory exists
+const uploadsDir = path.join(__dirname, '../../uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+// Configure storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadsDir);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, uniqueSuffix + '-' + file.originalname);
+  }
+});
+
+// File filter
+const fileFilter = (req: any, file: Express.Multer.File, cb: any) => {
+  // Accept all files for now, add restrictions as needed
+  cb(null, true);
+};
+
+// Configure multer
+export const upload = multer({
+  storage: storage,
+  fileFilter: fileFilter,
+  limits: {
+    fileSize: 50 * 1024 * 1024, // 50MB limit
+  }
+});
+```
+
+---
+
+## File: `backend/src/controllers/fileController.ts`
+
+```typescript
+import { Request, Response } from 'express';
+import path from 'path';
+import fs from 'fs';
+
+// In-memory database (replace with real database in production)
+interface FileRecord {
+  id: string;
+  name: string;
+  originalName: string;
+  size: number;
+  type: string;
+  url: string;
+  timestamp: number;
+  receiverEmail: string;
+  receiverPhone: string;
+  communicationMethod: string;
+}
+
+const filesDB: FileRecord[] = [];
+
+export const uploadFiles = async (req: Request, res: Response) => {
+  try {
+    const files = req.files as Express.Multer.File[];
+    const { receiverEmail, receiverPhone, communicationMethod, timestamp } = req.body;
+
+    if (!files || files.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'No files uploaded'
+      });
+    }
+
+    if (!receiverEmail || !receiverPhone || !communicationMethod) {
+      return res.status(400).json({
+        success: false,
+        message: 'Missing required fields'
+      });
+    }
+
+    const uploadedFiles = files.map(file => {
+      const fileRecord: FileRecord = {
+        id: `file_${Date.now()}_${Math.random()}`,
+        name: file.filename,
+        originalName: file.originalname,
+        size: file.size,
+        type: file.mimetype,
+        url: `${req.protocol}://${req.get('host')}/uploads/${file.filename}`,
+        timestamp: parseInt(timestamp) || Date.now(),
+        receiverEmail,
+        receiverPhone,
+        communicationMethod
+      };
+
+      filesDB.push(fileRecord);
+      return fileRecord;
+    });
+
+    // Here you would typically:
+    // 1. Save file metadata to database
+    // 2. Send notification email/SMS to receiver
+    // 3. Generate download links
+
+    console.log(`Files uploaded for ${receiverEmail} via ${communicationMethod}`);
+
+    res.status(200).json({
+      success: true,
+      message: `${files.length} file(s) uploaded successfully`,
+      files: uploadedFiles.map(f => ({
+        id: f.id,
+        name: f.originalName,
+        size: f.size,
+        url: f.url
+      }))
+    });
+  } catch (error) {
+    console.error('Upload error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Upload failed',
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+};
+
+export const getFiles = async (req: Request, res: Response) => {
+  try {
+    res.status(200).json({
+      success: true,
+      files: filesDB.map(file => ({
+        id: file.id,
+        name: file.originalName,
+        size: file.size,
+        type: file.type,
+        url: file.url,
+        timestamp: file.timestamp,
+        receiverEmail: file.receiverEmail,
+        receiverPhone: file.receiverPhone,
+        communicationMethod: file.communicationMethod
+      }))
+    });
+  } catch (error) {
+    console.error('Get files error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch files',
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+};
+
+export const downloadFile = async (req: Request, res: Response) => {
+  try {
+    const { fileId } = req.params;
+    const file = filesDB.find(f => f.id === fileId);
+
+    if (!file) {
+      return res.status(404).json({
+        success: false,
+        message: 'File not found'
+      });
+    }
+
+    const filePath = path.join(__dirname, '../../uploads', file.name);
+
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({
+        success: false,
+        message: 'File not found on server'
+      });
+    }
+
+    res.download(filePath, file.originalName);
+  } catch (error) {
+    console.error('Download error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Download failed',
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+};
+
+export const deleteFile = async (req: Request, res: Response) => {
+  try {
+    const { fileId } = req.params;
+    const fileIndex = filesDB.findIndex(f => f.id === fileId);
+
+    if (fileIndex === -1) {
+      return res.status(404).json({
+        success: false,
+        message: 'File not found'
+      });
+    }
+
+    const file = filesDB[fileIndex];
+    const filePath = path.join(__dirname, '../../uploads', file.name);
+
+    // Delete file from filesystem
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+    }
+
+    // Remove from database
+    filesDB.splice(fileIndex, 1);
+
+    res.status(200).json({
+      success: true,
+      message: 'File deleted successfully'
+    });
+  } catch (error) {
+    console.error('Delete error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Delete failed',
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+};
+```
+
+---
+
+## File: `backend/src/routes/fileRoutes.ts`
+
+```typescript
+import express from 'express';
+import { upload } from '../middleware/upload';
+import {
+  uploadFiles,
+  getFiles,
+  downloadFile,
+  deleteFile
+} from '../controllers/fileController';
+
+const router = express.Router();
+
+// Upload files
+router.post('/upload', upload.array('files', 10), uploadFiles);
+
+// Get all files
+router.get('/files', getFiles);
+
+// Download file
+router.get('/download/:fileId', downloadFile);
+
+// Delete file
+router.delete('/files/:fileId', deleteFile);
+
+export default router;
+```
+
+---
+
+## File: `backend/package.json`
+
+```json
+{
+  "name": "file-transfer-backend",
+  "version": "1.0.0",
+  "description": "Backend API for file transfer application",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/cors": "^2.8.17",
+    "@types/multer": "^1.4.11",
+    "@types/node": "^20.10.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.3"
+  }
+}
+```
+
+---
+
+## File: `backend/tsconfig.json`
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ES2020"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
+```
+
+---
+
+## Setup Instructions
+
+### Frontend Setup
+```bash
+# Install dependencies
+npm install
+
+# Create .env file
+echo "VITE_API_BASE_URL=http://localhost:3000/api" > .env
+
+# Run development server
+npm run dev
+```
+
+### Backend Setup
+```bash
+cd backend
+
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+```
+
+The backend will run on `http://localhost:3000` and handle all file uploads, downloads, and deletions!
