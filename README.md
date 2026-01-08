@@ -139,6 +139,7 @@ link
  src/components/OTPMethodSelection.tsx
  
     import React, { useState } from 'react';
+    import styled from 'styled-components';
     
     interface Props {
       email: string;
@@ -158,37 +159,254 @@ link
       const [method, setMethod] = useState<'sms' | 'email'>(defaultMethod);
     
       return (
-        <div className="otp-method-selection">
-          <h2>Select OTP Delivery Method</h2>
-          <div className="radio-group">
-            <label>
-              <input
-                type="radio"
-                value="email"
-                checked={method === 'email'}
-                onChange={(e) => setMethod(e.target.value as 'email')}
-              />
-              Email: {email}
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="sms"
-                checked={method === 'sms'}
-                onChange={(e) => setMethod(e.target.value as 'sms')}
-              />
-              SMS: {phone}
-            </label>
+        <StyledWrapper>
+          <div className="otp-method-selection">
+            <h2>Select OTP Delivery Method</h2>
+            <div className="radio-input">
+              <label className="label">
+                <input
+                  type="radio"
+                  value="email"
+                  checked={method === 'email'}
+                  onChange={(e) => setMethod(e.target.value as 'email')}
+                  name="otp-method"
+                />
+                <p className="text">Email: {email}</p>
+              </label>
+              <label className="label">
+                <input
+                  type="radio"
+                  value="sms"
+                  checked={method === 'sms'}
+                  onChange={(e) => setMethod(e.target.value as 'sms')}
+                  name="otp-method"
+                />
+                <p className="text">SMS: {phone}</p>
+              </label>
+            </div>
+            <button 
+              className="button"
+              onClick={() => onSendOTP(method)} 
+              disabled={loading}
+            >
+              {loading ? 'Sending...' : 'Send OTP'}
+              <svg fill="currentColor" viewBox="0 0 24 24" className="icon">
+                <path clipRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z" fillRule="evenodd" />
+              </svg>
+            </button>
           </div>
-          <button 
-            onClick={() => onSendOTP(method)} 
-            disabled={loading}
-          >
-            {loading ? 'Sending...' : 'Send OTP'}
-          </button>
-        </div>
+        </StyledWrapper>
       );
     };
+    
+    const StyledWrapper = styled.div`
+      .otp-method-selection {
+        padding: 20px;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+    
+      h2 {
+        color: #1a1a1a;
+        margin-bottom: 20px;
+        font-size: 20px;
+      }
+    
+      .radio-input {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+    
+      .radio-input * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+    
+      .radio-input label {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 0px 20px;
+        width: 100%;
+        cursor: pointer;
+        height: 50px;
+        position: relative;
+      }
+    
+      .radio-input label::before {
+        position: absolute;
+        content: "";
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 45px;
+        z-index: -1;
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        border-radius: 10px;
+        border: 2px solid transparent;
+      }
+    
+      .radio-input label:hover::before {
+        transition: all 0.2s ease;
+        background-color: #f0f0f0;
+      }
+    
+      .radio-input .label:has(input:checked)::before {
+        background-color: #e8f0fe;
+        border-color: #435dd8;
+        height: 50px;
+      }
+    
+      .radio-input .label .text {
+        color: #1a1a1a;
+        font-size: 14px;
+      }
+    
+      .radio-input .label input[type="radio"] {
+        background-color: #ffffff;
+        appearance: none;
+        width: 17px;
+        height: 17px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid #d0d0d0;
+      }
+    
+      .radio-input .label input[type="radio"]:checked {
+        background-color: #435dd8;
+        border-color: #435dd8;
+        animation: pulse 0.7s forwards;
+      }
+    
+      .radio-input .label input[type="radio"]:before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        transition: all 0.1s cubic-bezier(0.165, 0.84, 0.44, 1);
+        background-color: #fff;
+        transform: scale(0);
+      }
+    
+      .radio-input .label input[type="radio"]:checked::before {
+        transform: scale(1);
+      }
+    
+      .button {
+        position: relative;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+        padding-block: 0.5rem;
+        padding-inline: 1.25rem;
+        background-color: rgb(0 107 179);
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #ffffff;
+        gap: 10px;
+        font-weight: bold;
+        border: 3px solid #ffffff4d;
+        outline: none;
+        overflow: hidden;
+        font-size: 15px;
+        width: 100%;
+      }
+    
+      .button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    
+      .icon {
+        width: 24px;
+        height: 24px;
+        transition: all 0.3s ease-in-out;
+      }
+    
+      .button:hover:not(:disabled) {
+        transform: scale(1.05);
+        border-color: #fff9;
+      }
+    
+      .button:hover:not(:disabled) .icon {
+        transform: translate(4px);
+      }
+    
+      .button:hover:not(:disabled)::before {
+        animation: shine 1.5s ease-out infinite;
+      }
+    
+      .button::before {
+        content: "";
+        position: absolute;
+        width: 100px;
+        height: 100%;
+        background-image: linear-gradient(
+          120deg,
+          rgba(255, 255, 255, 0) 30%,
+          rgba(255, 255, 255, 0.8),
+          rgba(255, 255, 255, 0) 70%
+        );
+        top: 0;
+        left: -100px;
+        opacity: 0.6;
+      }
+    
+      @keyframes shine {
+        0% {
+          left: -100px;
+        }
+        60% {
+          left: 100%;
+        }
+        to {
+          left: 100%;
+        }
+      }
+    
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(67, 93, 216, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 8px rgba(67, 93, 216, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(67, 93, 216, 0);
+        }
+      }
+    `;
+    
+    // Demo component to show usage
+    const Demo = () => {
+      const [loading, setLoading] = useState(false);
+    
+      const handleSendOTP = (method: 'sms' | 'email') => {
+        setLoading(true);
+        console.log(`Sending OTP via ${method}`);
+        setTimeout(() => setLoading(false), 2000);
+      };
+    
+      return (
+        <OTPMethodSelection
+          email="user@example.com"
+          phone="+1 (555) 123-4567"
+          defaultMethod="email"
+          onSendOTP={handleSendOTP}
+          loading={loading}
+        />
+      );
+    };
+    
+    export default Demo;
     
  src/components/OTPVerification.tsx
  
