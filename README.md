@@ -200,16 +200,53 @@ link
     };
     
     const StyledWrapper = styled.div`
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    
       .otp-method-selection {
-        padding: 20px;
-        max-width: 400px;
-        margin: 0 auto;
+        padding: 40px;
+        max-width: 450px;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+      }
+    
+      @media (max-width: 768px) {
+        .otp-method-selection {
+          padding: 30px 20px;
+          max-width: 100%;
+        }
+      }
+    
+      @media (max-width: 480px) {
+        padding: 15px;
+        
+        .otp-method-selection {
+          padding: 25px 15px;
+        }
       }
     
       h2 {
         color: #1a1a1a;
-        margin-bottom: 20px;
-        font-size: 20px;
+        margin-bottom: 30px;
+        font-size: 24px;
+        text-align: center;
+        font-weight: 600;
+      }
+    
+      @media (max-width: 480px) {
+        h2 {
+          font-size: 20px;
+          margin-bottom: 20px;
+        }
       }
     
       .radio-input {
@@ -234,6 +271,17 @@ link
         cursor: pointer;
         height: 50px;
         position: relative;
+      }
+    
+      @media (max-width: 480px) {
+        .radio-input label {
+          padding: 0px 15px;
+          gap: 10px;
+        }
+    
+        .radio-input .label .text {
+          font-size: 13px;
+        }
       }
     
       .radio-input label::before {
