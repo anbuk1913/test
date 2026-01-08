@@ -1,162 +1,86 @@
-http://localhost:3881/profile/TX/45ffd741-307b-4c6b-a61f-b707a5dad89d?action=invite&token=7bac2794bbedfd49725ed57b6b3539a5
-
-
-Sodium-Native
     
-    const sodium = require('sodium-native');
-    const fs = require('fs').promises;
-    const path = require('path');
     
-    const SALT_LENGTH = sodium.crypto_pwhash_SALTBYTES; // 16 bytes
-    const KEY_LENGTH = sodium.crypto_secretbox_KEYBYTES; // 32 bytes
-    const NONCE_LENGTH = sodium.crypto_secretbox_NONCEBYTES; // 24 bytes
+    import { useState } from 'react';
+    import { Copy, Check, ExternalLink, Link2 } from 'lucide-react';
     
-    function deriveKey(password, salt) {
-      const key = Buffer.allocUnsafe(KEY_LENGTH);
-      const passwordBuffer = Buffer.from(password);
-      
-      sodium.crypto_pwhash(
-        key,
-        passwordBuffer,
-        salt,
-        sodium.crypto_pwhash_OPSLIMIT_INTERACTIVE,
-        sodium.crypto_pwhash_MEMLIMIT_INTERACTIVE,
-        sodium.crypto_pwhash_ALG_ARGON2ID13
-      );
-      
-      return key;
-    }
+    export default function LinkWithCopy() {
+      const [copied, setCopied] = useState(false);
+      const link = "https://example.com/your-link-here";
     
-    /**
-     * Encrypts a file
-     * @param {string} inputPath - Path to the file to encrypt
-     * @param {string} outputPath - Path where encrypted file will be saved
-     * @param {string} password - Password for encryption
-     */
-    async function encryptFile(inputPath, outputPath, password) {
-      try {
-        // Read the file
-        const data = await fs.readFile(inputPath);
-        
-        // Generate random salt and nonce
-        const salt = Buffer.allocUnsafe(SALT_LENGTH);
-        const nonce = Buffer.allocUnsafe(NONCE_LENGTH);
-        sodium.randombytes_buf(salt);
-        sodium.randombytes_buf(nonce);
-        
-        // Derive key from password
-        const key = deriveKey(password, salt);
-        
-        // Prepare buffer for encrypted data (includes MAC tag)
-        const encrypted = Buffer.allocUnsafe(data.length + sodium.crypto_secretbox_MACBYTES);
-        
-        // Encrypt the data using secretbox (XSalsa20 + Poly1305)
-        sodium.crypto_secretbox_easy(encrypted, data, nonce, key);
-        
-        // Combine salt + nonce + encrypted data
-        const output = Buffer.concat([salt, nonce, encrypted]);
-        
-        // Write to output file
-        await fs.writeFile(outputPath, output);
-        
-        console.log(`✓ File encrypted successfully: ${outputPath}`);
-        return true;
-      } catch (error) {
-        console.error('Encryption error:', error.message);
-        throw error;
-      }
-    }
-    
-    /**
-     * Decrypts a file
-     * @param {string} inputPath - Path to the encrypted file
-     * @param {string} outputPath - Path where decrypted file will be saved
-     * @param {string} password - Password for decryption
-     */
-    async function decryptFile(inputPath, outputPath, password) {
-      try {
-        // Read the encrypted file
-        const data = await fs.readFile(inputPath);
-        
-        // Extract components
-        const salt = data.slice(0, SALT_LENGTH);
-        const nonce = data.slice(SALT_LENGTH, SALT_LENGTH + NONCE_LENGTH);
-        const encrypted = data.slice(SALT_LENGTH + NONCE_LENGTH);
-        
-        // Derive key from password
-        const key = deriveKey(password, salt);
-        
-        // Prepare buffer for decrypted data
-        const decrypted = Buffer.allocUnsafe(encrypted.length - sodium.crypto_secretbox_MACBYTES);
-        
-        // Decrypt the data
-        const result = sodium.crypto_secretbox_open_easy(decrypted, encrypted, nonce, key);
-        
-        if (!result) {
-          throw new Error('Invalid password or corrupted file');
+      const handleCopy = async () => {
+        try {
+          await navigator.clipboard.writeText(link);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        } catch (err) {
+          console.error('Failed to copy:', err);
         }
-        
-        // Write to output file
-        await fs.writeFile(outputPath, decrypted);
-        
-        console.log(`✓ File decrypted successfully: ${outputPath}`);
-        return true;
-      } catch (error) {
-        console.error('Decryption error:', error.message);
-        throw error;
-      }
-    }
+      };
     
-    /**
-     * Encrypts a file in place (overwrites original)
-     */
-    async function encryptFileInPlace(filePath, password) {
-      const tempPath = `${filePath}.tmp`;
-      await encryptFile(filePath, tempPath, password);
-      await fs.rename(tempPath, filePath);
-    }
+      return (
+        <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-4">
+          <div className="bg-white rounded-2xl shadow-xl p-8 max-w-2xl w-full border border-gray-100">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="bg-gradient-to-br from-blue-500 to-indigo-600 p-3 rounded-xl">
+                <Link2 className="text-white" size={24} />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-gray-800">Share Link</h2>
+                <p className="text-sm text-gray-500">Copy and share this link with others</p>
+              </div>
+            </div>
+            
+            <div className="space-y-3">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                <div className="relative flex items-center gap-3 bg-gray-50 border-2 border-gray-200 rounded-xl p-4 hover:border-blue-300 transition-all">
+                  <div className="flex-1 overflow-hidden">
+                    <a
+                      href={link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-2 group"
+                    >
+                      <span className="truncate">{link}</span>
+                      <ExternalLink size={16} className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </a>
+                  </div>
+                  
+                  <button
+                    onClick={handleCopy}
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-all transform active:scale-95 flex-shrink-0 ${
+                      copied
+                        ? 'bg-green-500 text-white'
+                        : 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 shadow-md hover:shadow-lg'
+                    }`}
+                  >
+                    {copied ? (
+                      <>
+                        <Check size={18} />
+                        <span>Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy size={18} />
+                        <span>Copy</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
     
-    /**
-     * Decrypts a file in place (overwrites original)
-     */
-    async function decryptFileInPlace(filePath, password) {
-      const tempPath = `${filePath}.tmp`;
-      await decryptFile(filePath, tempPath, password);
-      await fs.rename(tempPath, filePath);
-    }
-    
-    // Example usage
-    async function main() {
-      const password = 'your-secure-password-here';
-      
-      // Example 1: Encrypt a file
-      await encryptFile(
-        './769af862af4724e348bd90fda8fdea5f.webp',
-        './encrypted.enc',
-        password
+              <div className="flex items-center justify-between text-xs text-gray-500 px-2">
+                <span>Click the link to open in new tab</span>
+                <span className="flex items-center gap-1">
+                  {copied && (
+                    <span className="text-green-600 font-medium animate-pulse">
+                      ✓ Link copied to clipboard
+                    </span>
+                  )}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       );
-      
-      // Example 2: Decrypt a file
-      await decryptFile(
-        './encrypted.enc',
-        './img.png',
-        password
-      );
-      
-      // Example 3: Encrypt in place
-      // await encryptFileInPlace('./myfile.txt', password);
-      
-      // Example 4: Decrypt in place
-      // await decryptFileInPlace('./myfile.txt', password);
     }
-    
-    // Uncomment to run examples
-    main().catch(console.error);
-    
-    // Export functions
-    module.exports = {
-      encryptFile,
-      decryptFile,
-      encryptFileInPlace,
-      decryptFileInPlace
-    };
