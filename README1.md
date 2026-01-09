@@ -1,56 +1,34 @@
         import React, { useState, useEffect, useRef } from 'react';
+        import { useTimer } from '../hooks/useTimer';
         
-        // Mock useTimer hook for demo
-        const useTimer = (initialTime) => {
-          const [timeLeft, setTimeLeft] = useState(initialTime);
-          const [isActive, setIsActive] = useState(false);
+        interface OTPVerificationProps {
+          onVerify: (otp: string) => void;
+          onResend: () => void;
+          expiryTime: number;
+          loading: boolean;
+        }
         
-          useEffect(() => {
-            let interval = null;
-            if (isActive && timeLeft > 0) {
-              interval = setInterval(() => {
-                setTimeLeft(time => time - 1);
-              }, 1000);
-            } else if (timeLeft === 0) {
-              setIsActive(false);
-            }
-            return () => clearInterval(interval);
-          }, [isActive, timeLeft]);
-        
-          const start = (time) => {
-            setTimeLeft(time);
-            setIsActive(true);
-          };
-        
-          const reset = (time) => {
-            setTimeLeft(time);
-            setIsActive(true);
-          };
-        
-          return { timeLeft, isActive, start, reset };
-        };
-        
-        const OTPVerification = ({ 
-          onVerify = (otp) => console.log('Verify:', otp), 
-          onResend = () => console.log('Resend OTP'), 
-          expiryTime = 600,
-          loading = false 
+        export const OTPVerification: React.FC<OTPVerificationProps> = ({ 
+          onVerify, 
+          onResend, 
+          expiryTime,
+          loading 
         }) => {
-          const [otp, setOtp] = useState(['', '', '', '', '', '']);
+          const [otp, setOtp] = useState<string[]>(['', '', '', '', '', '']);
           const { timeLeft, isActive, start, reset } = useTimer(expiryTime);
-          const inputRefs = useRef([]);
+          const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
         
           useEffect(() => {
             start(expiryTime);
-          }, []);
+          }, [expiryTime, start]);
         
-          const formatTime = (seconds) => {
+          const formatTime = (seconds: number): string => {
             const mins = Math.floor(seconds / 60);
             const secs = seconds % 60;
             return `${mins}:${secs.toString().padStart(2, '0')}`;
           };
         
-          const handleChange = (index, value) => {
+          const handleChange = (index: number, value: string): void => {
             if (value.length > 1) {
               value = value.slice(-1);
             }
@@ -66,13 +44,13 @@
             }
           };
         
-          const handleKeyDown = (index, e) => {
+          const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>): void => {
             if (e.key === 'Backspace' && !otp[index] && index > 0) {
               inputRefs.current[index - 1]?.focus();
             }
           };
         
-          const handlePaste = (e) => {
+          const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>): void => {
             e.preventDefault();
             const pastedData = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
             const newOtp = [...otp];
@@ -90,14 +68,14 @@
             }
           };
         
-          const handleSubmit = () => {
+          const handleSubmit = (): void => {
             const otpString = otp.join('');
             if (otpString.length === 6) {
               onVerify(otpString);
             }
           };
         
-          const handleResend = () => {
+          const handleResend = (): void => {
             setOtp(['', '', '', '', '', '']);
             reset(expiryTime);
             onResend();
@@ -229,13 +207,13 @@
                         }}
                         onFocus={(e) => {
                           if (!isExpired) {
-                            e.target.style.borderColor = '#04285b';
-                            e.target.style.boxShadow = '0 0 0 3px rgba(0, 179, 208, 0.1)';
+                            e.currentTarget.style.borderColor = '#04285b';
+                            e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 179, 208, 0.1)';
                           }
                         }}
                         onBlur={(e) => {
-                          e.target.style.borderColor = digit ? '#00b3d0' : '#d1d5db';
-                          e.target.style.boxShadow = 'none';
+                          e.currentTarget.style.borderColor = digit ? '#00b3d0' : '#d1d5db';
+                          e.currentTarget.style.boxShadow = 'none';
                         }}
                       />
                     ))}
@@ -259,32 +237,8 @@
                       boxShadow: (!isComplete || isExpired || loading) ? 'none' : '0 4px 15px rgba(0, 179, 208, 0.3)',
                       marginBottom: '15px'
                     }}
-                    onMouseEnter={(e) => {
-                      if (isComplete && !isExpired && !loading) {
-                        e.target.style.transform = 'translateY(-2px)';
-                        e.target.style.boxShadow = '0 6px 20px rgba(0, 179, 208, 0.4)';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.transform = 'translateY(0)';
-                      e.target.style.boxShadow = (!isComplete || isExpired || loading) ? 'none' : '0 4px 15px rgba(0, 179, 208, 0.3)';
-                    }}
                   >
-                    {loading ? (
-                      <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-                        <span style={{
-                          width: '20px',
-                          height: '20px',
-                          border: '3px solid rgba(255,255,255,0.3)',
-                          borderTop: '3px solid white',
-                          borderRadius: '50%',
-                          animation: 'spin 1s linear infinite'
-                        }}></span>
-                        Verifying...
-                      </span>
-                    ) : (
-                      '✓ Verify OTP'
-                    )}
+                    {loading ? '⏳ Verifying...' : '✓ Verify OTP'}
                   </button>
         
                   {/* Resend Button */}
@@ -302,16 +256,6 @@
                       borderRadius: '12px',
                       cursor: loading ? 'not-allowed' : 'pointer',
                       transition: 'all 0.3s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!loading) {
-                        e.target.style.background = '#04285b';
-                        e.target.style.color = 'white';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.background = 'transparent';
-                      e.target.style.color = loading ? '#9ca3af' : '#04285b';
                     }}
                   >
                     🔄 Resend OTP
@@ -332,14 +276,6 @@
                   </div>
                 </div>
               </div>
-        
-              <style>{`
-                @keyframes spin {
-                  to { transform: rotate(360deg); }
-                }
-              `}</style>
             </div>
           );
         };
-        
-        export default OTPVerification;
