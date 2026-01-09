@@ -1,281 +1,309 @@
-        import React, { useState, useEffect, useRef } from 'react';
-        import { useTimer } from '../hooks/useTimer';
+        import React, { useState, useEffect } from 'react';
         
-        interface OTPVerificationProps {
-          onVerify: (otp: string) => void;
-          onResend: () => void;
-          expiryTime: number;
-          loading: boolean;
-        }
+        // Mock hook for demonstration
+        const useTimer = (initialTime) => {
+          const [timeLeft, setTimeLeft] = useState(initialTime);
+          const [isActive, setIsActive] = useState(false);
         
-        export const OTPVerification: React.FC<OTPVerificationProps> = ({ 
+          useEffect(() => {
+            let interval = null;
+            if (isActive && timeLeft > 0) {
+              interval = setInterval(() => {
+                setTimeLeft(time => time - 1);
+              }, 1000);
+            } else if (timeLeft === 0) {
+              setIsActive(false);
+            }
+            return () => clearInterval(interval);
+          }, [isActive, timeLeft]);
+        
+          const start = (time) => {
+            setTimeLeft(time);
+            setIsActive(true);
+          };
+        
+          const reset = (time) => {
+            setTimeLeft(time);
+            setIsActive(true);
+          };
+        
+          return { timeLeft, isActive, start, reset };
+        };
+        
+        const OTPVerification = ({ 
           onVerify, 
           onResend, 
           expiryTime,
           loading 
         }) => {
-          const [otp, setOtp] = useState<string[]>(['', '', '', '', '', '']);
+          const [otp, setOtp] = useState('');
           const { timeLeft, isActive, start, reset } = useTimer(expiryTime);
-          const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
         
           useEffect(() => {
             start(expiryTime);
-          }, [expiryTime, start]);
+          }, []);
         
-          const formatTime = (seconds: number): string => {
+          const handleResend = () => {
+            reset(75);
+            onResend();
+          };
+        
+          const formatTime = (seconds) => {
             const mins = Math.floor(seconds / 60);
             const secs = seconds % 60;
             return `${mins}:${secs.toString().padStart(2, '0')}`;
           };
-        
-          const handleChange = (index: number, value: string): void => {
-            if (value.length > 1) {
-              value = value.slice(-1);
-            }
-            
-            if (!/^\d*$/.test(value)) return;
-        
-            const newOtp = [...otp];
-            newOtp[index] = value;
-            setOtp(newOtp);
-        
-            if (value !== '' && index < 5) {
-              inputRefs.current[index + 1]?.focus();
-            }
-          };
-        
-          const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>): void => {
-            if (e.key === 'Backspace' && !otp[index] && index > 0) {
-              inputRefs.current[index - 1]?.focus();
-            }
-          };
-        
-          const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>): void => {
-            e.preventDefault();
-            const pastedData = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
-            const newOtp = [...otp];
-            
-            for (let i = 0; i < pastedData.length; i++) {
-              newOtp[i] = pastedData[i];
-            }
-            
-            setOtp(newOtp);
-            
-            if (pastedData.length < 6) {
-              inputRefs.current[pastedData.length]?.focus();
-            } else {
-              inputRefs.current[5]?.focus();
-            }
-          };
-        
-          const handleSubmit = (): void => {
-            const otpString = otp.join('');
-            if (otpString.length === 6) {
-              onVerify(otpString);
-            }
-          };
-        
-          const handleResend = (): void => {
-            setOtp(['', '', '', '', '', '']);
-            reset(expiryTime);
-            onResend();
-            inputRefs.current[0]?.focus();
-          };
-        
-          const isComplete = otp.every(digit => digit !== '');
-          const isExpired = timeLeft === 0;
         
           return (
             <div style={{
               minHeight: '100vh',
               background: 'linear-gradient(135deg, #04285b 0%, #00b3d0 100%)',
               display: 'flex',
-              justifyContent: 'center',
               alignItems: 'center',
+              justifyContent: 'center',
               padding: '20px',
               fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
             }}>
               <div style={{
-                maxWidth: '480px',
-                width: '100%',
                 background: 'white',
                 borderRadius: '16px',
                 boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
-                overflow: 'hidden'
+                padding: '48px 40px',
+                maxWidth: '480px',
+                width: '100%'
               }}>
-                {/* Header */}
+                {/* Header Icon */}
                 <div style={{
+                  width: '80px',
+                  height: '80px',
                   background: 'linear-gradient(135deg, #04285b 0%, #00b3d0 100%)',
-                  padding: '40px 30px',
-                  textAlign: 'center'
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 24px',
+                  boxShadow: '0 8px 24px rgba(0, 179, 208, 0.3)'
+                }}>
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                </div>
+        
+                {/* Title */}
+                <h2 style={{
+                  color: '#04285b',
+                  fontSize: '28px',
+                  fontWeight: '700',
+                  textAlign: 'center',
+                  marginBottom: '12px'
+                }}>
+                  Enter OTP
+                </h2>
+        
+                <p style={{
+                  color: '#6b7280',
+                  fontSize: '15px',
+                  textAlign: 'center',
+                  marginBottom: '32px'
+                }}>
+                  We've sent a verification code to your device
+                </p>
+        
+                {/* Timer Display */}
+                <div style={{
+                  background: timeLeft <= 30 ? 'linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%)' : 'linear-gradient(135deg, rgba(4, 40, 91, 0.08) 0%, rgba(0, 179, 208, 0.08) 100%)',
+                  border: `2px solid ${timeLeft <= 30 ? '#ef4444' : '#00b3d0'}`,
+                  borderRadius: '12px',
+                  padding: '20px',
+                  marginBottom: '32px',
+                  textAlign: 'center',
+                  transition: 'all 0.3s ease'
                 }}>
                   <div style={{
-                    width: '80px',
-                    height: '80px',
-                    background: 'rgba(255, 255, 255, 0.2)',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 20px',
-                    backdropFilter: 'blur(10px)'
+                    color: '#6b7280',
+                    fontSize: '13px',
+                    fontWeight: '600',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px',
+                    marginBottom: '8px'
                   }}>
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                      <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" />
-                    </svg>
+                    Time Remaining
                   </div>
-                  <h2 style={{
-                    color: 'white',
-                    fontSize: '28px',
-                    margin: '0 0 10px 0',
-                    fontWeight: '600'
+                  <div style={{
+                    fontSize: '36px',
+                    fontWeight: '700',
+                    color: timeLeft <= 30 ? '#ef4444' : '#04285b',
+                    letterSpacing: '2px',
+                    transition: 'color 0.3s ease'
                   }}>
-                    Verify Your Account
-                  </h2>
-                  <p style={{
-                    color: 'rgba(255, 255, 255, 0.9)',
-                    fontSize: '15px',
-                    margin: 0
-                  }}>
-                    Enter the 6-digit code sent to your email
-                  </p>
+                    {formatTime(timeLeft)}
+                  </div>
                 </div>
         
-                {/* Content */}
-                <div style={{ padding: '40px 30px' }}>
-                  {/* Timer */}
-                  <div style={{
-                    background: isExpired ? 'linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(239, 68, 68, 0.1) 100%)' : 'linear-gradient(135deg, rgba(4, 40, 91, 0.05) 0%, rgba(0, 179, 208, 0.05) 100%)',
-                    border: `2px solid ${isExpired ? '#ef4444' : '#00b3d0'}`,
-                    borderRadius: '12px',
-                    padding: '20px',
+                {/* OTP Input */}
+                <input
+                  type="text"
+                  maxLength={4}
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
+                  placeholder="Enter 4-digit OTP"
+                  disabled={timeLeft === 0}
+                  style={{
+                    width: '100%',
+                    padding: '18px',
+                    fontSize: '24px',
                     textAlign: 'center',
-                    marginBottom: '30px'
-                  }}>
-                    <div style={{
-                      fontSize: '14px',
-                      color: isExpired ? '#dc2626' : '#04285b',
-                      fontWeight: '600',
-                      marginBottom: '8px',
-                      textTransform: 'uppercase',
-                      letterSpacing: '1px'
-                    }}>
-                      {isExpired ? '⚠️ Code Expired' : '⏱️ Time Remaining'}
-                    </div>
-                    <div style={{
-                      fontSize: '36px',
-                      fontWeight: 'bold',
-                      color: isExpired ? '#dc2626' : '#04285b',
-                      fontFamily: 'monospace'
-                    }}>
-                      {formatTime(timeLeft)}
-                    </div>
-                  </div>
+                    letterSpacing: '12px',
+                    border: '2px solid #e5e7eb',
+                    borderRadius: '12px',
+                    marginBottom: '24px',
+                    outline: 'none',
+                    fontWeight: '600',
+                    color: '#04285b',
+                    transition: 'all 0.3s ease',
+                    opacity: timeLeft === 0 ? '0.5' : '1',
+                    cursor: timeLeft === 0 ? 'not-allowed' : 'text'
+                  }}
+                  onFocus={(e) => {
+                    if (timeLeft > 0) {
+                      e.target.style.borderColor = '#00b3d0';
+                      e.target.style.boxShadow = '0 0 0 3px rgba(0, 179, 208, 0.1)';
+                    }
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = '#e5e7eb';
+                    e.target.style.boxShadow = 'none';
+                  }}
+                />
         
-                  {/* OTP Input */}
+                {/* Verify Button */}
+                <button 
+                  onClick={() => onVerify(otp)} 
+                  disabled={otp.length !== 4 || timeLeft === 0 || loading}
+                  style={{
+                    width: '100%',
+                    padding: '16px',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    color: 'white',
+                    background: (otp.length !== 4 || timeLeft === 0 || loading) 
+                      ? '#9ca3af' 
+                      : 'linear-gradient(135deg, #04285b 0%, #00b3d0 100%)',
+                    border: 'none',
+                    borderRadius: '12px',
+                    cursor: (otp.length !== 4 || timeLeft === 0 || loading) ? 'not-allowed' : 'pointer',
+                    transition: 'all 0.3s ease',
+                    boxShadow: (otp.length !== 4 || timeLeft === 0 || loading) 
+                      ? 'none' 
+                      : '0 4px 15px rgba(0, 179, 208, 0.3)',
+                    marginBottom: '16px'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!(otp.length !== 4 || timeLeft === 0 || loading)) {
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 6px 20px rgba(0, 179, 208, 0.4)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!(otp.length !== 4 || timeLeft === 0 || loading)) {
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = '0 4px 15px rgba(0, 179, 208, 0.3)';
+                    }
+                  }}
+                >
+                  {loading ? (
+                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                      <span style={{
+                        width: '16px',
+                        height: '16px',
+                        border: '2px solid white',
+                        borderTop: '2px solid transparent',
+                        borderRadius: '50%',
+                        animation: 'spin 0.8s linear infinite'
+                      }}></span>
+                      Verifying...
+                    </span>
+                  ) : 'Verify OTP'}
+                </button>
+        
+                {/* Resend Button */}
+                <button 
+                  onClick={handleResend} 
+                  disabled={loading}
+                  style={{
+                    width: '100%',
+                    padding: '16px',
+                    fontSize: '15px',
+                    fontWeight: '600',
+                    color: '#00b3d0',
+                    background: 'transparent',
+                    border: '2px solid #00b3d0',
+                    borderRadius: '12px',
+                    cursor: loading ? 'not-allowed' : 'pointer',
+                    transition: 'all 0.3s ease',
+                    opacity: loading ? '0.5' : '1'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!loading) {
+                      e.target.style.background = 'rgba(0, 179, 208, 0.08)';
+                      e.target.style.transform = 'translateY(-1px)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!loading) {
+                      e.target.style.background = 'transparent';
+                      e.target.style.transform = 'translateY(0)';
+                    }
+                  }}
+                >
+                  Resend OTP
+                </button>
+        
+                {/* Footer Message */}
+                {timeLeft === 0 && (
                   <div style={{
-                    display: 'flex',
-                    gap: '12px',
-                    justifyContent: 'center',
-                    marginBottom: '30px'
-                  }}>
-                    {otp.map((digit, index) => (
-                      <input
-                        key={index}
-                        ref={el => inputRefs.current[index] = el}
-                        type="text"
-                        inputMode="numeric"
-                        maxLength={1}
-                        value={digit}
-                        onChange={(e) => handleChange(index, e.target.value)}
-                        onKeyDown={(e) => handleKeyDown(index, e)}
-                        onPaste={handlePaste}
-                        disabled={isExpired}
-                        style={{
-                          width: '56px',
-                          height: '64px',
-                          fontSize: '28px',
-                          fontWeight: 'bold',
-                          textAlign: 'center',
-                          border: `2px solid ${isExpired ? '#e5e7eb' : digit ? '#00b3d0' : '#d1d5db'}`,
-                          borderRadius: '12px',
-                          outline: 'none',
-                          transition: 'all 0.3s ease',
-                          background: isExpired ? '#f9fafb' : 'white',
-                          color: isExpired ? '#9ca3af' : '#04285b',
-                          cursor: isExpired ? 'not-allowed' : 'text'
-                        }}
-                        onFocus={(e) => {
-                          if (!isExpired) {
-                            e.currentTarget.style.borderColor = '#04285b';
-                            e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 179, 208, 0.1)';
-                          }
-                        }}
-                        onBlur={(e) => {
-                          e.currentTarget.style.borderColor = digit ? '#00b3d0' : '#d1d5db';
-                          e.currentTarget.style.boxShadow = 'none';
-                        }}
-                      />
-                    ))}
-                  </div>
-        
-                  {/* Submit Button */}
-                  <button
-                    onClick={handleSubmit}
-                    disabled={!isComplete || isExpired || loading}
-                    style={{
-                      width: '100%',
-                      padding: '16px',
-                      fontSize: '16px',
-                      fontWeight: '600',
-                      color: 'white',
-                      background: (!isComplete || isExpired || loading) ? '#cbd5e1' : 'linear-gradient(135deg, #04285b 0%, #00b3d0 100%)',
-                      border: 'none',
-                      borderRadius: '12px',
-                      cursor: (!isComplete || isExpired || loading) ? 'not-allowed' : 'pointer',
-                      transition: 'all 0.3s ease',
-                      boxShadow: (!isComplete || isExpired || loading) ? 'none' : '0 4px 15px rgba(0, 179, 208, 0.3)',
-                      marginBottom: '15px'
-                    }}
-                  >
-                    {loading ? '⏳ Verifying...' : '✓ Verify OTP'}
-                  </button>
-        
-                  {/* Resend Button */}
-                  <button
-                    onClick={handleResend}
-                    disabled={loading}
-                    style={{
-                      width: '100%',
-                      padding: '16px',
-                      fontSize: '15px',
-                      fontWeight: '600',
-                      color: loading ? '#9ca3af' : '#04285b',
-                      background: 'transparent',
-                      border: `2px solid ${loading ? '#e5e7eb' : '#04285b'}`,
-                      borderRadius: '12px',
-                      cursor: loading ? 'not-allowed' : 'pointer',
-                      transition: 'all 0.3s ease'
-                    }}
-                  >
-                    🔄 Resend OTP
-                  </button>
-        
-                  {/* Help Text */}
-                  <div style={{
-                    marginTop: '30px',
-                    padding: '15px',
-                    background: '#f8f9fa',
+                    marginTop: '24px',
+                    padding: '16px',
+                    background: '#fef2f2',
+                    border: '1px solid #fecaca',
                     borderRadius: '8px',
-                    fontSize: '13px',
-                    color: '#6c757d',
-                    lineHeight: '1.6',
+                    color: '#991b1b',
+                    fontSize: '14px',
                     textAlign: 'center'
                   }}>
-                    Didn't receive the code? Check your spam folder or click resend to get a new code.
+                    ⚠️ OTP has expired. Please request a new code.
                   </div>
-                </div>
+                )}
+        
+                <style>{`
+                  @keyframes spin {
+                    to { transform: rotate(360deg); }
+                  }
+                `}</style>
               </div>
             </div>
           );
         };
+        
+        // Demo wrapper
+        export default function App() {
+          const handleVerify = (otp) => {
+            console.log('Verifying OTP:', otp);
+            alert(`Verifying OTP: ${otp}`);
+          };
+        
+          const handleResend = () => {
+            console.log('Resending OTP');
+            alert('OTP Resent!');
+          };
+        
+          return (
+            <OTPVerification
+              onVerify={handleVerify}
+              onResend={handleResend}
+              expiryTime={75}
+              loading={false}
+            />
+          );
+        }
