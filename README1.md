@@ -1,54 +1,32 @@
         import React, { useState, useEffect } from 'react';
+        import { useTimer } from '../hooks/useTimer';
         
-        // Mock hook for demonstration
-        const useTimer = (initialTime) => {
-          const [timeLeft, setTimeLeft] = useState(initialTime);
-          const [isActive, setIsActive] = useState(false);
+        interface Props {
+          onVerify: (otp: string) => void;
+          onResend: () => void;
+          expiryTime: number;
+          loading: boolean;
+        }
         
-          useEffect(() => {
-            let interval = null;
-            if (isActive && timeLeft > 0) {
-              interval = setInterval(() => {
-                setTimeLeft(time => time - 1);
-              }, 1000);
-            } else if (timeLeft === 0) {
-              setIsActive(false);
-            }
-            return () => clearInterval(interval);
-          }, [isActive, timeLeft]);
-        
-          const start = (time) => {
-            setTimeLeft(time);
-            setIsActive(true);
-          };
-        
-          const reset = (time) => {
-            setTimeLeft(time);
-            setIsActive(true);
-          };
-        
-          return { timeLeft, isActive, start, reset };
-        };
-        
-        const OTPVerification = ({ 
+        export const OTPVerification: React.FC<Props> = ({ 
           onVerify, 
           onResend, 
           expiryTime,
           loading 
         }) => {
-          const [otp, setOtp] = useState('');
+          const [otp, setOtp] = useState<string>('');
           const { timeLeft, isActive, start, reset } = useTimer(expiryTime);
         
           useEffect(() => {
             start(expiryTime);
           }, []);
         
-          const handleResend = () => {
+          const handleResend = (): void => {
             reset(75);
             onResend();
           };
         
-          const formatTime = (seconds) => {
+          const formatTime = (seconds: number): string => {
             const mins = Math.floor(seconds / 60);
             const secs = seconds % 60;
             return `${mins}:${secs.toString().padStart(2, '0')}`;
@@ -146,7 +124,7 @@
                   type="text"
                   maxLength={4}
                   value={otp}
-                  onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setOtp(e.target.value.replace(/\D/g, ''))}
                   placeholder="Enter 4-digit OTP"
                   disabled={timeLeft === 0}
                   style={{
@@ -165,13 +143,13 @@
                     opacity: timeLeft === 0 ? '0.5' : '1',
                     cursor: timeLeft === 0 ? 'not-allowed' : 'text'
                   }}
-                  onFocus={(e) => {
+                  onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
                     if (timeLeft > 0) {
                       e.target.style.borderColor = '#00b3d0';
                       e.target.style.boxShadow = '0 0 0 3px rgba(0, 179, 208, 0.1)';
                     }
                   }}
-                  onBlur={(e) => {
+                  onBlur={(e: React.FocusEvent<HTMLInputElement>) => {
                     e.target.style.borderColor = '#e5e7eb';
                     e.target.style.boxShadow = 'none';
                   }}
@@ -199,16 +177,16 @@
                       : '0 4px 15px rgba(0, 179, 208, 0.3)',
                     marginBottom: '16px'
                   }}
-                  onMouseEnter={(e) => {
+                  onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
                     if (!(otp.length !== 4 || timeLeft === 0 || loading)) {
-                      e.target.style.transform = 'translateY(-2px)';
-                      e.target.style.boxShadow = '0 6px 20px rgba(0, 179, 208, 0.4)';
+                      (e.target as HTMLButtonElement).style.transform = 'translateY(-2px)';
+                      (e.target as HTMLButtonElement).style.boxShadow = '0 6px 20px rgba(0, 179, 208, 0.4)';
                     }
                   }}
-                  onMouseLeave={(e) => {
+                  onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
                     if (!(otp.length !== 4 || timeLeft === 0 || loading)) {
-                      e.target.style.transform = 'translateY(0)';
-                      e.target.style.boxShadow = '0 4px 15px rgba(0, 179, 208, 0.3)';
+                      (e.target as HTMLButtonElement).style.transform = 'translateY(0)';
+                      (e.target as HTMLButtonElement).style.boxShadow = '0 4px 15px rgba(0, 179, 208, 0.3)';
                     }
                   }}
                 >
@@ -244,16 +222,16 @@
                     transition: 'all 0.3s ease',
                     opacity: loading ? '0.5' : '1'
                   }}
-                  onMouseEnter={(e) => {
+                  onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
                     if (!loading) {
-                      e.target.style.background = 'rgba(0, 179, 208, 0.08)';
-                      e.target.style.transform = 'translateY(-1px)';
+                      (e.target as HTMLButtonElement).style.background = 'rgba(0, 179, 208, 0.08)';
+                      (e.target as HTMLButtonElement).style.transform = 'translateY(-1px)';
                     }
                   }}
-                  onMouseLeave={(e) => {
+                  onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
                     if (!loading) {
-                      e.target.style.background = 'transparent';
-                      e.target.style.transform = 'translateY(0)';
+                      (e.target as HTMLButtonElement).style.background = 'transparent';
+                      (e.target as HTMLButtonElement).style.transform = 'translateY(0)';
                     }
                   }}
                 >
@@ -285,25 +263,3 @@
             </div>
           );
         };
-        
-        // Demo wrapper
-        export default function App() {
-          const handleVerify = (otp) => {
-            console.log('Verifying OTP:', otp);
-            alert(`Verifying OTP: ${otp}`);
-          };
-        
-          const handleResend = () => {
-            console.log('Resending OTP');
-            alert('OTP Resent!');
-          };
-        
-          return (
-            <OTPVerification
-              onVerify={handleVerify}
-              onResend={handleResend}
-              expiryTime={75}
-              loading={false}
-            />
-          );
-        }
