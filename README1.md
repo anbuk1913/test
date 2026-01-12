@@ -1,265 +1,118 @@
-        import React, { useState, useEffect } from 'react';
-        import { useTimer } from '../hooks/useTimer';
+        import React, { useState } from 'react';
         
         interface Props {
-          onVerify: (otp: string) => void;
-          onResend: () => void;
-          expiryTime: number;
+          onSubmit: (passkey: string) => void;
           loading: boolean;
         }
         
-        export const OTPVerification: React.FC<Props> = ({ 
-          onVerify, 
-          onResend, 
-          expiryTime,
-          loading 
-        }) => {
-          const [otp, setOtp] = useState<string>('');
-          const { timeLeft, isActive, start, reset } = useTimer(expiryTime);
+        export const PasskeyInput: React.FC<Props> = ({ onSubmit, loading }) => {
+          const [passkey, setPasskey] = useState('');
         
-          useEffect(() => {
-            start(expiryTime);
-          }, []);
-        
-          const handleResend = (): void => {
-            reset(75);
-            onResend();
-          };
-        
-          const formatTime = (seconds: number): string => {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `${mins}:${secs.toString().padStart(2, '0')}`;
+          const handleSubmit = (e: React.FormEvent) => {
+            e.preventDefault();
+            if (passkey.length === 6) {
+              onSubmit(passkey);
+            }
           };
         
           return (
-            <div style={{
-              minHeight: '100vh',
-              background: 'linear-gradient(135deg, #04285b 0%, #00b3d0 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '20px',
-              fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
-            }}>
-              <div style={{
-                background: 'white',
-                borderRadius: '16px',
-                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
-                padding: '48px 40px',
-                maxWidth: '480px',
-                width: '100%'
-              }}>
-                {/* Header Icon */}
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  background: 'linear-gradient(135deg, #04285b 0%, #00b3d0 100%)',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 24px',
-                  boxShadow: '0 8px 24px rgba(0, 179, 208, 0.3)'
-                }}>
-                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                    <circle cx="12" cy="10" r="3"/>
-                  </svg>
-                </div>
-        
-                {/* Title */}
-                <h2 style={{
-                  color: '#04285b',
-                  fontSize: '28px',
-                  fontWeight: '700',
-                  textAlign: 'center',
-                  marginBottom: '12px'
-                }}>
-                  Enter OTP
-                </h2>
-        
-                <p style={{
-                  color: '#6b7280',
-                  fontSize: '15px',
-                  textAlign: 'center',
-                  marginBottom: '32px'
-                }}>
-                  We've sent a verification code to your device
-                </p>
-        
-                {/* Timer Display */}
-                <div style={{
-                  background: timeLeft <= 30 ? 'linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%)' : 'linear-gradient(135deg, rgba(4, 40, 91, 0.08) 0%, rgba(0, 179, 208, 0.08) 100%)',
-                  border: `2px solid ${timeLeft <= 30 ? '#ef4444' : '#00b3d0'}`,
-                  borderRadius: '12px',
-                  padding: '20px',
-                  marginBottom: '32px',
-                  textAlign: 'center',
-                  transition: 'all 0.3s ease'
-                }}>
-                  <div style={{
-                    color: '#6b7280',
-                    fontSize: '13px',
-                    fontWeight: '600',
-                    textTransform: 'uppercase',
-                    letterSpacing: '1px',
-                    marginBottom: '8px'
-                  }}>
-                    Time Remaining
+            <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'linear-gradient(135deg, #04285b 0%, #00b3d0 100%)' }}>
+              <div className="w-full max-w-md">
+                <div className="bg-white rounded-2xl shadow-2xl p-8">
+                  {/* Header */}
+                  <div className="text-center mb-8">
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{ background: 'linear-gradient(135deg, #04285b 0%, #00b3d0 100%)' }}>
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                      </svg>
+                    </div>
+                    <h2 className="text-3xl font-bold mb-2" style={{ color: '#04285b' }}>
+                      Secure Access
+                    </h2>
+                    <p className="text-gray-600">
+                      Enter your 6-character passkey to continue
+                    </p>
                   </div>
-                  <div style={{
-                    fontSize: '36px',
-                    fontWeight: '700',
-                    color: timeLeft <= 30 ? '#ef4444' : '#04285b',
-                    letterSpacing: '2px',
-                    transition: 'color 0.3s ease'
-                  }}>
-                    {formatTime(timeLeft)}
+        
+                  {/* Input Form */}
+                  <div className="space-y-6">
+                    <div>
+                      <label className="block text-sm font-medium mb-2" style={{ color: '#04285b' }}>
+                        Passkey
+                      </label>
+                      <div className="relative">
+                        <input
+                          type="password"
+                          maxLength={6}
+                          value={passkey}
+                          onChange={(e) => setPasskey(e.target.value.replace(/[^a-zA-Z]/g, '').toUpperCase())}
+                          placeholder="******"
+                          disabled={loading}
+                          className="w-full px-4 py-3 text-center text-2xl font-bold tracking-widest border-2 rounded-lg focus:outline-none focus:ring-2 transition-all duration-200"
+                          style={{
+                            borderColor: passkey.length === 6 ? '#00b3d0' : '#e5e7eb',
+                            color: '#04285b'
+                          }}
+                          onFocus={(e) => e.target.style.borderColor = '#00b3d0'}
+                          onBlur={(e) => {
+                            if (passkey.length !== 6) e.target.style.borderColor = '#e5e7eb';
+                          }}
+                        />
+                        {passkey.length > 0 && (
+                          <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                            <span className="text-sm font-medium" style={{ color: passkey.length === 6 ? '#00b3d0' : '#9ca3af' }}>
+                              {passkey.length}/6
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+        
+                    <button
+                      onClick={handleSubmit}
+                      disabled={passkey.length !== 6 || loading}
+                      className="w-full py-3 px-4 rounded-lg font-semibold text-white transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg"
+                      style={{
+                        background: passkey.length === 6 && !loading ? 'linear-gradient(135deg, #04285b 0%, #00b3d0 100%)' : '#cbd5e1'
+                      }}
+                    >
+                      {loading ? (
+                        <span className="flex items-center justify-center">
+                          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Verifying...
+                        </span>
+                      ) : (
+                        'Submit Passkey'
+                      )}
+                    </button>
+                  </div>
+        
+                  {/* Footer */}
+                  <div className="mt-6 text-center">
+                    <p className="text-sm text-gray-500">
+                      Need help? <a href="#" className="font-medium hover:underline" style={{ color: '#00b3d0' }}>Contact support</a>
+                    </p>
                   </div>
                 </div>
-        
-                {/* OTP Input */}
-                <input
-                  type="text"
-                  maxLength={4}
-                  value={otp}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setOtp(e.target.value.replace(/\D/g, ''))}
-                  placeholder="Enter 4-digit OTP"
-                  disabled={timeLeft === 0}
-                  style={{
-                    width: '100%',
-                    padding: '18px',
-                    fontSize: '24px',
-                    textAlign: 'center',
-                    letterSpacing: '12px',
-                    border: '2px solid #e5e7eb',
-                    borderRadius: '12px',
-                    marginBottom: '24px',
-                    outline: 'none',
-                    fontWeight: '600',
-                    color: '#04285b',
-                    transition: 'all 0.3s ease',
-                    opacity: timeLeft === 0 ? '0.5' : '1',
-                    cursor: timeLeft === 0 ? 'not-allowed' : 'text'
-                  }}
-                  onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
-                    if (timeLeft > 0) {
-                      e.target.style.borderColor = '#00b3d0';
-                      e.target.style.boxShadow = '0 0 0 3px rgba(0, 179, 208, 0.1)';
-                    }
-                  }}
-                  onBlur={(e: React.FocusEvent<HTMLInputElement>) => {
-                    e.target.style.borderColor = '#e5e7eb';
-                    e.target.style.boxShadow = 'none';
-                  }}
-                />
-        
-                {/* Verify Button */}
-                <button 
-                  onClick={() => onVerify(otp)} 
-                  disabled={otp.length !== 4 || timeLeft === 0 || loading}
-                  style={{
-                    width: '100%',
-                    padding: '16px',
-                    fontSize: '16px',
-                    fontWeight: '600',
-                    color: 'white',
-                    background: (otp.length !== 4 || timeLeft === 0 || loading) 
-                      ? '#9ca3af' 
-                      : 'linear-gradient(135deg, #04285b 0%, #00b3d0 100%)',
-                    border: 'none',
-                    borderRadius: '12px',
-                    cursor: (otp.length !== 4 || timeLeft === 0 || loading) ? 'not-allowed' : 'pointer',
-                    transition: 'all 0.3s ease',
-                    boxShadow: (otp.length !== 4 || timeLeft === 0 || loading) 
-                      ? 'none' 
-                      : '0 4px 15px rgba(0, 179, 208, 0.3)',
-                    marginBottom: '16px'
-                  }}
-                  onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
-                    if (!(otp.length !== 4 || timeLeft === 0 || loading)) {
-                      (e.target as HTMLButtonElement).style.transform = 'translateY(-2px)';
-                      (e.target as HTMLButtonElement).style.boxShadow = '0 6px 20px rgba(0, 179, 208, 0.4)';
-                    }
-                  }}
-                  onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
-                    if (!(otp.length !== 4 || timeLeft === 0 || loading)) {
-                      (e.target as HTMLButtonElement).style.transform = 'translateY(0)';
-                      (e.target as HTMLButtonElement).style.boxShadow = '0 4px 15px rgba(0, 179, 208, 0.3)';
-                    }
-                  }}
-                >
-                  {loading ? (
-                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-                      <span style={{
-                        width: '16px',
-                        height: '16px',
-                        border: '2px solid white',
-                        borderTop: '2px solid transparent',
-                        borderRadius: '50%',
-                        animation: 'spin 0.8s linear infinite'
-                      }}></span>
-                      Verifying...
-                    </span>
-                  ) : 'Verify OTP'}
-                </button>
-        
-                {/* Resend Button */}
-                <button 
-                  onClick={handleResend} 
-                  disabled={loading}
-                  style={{
-                    width: '100%',
-                    padding: '16px',
-                    fontSize: '15px',
-                    fontWeight: '600',
-                    color: '#00b3d0',
-                    background: 'transparent',
-                    border: '2px solid #00b3d0',
-                    borderRadius: '12px',
-                    cursor: loading ? 'not-allowed' : 'pointer',
-                    transition: 'all 0.3s ease',
-                    opacity: loading ? '0.5' : '1'
-                  }}
-                  onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
-                    if (!loading) {
-                      (e.target as HTMLButtonElement).style.background = 'rgba(0, 179, 208, 0.08)';
-                      (e.target as HTMLButtonElement).style.transform = 'translateY(-1px)';
-                    }
-                  }}
-                  onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
-                    if (!loading) {
-                      (e.target as HTMLButtonElement).style.background = 'transparent';
-                      (e.target as HTMLButtonElement).style.transform = 'translateY(0)';
-                    }
-                  }}
-                >
-                  Resend OTP
-                </button>
-        
-                {/* Footer Message */}
-                {timeLeft === 0 && (
-                  <div style={{
-                    marginTop: '24px',
-                    padding: '16px',
-                    background: '#fef2f2',
-                    border: '1px solid #fecaca',
-                    borderRadius: '8px',
-                    color: '#991b1b',
-                    fontSize: '14px',
-                    textAlign: 'center'
-                  }}>
-                    ⚠️ OTP has expired. Please request a new code.
-                  </div>
-                )}
-        
-                <style>{`
-                  @keyframes spin {
-                    to { transform: rotate(360deg); }
-                  }
-                `}</style>
               </div>
             </div>
           );
         };
+        
+        // Demo wrapper
+        export default function App() {
+          const [loading, setLoading] = useState(false);
+        
+          const handleSubmit = (passkey: string) => {
+            setLoading(true);
+            setTimeout(() => {
+              alert(`Passkey submitted: ${passkey}`);
+              setLoading(false);
+            }, 2000);
+          };
+        
+          return <PasskeyInput onSubmit={handleSubmit} loading={loading} />;
+        }
