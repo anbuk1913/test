@@ -244,8 +244,7 @@
 // src/components/FilePreview.tsx
 
         import React from 'react';
-        import { useFileIcon } from '../hooks/useFileIcon';
-        import '../styles/FilePreview.css';
+        import { Download, X, FileText, Image, Film, Music, File } from 'lucide-react';
         
         interface FilePreviewProps {
           filename: string;
@@ -254,8 +253,24 @@
           onClose: () => void;
         }
         
+        const useFileIcon = (filename: string) => {
+          const ext = filename.split('.').pop()?.toLowerCase() || '';
+          
+          const imageExts = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp'];
+          const videoExts = ['mp4', 'webm', 'ogg', 'mov', 'avi'];
+          const audioExts = ['mp3', 'wav', 'ogg', 'flac', 'm4a'];
+          const pdfExts = ['pdf'];
+          
+          if (imageExts.includes(ext)) return { type: 'image', Icon: Image };
+          if (videoExts.includes(ext)) return { type: 'video', Icon: Film };
+          if (audioExts.includes(ext)) return { type: 'audio', Icon: Music };
+          if (pdfExts.includes(ext)) return { type: 'pdf', Icon: FileText };
+          
+          return { type: 'other', Icon: File };
+        };
+        
         export const FilePreview: React.FC<FilePreviewProps> = ({ filename, userId, token, onClose }) => {
-          const { type } = useFileIcon(filename);
+          const { type, Icon } = useFileIcon(filename);
           const fileUrl = `/api/files/${userId}/${filename}?token=${token}`;
         
           const handleDownload = () => {
@@ -268,52 +283,110 @@
           const renderPreview = () => {
             switch (type) {
               case 'image':
-                return <img src={fileUrl} alt={filename} className="preview-content-image" />;
+                return (
+                  <div className="flex items-center justify-center h-full p-8">
+                    <img 
+                      src={fileUrl} 
+                      alt={filename} 
+                      className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                    />
+                  </div>
+                );
               case 'video':
                 return (
-                  <video controls className="preview-content-video">
-                    <source src={fileUrl} />
-                    Your browser does not support the video tag.
-                  </video>
+                  <div className="flex items-center justify-center h-full p-8">
+                    <video 
+                      controls 
+                      className="max-w-full max-h-full rounded-lg shadow-2xl"
+                    >
+                      <source src={fileUrl} />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
                 );
               case 'pdf':
-                return <iframe src={fileUrl} className="preview-content-iframe" title={filename} />;
+                return (
+                  <iframe 
+                    src={fileUrl} 
+                    className="w-full h-full border-0"
+                    title={filename} 
+                  />
+                );
               case 'audio':
                 return (
-                  <div className="preview-audio-container">
-                    <audio controls className="preview-content-audio">
-                      <source src={fileUrl} />
-                      Your browser does not support the audio tag.
-                    </audio>
+                  <div className="flex flex-col items-center justify-center h-full gap-8 p-8">
+                    <div className="w-32 h-32 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-2xl">
+                      <Music className="w-16 h-16 text-white" />
+                    </div>
+                    <div className="w-full max-w-md">
+                      <audio controls className="w-full">
+                        <source src={fileUrl} />
+                        Your browser does not support the audio tag.
+                      </audio>
+                    </div>
                   </div>
                 );
               default:
                 return (
-                  <div className="preview-unsupported">
-                    <p>Preview not available for this file type</p>
-                    <button onClick={handleDownload} className="download-btn">
-                      Download File
-                    </button>
+                  <div className="flex flex-col items-center justify-center h-full gap-6 p-8">
+                    <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center">
+                      <Icon className="w-12 h-12 text-gray-400" />
+                    </div>
+                    <div className="text-center">
+                      <p className="text-gray-600 text-lg mb-4">Preview not available for this file type</p>
+                      <button 
+                        onClick={handleDownload} 
+                        className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 mx-auto shadow-lg hover:shadow-xl"
+                      >
+                        <Download className="w-5 h-5" />
+                        Download File
+                      </button>
+                    </div>
                   </div>
                 );
             }
           };
         
           return (
-            <div className="file-preview-overlay" onClick={onClose}>
-              <div className="file-preview-modal" onClick={(e) => e.stopPropagation()}>
-                <div className="file-preview-header">
-                  <h3 className="file-preview-title">{filename}</h3>
-                  <div className="file-preview-actions">
-                    <button onClick={handleDownload} className="action-btn" title="Download">
-                      ⬇
+            <div 
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200"
+              onClick={onClose}
+            >
+              <div 
+                className="bg-white rounded-2xl shadow-2xl w-full max-w-6xl h-[90vh] flex flex-col animate-in zoom-in-95 duration-200"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Header */}
+                <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white rounded-t-2xl">
+                  <div className="flex items-center gap-3 flex-1 min-w-0">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md">
+                      <Icon className="w-5 h-5 text-white" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-800 truncate" title={filename}>
+                      {filename}
+                    </h3>
+                  </div>
+                  
+                  <div className="flex items-center gap-2 ml-4">
+                    <button 
+                      onClick={handleDownload} 
+                      className="p-2.5 hover:bg-gray-100 rounded-lg transition-colors group"
+                      title="Download"
+                    >
+                      <Download className="w-5 h-5 text-gray-600 group-hover:text-blue-600 transition-colors" />
                     </button>
-                    <button onClick={onClose} className="action-btn close-btn" title="Close">
-                      ✕
+                    <button 
+                      onClick={onClose} 
+                      className="p-2.5 hover:bg-red-50 rounded-lg transition-colors group"
+                      title="Close"
+                    >
+                      <X className="w-5 h-5 text-gray-600 group-hover:text-red-600 transition-colors" />
                     </button>
                   </div>
                 </div>
-                <div className="file-preview-content">
+        
+                {/* Content */}
+                <div className="flex-1 overflow-hidden bg-gray-50">
                   {renderPreview()}
                 </div>
               </div>
