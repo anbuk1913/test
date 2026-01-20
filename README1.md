@@ -1,1 +1,1 @@
-        http://localhost:4320/auth/location/verification/3e579c38-cb51-4619-9412-8aaf3a620644
+        http://localhost:4320/auth/practice/verification/508d491c-c931-4fd2-8881-6017e3930ff3
