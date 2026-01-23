@@ -25,3 +25,23 @@
 .
 
         liu@1234
+.
+
+```https://uatapi.mycarepedia.com/api/docters/addAcceptedInsurance```
+
+
+        {
+            "selectedInsurance": "1",
+            "formData": {
+                "AcceptedInsurancesId": 208,
+                "InsuranceCarrierId": "1",
+                "InsuranceCarrierName": "AARP (A United HealthCare Insurance Company)",
+                "CredentialCompleted": "Yes",
+                "CredentialCompletedDate": "2026-01-23",
+                "Status": "Pending",
+                "DoctorId": "0a80069b-d3b5-4882-a735-7c52c97d6594",
+                "InsurancePlans": []
+            },
+            "clickedPlans": [],
+            "selectedPracticeLocationId": "mycarepedia_virtual_id"
+        }
