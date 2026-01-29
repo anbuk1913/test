@@ -45,8 +45,8 @@
         const [customReasonError, setCustomReasonError] = useState("");
     
         // Cancel Reasons State
-        const [cancelReasons, setCancelReasons] = useState<any[]>([]);
-        const [selectedCancelReasons, setSelectedCancelReasons] = useState<{ ReasonID?: any; Reason: string, isCustom?: boolean }[]>([]);
+        const [cancelReasons, setCancelReasons] = useState<{ CancelID: any; CancelReason: string }[]>([]);
+        const [selectedCancelReasons, setSelectedCancelReasons] = useState<{ CancelID?: any; CancelReason: string, isCustom?: boolean }[]>([]);
         const [currentCancelPage, setCurrentCancelPage] = useState(1);
         const [showAddCancelReason, setShowAddCancelReason] = useState(false);
         const [cancelSearchTerm, setCancelSearchTerm] = useState("");
@@ -167,9 +167,9 @@
         const isCancelReasonExists = (reason: string) => {
             const normalized = reason.trim().toLowerCase();
             return (
-                cancelReasons.some((r: { Reason: string }) => r.Reason.toLowerCase() === normalized) ||
-                locationCancelReasons.some((r: any) => r.cancelReason.toLowerCase() === normalized) ||
-                selectedCancelReasons.some((r: { Reason: string }) => r.Reason.toLowerCase() === normalized)
+                cancelReasons.some((r: { CancelReason: string }) => r.CancelReason.toLowerCase() === normalized) ||
+                locationCancelReasons.some((r: any) => r.CancelReason?.toLowerCase() === normalized) ||
+                selectedCancelReasons.some((r: { CancelReason: string }) => r.CancelReason.toLowerCase() === normalized)
             );
         };
     
@@ -184,7 +184,7 @@
                 return;
             }
             const newCustomReason = {
-                Reason: trimmedReason,
+                CancelReason: trimmedReason,
                 isCustom: true,
             };
             setSelectedCancelReasons(prev => [...prev, newCustomReason]);
@@ -193,19 +193,19 @@
         };
     
         const filteredCancelReasons = cancelReasons
-            .filter(cr => cr.Reason.toLowerCase().includes(cancelSearchTerm.toLowerCase()))
-            .filter(cr => !locationCancelReasons.some((lcr: any) => lcr.ReasonID === cr.ReasonID));
+            .filter(cr => cr.CancelReason.toLowerCase().includes(cancelSearchTerm.toLowerCase()))
+            .filter(cr => !locationCancelReasons.some((lcr: any) => lcr.CancelID === cr.CancelID));
     
-        const handleCancelReasonSelect = (cancelReason: { ReasonID: any; Reason: string }) => {
-            if (!selectedCancelReasons.some(cr => cr.ReasonID === cancelReason.ReasonID)) {
+        const handleCancelReasonSelect = (cancelReason: { CancelID: any; CancelReason: string }) => {
+            if (!selectedCancelReasons.some(cr => cr.CancelID === cancelReason.CancelID)) {
                 setSelectedCancelReasons([...selectedCancelReasons, cancelReason]);
             }
             setShowCancelReasonDropdown(false);
             setCancelSearchTerm("");
         };
     
-        const removeSelectedCancelReason = (reasonID: any) => {
-            setSelectedCancelReasons(selectedCancelReasons.filter(cr => cr.ReasonID !== reasonID));
+        const removeSelectedCancelReason = (cancelID: any) => {
+            setSelectedCancelReasons(selectedCancelReasons.filter(cr => cr.CancelID !== cancelID));
         };
     
         const saveCancelReasonsToBackend = async () => {
@@ -240,11 +240,11 @@
             try {
                 const response = await LOCATION_API.FETCH_APPOINTMENT_CANCEL_REASON_BY_LOCATION(PracticeLocationInfo?.PracticeLocationId);
                 if (response.status === 200) {
-                    // Assuming the API returns an array of cancel reasons
-                    const reasons = Array.isArray(response.data.cancelReason) 
-                        ? response.data.cancelReason 
-                        : response.data.cancelReason 
-                            ? [response.data.cancelReason] 
+                    // Assuming the API returns an array of cancel reasons with CancelID, CancelReason, updatedAt
+                    const reasons = Array.isArray(response.data.cancelReasons) 
+                        ? response.data.cancelReasons 
+                        : response.data.cancelReasons 
+                            ? [response.data.cancelReasons] 
                             : [];
                     setLocationCancelReasons(reasons);
                 }
@@ -370,7 +370,7 @@
                 try {
                     const response = await LOCATION_API.FETCH_APPOINTMENT_CANCEL_REASONS();
                     console.log("cancel reasons====", response);
-                    setCancelReasons(response.data?.reasons || []);
+                    setCancelReasons(response.data?.cancelReasons || []);
                 } catch (error) {
                     console.error("Error fetching cancel reasons:", error);
                 }
@@ -481,16 +481,16 @@
                     )}
                 </div>
                 <div className="px-3 text-sm md:text-base font-semibold relative group">
-                    <span>{truncateText(item.cancelReason || "-")}</span>
-                    {(item.cancelReason || "-").length > 10 && (
+                    <span>{truncateText(item.CancelReason || "-")}</span>
+                    {(item.CancelReason || "-").length > 10 && (
                         <div className="absolute hidden group-hover:block bg-gray-800 text-white text-sm rounded py-2 px-4 z-10 -top-10 left-1/2 transform -translate-x-1/2 min-w-[150px] whitespace-nowrap">
-                            {item.cancelReason || "-"}
+                            {item.CancelReason || "-"}
                         </div>
                     )}
                 </div>
                 <div className="px-3 flex justify-center space-x-2">
                     <button
-                        onClick={() => confirmDelete(item.cancelId, 'cancel')}
+                        onClick={() => confirmDelete(item.CancelID, 'cancel')}
                         className="bg-red-600 hover:bg-red-700 text-white md:text-base text-sm px-3 font-semibold md:px-5 py-1 rounded-md transition-colors duration-200 cursor-pointer"
                     >
                         Remove
@@ -543,11 +543,11 @@
                                 {filteredReasons.length > 0 ? (
                                     filteredReasons.map((reason) => (
                                         <div
-                                            key={reason.ReasonID}
+                                            key={type === 'missing' ? reason.ReasonID : reason.CancelID}
                                             onClick={() => handleReasonSelect(reason)}
                                             className="p-2 cursor-pointer hover:bg-gray-200"
                                         >
-                                            {reason.Reason}
+                                            {type === 'missing' ? reason.Reason : reason.CancelReason}
                                         </div>
                                     ))
                                 ) : (
@@ -563,14 +563,14 @@
                         </label>
                         <div className="flex flex-wrap gap-2">
                             {selectedReasons.length > 0 ? (
-                                selectedReasons.map((reason) => (
+                                selectedReasons.map((reason, idx) => (
                                     <span
-                                        key={reason.ReasonID}
+                                        key={type === 'missing' ? reason.ReasonID || idx : reason.CancelID || idx}
                                         className="inline-flex items-center px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm font-bold text-gray-700"
                                     >
-                                        {reason.Reason}
+                                        {type === 'missing' ? reason.Reason : reason.CancelReason}
                                         <button
-                                            onClick={() => removeSelectedReason(reason.ReasonID)}
+                                            onClick={() => removeSelectedReason(type === 'missing' ? reason.ReasonID : reason.CancelID)}
                                             className="ml-2 text-gray-500 hover:text-red-500 cursor-pointer"
                                         >
                                             <X className="w-4 h-4" />
