@@ -1,7 +1,21 @@
     https://overfruitfully-nondisinterested-dreama.ngrok-free.dev/
 .
 
-    http://localhost:4320/profile/TX/c460e055-bfae-47dd-8327-c4cc5eb493e8?action=invite&token=e5893e79af7e3e75e2a8bcf2c9131683
+    cd "C:\Program Files\MySQL\MySQL Server 8.0\bin"
 .
 
-    https://overfruitfully-nondisinterested-dreama.ngrok-free.dev/
+    mysqldump -u root -p database_name table1 table2 table3 > selected_tables.sql
+.
+
+Example
+
+    mysqldump -u root -p hospital_db patients doctors appointments > hospital_tables.sql
+.
+
+    dir hospital_tables.sql
+.
+
+    notepad hospital_tables.sql
+
+
+
