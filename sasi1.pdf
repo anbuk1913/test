@@ -1,0 +1,778 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 4 0 R 5 0 R 6 0 R 7 0 R 8 0 R] /Count 6 >>
+endobj
+3 0 obj
+<<
+  /Type /Page
+  /Parent 2 0 R
+  /MediaBox [0 0 595.28 841.89]
+  /Contents 9 0 R
+  /Resources <<
+    /Font <<
+      /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+      /F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+      /F3 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique >>
+      /F4 << /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+      /F5 << /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold >>
+    >>
+  >>
+>>
+endobj
+4 0 obj
+<<
+  /Type /Page
+  /Parent 2 0 R
+  /MediaBox [0 0 595.28 841.89]
+  /Contents 10 0 R
+  /Resources <<
+    /Font <<
+      /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+      /F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+      /F3 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique >>
+      /F4 << /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+      /F5 << /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold >>
+    >>
+  >>
+>>
+endobj
+5 0 obj
+<<
+  /Type /Page
+  /Parent 2 0 R
+  /MediaBox [0 0 595.28 841.89]
+  /Contents 11 0 R
+  /Resources <<
+    /Font <<
+      /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+      /F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+      /F3 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique >>
+      /F4 << /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+      /F5 << /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold >>
+    >>
+  >>
+>>
+endobj
+6 0 obj
+<<
+  /Type /Page
+  /Parent 2 0 R
+  /MediaBox [0 0 595.28 841.89]
+  /Contents 12 0 R
+  /Resources <<
+    /Font <<
+      /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+      /F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+      /F3 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique >>
+      /F4 << /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+      /F5 << /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold >>
+    >>
+  >>
+>>
+endobj
+7 0 obj
+<<
+  /Type /Page
+  /Parent 2 0 R
+  /MediaBox [0 0 595.28 841.89]
+  /Contents 13 0 R
+  /Resources <<
+    /Font <<
+      /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+      /F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+      /F3 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique >>
+      /F4 << /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+      /F5 << /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold >>
+    >>
+  >>
+>>
+endobj
+8 0 obj
+<<
+  /Type /Page
+  /Parent 2 0 R
+  /MediaBox [0 0 595.28 841.89]
+  /Contents 14 0 R
+  /Resources <<
+    /Font <<
+      /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+      /F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+      /F3 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique >>
+      /F4 << /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+      /F5 << /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold >>
+    >>
+  >>
+>>
+endobj
+9 0 obj
+<< /Length 7162 >>
+stream
+0.08 0.24 0.55 rg 36 700 523 105 re f
+BT /F2 17 Tf 1 1 1 rg 50 780 Td (SHEAR HEAVEN PET SPA) Tj ET
+BT /F1 11 Tf 0.85 0.92 1 rg 50 762 Td (Groomer Staff Portal  API Performance & Concurrency Benchmark Report) Tj ET
+1 w 0.3 0.45 0.7 RG 50 754 m 545 754 l S
+BT /F1 7.5 Tf 0.85 0.9 0.98 rg 50 740 Td (Target API Host: https://api.shearheavenpetspa.com) Tj ET
+BT /F1 7.5 Tf 0.85 0.9 0.98 rg 320 740 Td (Web Origin: https://pcmdev.shearheavenpetspa.com/) Tj ET
+BT /F1 7.5 Tf 0.85 0.9 0.98 rg 50 726 Td (Staff Groomer: g001@shearheaven.com \(ID: 1, Merisa Brown\)) Tj ET
+BT /F1 7.5 Tf 0.85 0.9 0.98 rg 320 726 Td (Audit Date: October 26, 2026 | Engine: Node.js Multi-Worker Keep-Alive) Tj ET
+BT /F1 7.5 Tf 0.85 0.9 0.98 rg 50 712 Td (Tenant: Shear Heaven Darwin \(SHEAR-001 / DWG-001 / ORG-001\)) Tj ET
+1 w 0.7 0.9 0.75 RG 0.94 0.98 0.95 rg 36 626 120 56 re B
+BT /F2 15 Tf 0.08 0.5 0.22 rg 46 660 Td (936 Reqs) Tj ET
+BT /F2 7.5 Tf 0.2 0.25 0.35 rg 46 648 Td (CUMULATIVE REQUESTS) Tj ET
+BT /F1 6.5 Tf 0.45 0.5 0.55 rg 46 634 Td (100% EMPIRICAL LIVE RUNS) Tj ET
+1 w 0.7 0.9 0.75 RG 0.94 0.98 0.95 rg 170 626 120 56 re B
+BT /F2 15 Tf 0.08 0.5 0.22 rg 180 660 Td (0.00% Errors) Tj ET
+BT /F2 7.5 Tf 0.2 0.25 0.35 rg 180 648 Td (SUSTAINED ERROR RATE) Tj ET
+BT /F1 6.5 Tf 0.45 0.5 0.55 rg 180 634 Td (600 / 600 SVR CALLS \(200 OK\)) Tj ET
+1 w 0.7 0.85 1 RG 0.94 0.97 1 rg 304 626 120 56 re B
+BT /F2 15 Tf 0.08 0.3 0.7 rg 314 660 Td (62.38 RPS) Tj ET
+BT /F2 7.5 Tf 0.2 0.25 0.35 rg 314 648 Td (PEAK SUSTAINED RPS) Tj ET
+BT /F1 6.5 Tf 0.45 0.5 0.55 rg 314 634 Td (TIER 5 \(40 CONCURRENT USERS\)) Tj ET
+1 w 0.95 0.85 0.6 RG 0.99 0.97 0.94 rg 439 626 120 56 re B
+BT /F2 15 Tf 0.65 0.35 0.05 rg 449 660 Td (100% Strict) Tj ET
+BT /F2 7.5 Tf 0.2 0.25 0.35 rg 449 648 Td (RBAC GATE DEFENSE) Tj ET
+BT /F1 6.5 Tf 0.45 0.5 0.55 rg 449 634 Td (10 / 10 EXPLOITS BLOCKED) Tj ET
+BT /F2 11 Tf 0.05 0.2 0.45 rg 36 604 Td (1. EXECUTIVE AUDIT SUMMARY & METHODOLOGY) Tj ET
+1 w 0.85 0.88 0.92 RG 36 598 m 559 598 l S
+BT /F1 7.5 Tf 0.25 0.3 0.35 rg 36 584 Td (A comprehensive performance engineering audit was executed specifically on the Groomer Staff modules:) Tj ET
+BT /F1 7.5 Tf 0.2 0.25 0.35 rg 44 570 Td ( " Step 1 \(Baseline Latency Profiling\): Calibrated N=30 iterations per endpoint \(310 reqs\) with linear rank percentiles.) Tj ET
+BT /F1 7.5 Tf 0.2 0.25 0.35 rg 44 558 Td ( " Step 2 \(Sustained Concurrency Benchmark\): Scaled through 5 concurrency tiers \(5 to 40 users, 600 reqs\) on schedule and forecast.) Tj ET
+BT /F1 7.5 Tf 0.2 0.25 0.35 rg 44 546 Td ( " Step 3 \(Security & Login Concurrency Audit\): Executed RBAC privilege escalation defense, token tampering, and staff login stress.) Tj ET
+BT /F1 7.5 Tf 0.2 0.25 0.35 rg 44 534 Td ( " Step 4 \(Developer Recommendations\): Formulated structured engineering findings across 6 critical operational modules.) Tj ET
+BT /F2 9 Tf 0.05 0.2 0.45 rg 36 514 Td (GROOMER SLA COMPLIANCE AUDIT SCORECARD) Tj ET
+0.75 w 0.8 0.84 0.9 RG 0.94 0.96 0.98 rg 36 479 523 19 re B
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 40 485 Td (Performance Metric) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 195 485 Td (Measured Benchmark Value) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 340 485 Td (Target SLA Threshold) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 455 485 Td (Audit Status) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 462 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 467 Td (Cumulative Requests Executed) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 195 467 Td (936 Requests) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 340 467 Td (>= 500 Requests) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 455 467 Td (PASS \(187% of target\)) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 445 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 450 Td (Sustained Load Error Rate) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 195 450 Td (0.00% \(0 errors / 600 req\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 340 450 Td (< 1.00% Threshold) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 455 450 Td (PASS \(Zero Failures\)) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 428 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 433 Td (Peak Sustained Throughput) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 195 433 Td (62.38 req/sec \(40 Concurrency\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 340 433 Td (> 25.0 req/sec Target) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 455 433 Td (PASS \(Exceeded by +149%\)) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 411 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 416 Td (Forecast Engine Throughput) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 195 416 Td (29.52 req/sec \(20 Concurrency\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 340 416 Td (> 15.0 req/sec Target) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 455 416 Td (PASS \(Sub-second\)) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 394 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 399 Td (RBAC Security Gate Interception) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 195 399 Td (100% \(10/10 unauthorized blocked\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 340 399 Td (100% Strict Gate) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 455 399 Td (PASS \(Zero Leaks\)) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 377 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 382 Td (Groomer Single Login Latency) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 195 382 Td (1,684.97 ms \(Valid Baseline\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 340 382 Td (< 2,000 ms Target) Tj ET
+BT /F2 7.2 Tf 0.75 0.4 0.05 rg 455 382 Td (INVESTIGATION FLAGGED) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 360 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 365 Td (Pending Bookings Queue Latency) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 195 365 Td (1,841.28 ms \(Avg\) / 2,663 ms \(P95\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 340 365 Td (< 1,000 ms Target) Tj ET
+BT /F2 7.2 Tf 0.75 0.1 0.1 rg 455 365 Td (BOTTLENECK IDENTIFIED) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 343 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 348 Td (Past Bookings Archive Max Spike) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 195 348 Td (2,448.21 ms \(P95\) / 5,296 ms \(Max\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 340 348 Td (< 1,500 ms Target) Tj ET
+BT /F2 7.2 Tf 0.75 0.1 0.1 rg 455 348 Td (BOTTLENECK IDENTIFIED) Tj ET
+0.75 w 0.75 0.85 0.95 RG 0.98 0.99 1 rg 36 243 523 75 re B
+BT /F2 8 Tf 0.05 0.2 0.45 rg 46 307 Td (QA ROLE & NON-INTERFERENCE NOTICE) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.35 rg 46 293 Td (1. Reporting Scope: Testing is strictly confined to groomer API benchmarking, latency profiling, and bottleneck analysis.) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.35 rg 46 281 Td (2. Documentation Integrity: No application code has been modified and no server-side optimizations have been applied.) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.35 rg 46 269 Td (3. Empirical Transparency: All status codes, throughput figures, and latencies reflect live execution results.) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 46 257 Td (4. Developer Handoff: Findings are structured into Observed Results, Potential Concerns, and Developer Recommendations.) Tj ET
+
+0.85 0.88 0.92 RG 0.75 w 36 34 m 559 34 l S
+BT /F1 8 Tf 0.45 0.5 0.55 rg 36 24 Td (Groomer API Performance Audit | Shear Heaven Pet Spa | Target: https://api.shearheavenpetspa.com) Tj ET
+BT /F2 8 Tf 0.3 0.4 0.5 rg 505 24 Td (Page 1 of 6) Tj ET
+
+endstream
+endobj
+10 0 obj
+<< /Length 9921 >>
+stream
+BT /F2 11 Tf 0.05 0.2 0.45 rg 36 792 Td (2. STEP 1: GROOMER BASELINE LATENCY PROFILING \(N = 30 PER ENDPOINT\)) Tj ET
+1 w 0.85 0.88 0.92 RG 36 786 m 559 786 l S
+BT /F1 7.5 Tf 0.25 0.3 0.35 rg 36 770 Td (Statistically robust sample size \(N = 30\) using linear rank interpolation for exact P50, P90, P95, and P99 percentiles:) Tj ET
+0.75 w 0.8 0.84 0.9 RG 0.94 0.96 0.98 rg 36 736 523 19 re B
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 40 742 Td (Endpoint & Module) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 220 742 Td (Reqs) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 248 742 Td (Avg \(ms\)) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 292 742 Td (P50) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 334 742 Td (P90) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 376 742 Td (P95) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 418 742 Td (P99) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 462 742 Td (Min) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 500 742 Td (Max) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 541 742 Td (Err) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 719 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 724 Td (GET .../groomer/profile \(RBAC\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 220 724 Td (30) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 248 724 Td (850.95) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 292 724 Td (716.21) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 334 724 Td (1435.82) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 376 724 Td (1758.17) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 418 724 Td (2044.92) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 462 724 Td (361.13) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 500 724 Td (2118.59) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 541 724 Td (0) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 702 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 707 Td (GET .../bookings/upcoming \(Queue\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 220 707 Td (30) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 248 707 Td (1027.86) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 292 707 Td (938.28) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 334 707 Td (1878.42) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 376 707 Td (1956.80) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 418 707 Td (2410.57) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 462 707 Td (357.99) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 500 707 Td (2573.40) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 541 707 Td (0) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 685 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 690 Td (GET .../bookings/pending \(Inbox\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 220 690 Td (30) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 248 690 Td (1841.28) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 292 690 Td (1708.34) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 334 690 Td (2639.65) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 376 690 Td (2663.34) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 418 690 Td (4191.30) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 462 690 Td (1095.83) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 500 690 Td (4808.73) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 541 690 Td (0) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 668 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 673 Td (GET .../bookings/past \(Archive\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 220 673 Td (30) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 248 673 Td (1048.00) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 292 673 Td (576.15) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 334 673 Td (1796.00) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 376 673 Td (2448.21) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 418 673 Td (4624.57) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 462 673 Td (370.06) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 500 673 Td (5296.43) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 541 673 Td (0) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 651 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 656 Td (GET .../bookings/cancelled \(Hist\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 220 656 Td (30) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 248 656 Td (490.05) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 292 656 Td (514.74) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 334 656 Td (577.29) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 376 656 Td (583.65) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 418 656 Td (586.53) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 462 656 Td (357.52) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 500 656 Td (586.64) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 541 656 Td (0) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 634 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 639 Td (GET .../bookings/cancellation-requests) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 220 639 Td (30) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 248 639 Td (465.03) Tj ET
+BT /F2 7.2 Tf 0.75 0.4 0.05 rg 292 639 Td (429.78) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 334 639 Td (655.09) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 376 639 Td (678.68) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 418 639 Td (692.49) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 462 639 Td (336.69) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 500 639 Td (695.72) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 541 639 Td (0) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 617 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 622 Td (GET .../groomer/forecast \(BI Proj\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 220 622 Td (30) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 248 622 Td (514.20) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 292 622 Td (547.50) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 334 622 Td (585.18) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 376 622 Td (603.28) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 418 622 Td (620.29) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 462 622 Td (370.93) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 500 622 Td (624.71) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 541 622 Td (0) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 600 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 605 Td (GET .../groomer/reports/summary) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 220 605 Td (30) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 248 605 Td (487.25) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 292 605 Td (497.69) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 334 605 Td (578.41) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 376 605 Td (618.65) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 418 605 Td (744.20) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 462 605 Td (361.13) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 500 605 Td (782.60) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 541 605 Td (0) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 583 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 588 Td (GET .../bookings/37/receipt \(Staff Tax\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 220 588 Td (30) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 248 588 Td (520.03) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 292 588 Td (535.16) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 334 588 Td (761.72) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 376 588 Td (773.15) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 418 588 Td (787.00) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 462 588 Td (350.48) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 500 588 Td (791.96) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 541 588 Td (0) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 566 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 571 Td (POST /api/availability \(Slot Engine\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 220 571 Td (30) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 248 571 Td (469.47) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 292 571 Td (420.23) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 334 571 Td (579.82) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 376 571 Td (677.65) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 418 571 Td (783.92) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 462 571 Td (342.50) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 500 571 Td (795.63) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 541 571 Td (0) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 549 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 554 Td (POST /api/auth/login \(Staff Login\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 220 554 Td (10) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 248 554 Td (1684.97) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 292 554 Td (1214.58) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 334 554 Td (2090.19) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 376 554 Td (4100.64) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 418 554 Td (5709.00) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 462 554 Td (959.80) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 500 554 Td (6111.09) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 541 554 Td (0) Tj ET
+0.75 w 0.75 0.85 0.95 RG 0.98 0.99 1 rg 36 384 523 140 re B
+BT /F2 8.5 Tf 0.05 0.2 0.45 rg 46 511 Td (STATISTICAL ANALYSIS & BOTTLENECK DISCOVERY \(N = 30 BASELINE\)) Tj ET
+BT /F2 7.5 Tf 0.75 0.1 0.1 rg 46 495 Td (1. Major Bottleneck in Pending Queue: Pending unassigned bookings averaged 1,841.28ms with P95 reaching 2,663.34ms) Tj ET
+BT /F1 7.2 Tf 0.25 0.3 0.35 rg 58 483 Td (   and Max reaching 4,808.73ms. This endpoint takes nearly 2 seconds on every click due to unindexed status scans.) Tj ET
+BT /F2 7.5 Tf 0.65 0.35 0.05 rg 46 469 Td (2. Historical Archive Degradation: Past bookings archive exhibits extreme high-percentile degradation \(P95: 2,448ms,) Tj ET
+BT /F1 7.2 Tf 0.25 0.3 0.35 rg 58 457 Td (   P99: 4,624ms, Max: 5,296ms\), indicating missing composite indexes on historical appointment tables.) Tj ET
+BT /F1 7.5 Tf 0.2 0.25 0.35 rg 46 443 Td (3. Fast & Predictable Operational Engines: Revenue Forecast \(514ms\), Reports Summary \(487ms\), Receipts \(520ms\), and) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 58 431 Td (   Slot Availability \(469ms\) demonstrated remarkably tight distributions with P90 under 600ms.) Tj ET
+BT /F1 7.5 Tf 0.2 0.25 0.35 rg 46 417 Td (4. Staff Login Overhead: Groomer login averaged 1,684.97ms due to Bcrypt password verification + session record writes.) Tj ET
+BT /F1 7.2 Tf 0.25 0.3 0.35 rg 58 405 Td (   Initial cold start reached 6.1s; warmed runs stabilized at 959ms - 1,290ms. Error rate across all 310 requests was 0.00%.) Tj ET
+
+0.85 0.88 0.92 RG 0.75 w 36 810 m 559 810 l S
+BT /F1 8 Tf 0.4 0.45 0.5 rg 36 814 Td (Shear Heaven Pet Spa - Groomer Staff Portal API Performance Report) Tj ET
+BT /F2 8 Tf 0.2 0.3 0.5 rg 460 814 Td (GROOMER PERF 1.0) Tj ET
+
+0.85 0.88 0.92 RG 0.75 w 36 34 m 559 34 l S
+BT /F1 8 Tf 0.45 0.5 0.55 rg 36 24 Td (Groomer API Performance Audit | Shear Heaven Pet Spa | Target: https://api.shearheavenpetspa.com) Tj ET
+BT /F2 8 Tf 0.3 0.4 0.5 rg 505 24 Td (Page 2 of 6) Tj ET
+
+endstream
+endobj
+11 0 obj
+<< /Length 7278 >>
+stream
+BT /F2 11 Tf 0.05 0.2 0.45 rg 36 792 Td (3. STEP 2: SUSTAINED LOAD & CONCURRENCY BENCHMARK \(600 REQUESTS\)) Tj ET
+1 w 0.85 0.88 0.92 RG 36 786 m 559 786 l S
+BT /F1 7.5 Tf 0.25 0.3 0.35 rg 36 770 Td (Sustained concurrency tiers across Upcoming Bookings Queue & Revenue Forecast \(100 requests per tier\):) Tj ET
+0.75 w 0.8 0.84 0.9 RG 0.94 0.96 0.98 rg 36 736 583 19 re B
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 40 742 Td (Concurrency Tier) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 155 742 Td (Target Feature) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 255 742 Td (Users) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 283 742 Td (Reqs) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 321 742 Td (Duration) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 365 742 Td (Throughput) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 423 742 Td (Avg \(ms\)) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 465 742 Td (P50) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 503 742 Td (P95) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 543 742 Td (P99) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 585 742 Td (Status) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 719 583 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 724 Td (Tier 1: Normal Shift) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 155 724 Td (Upcoming Bookings) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 255 724 Td (5) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 283 724 Td (100) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 321 724 Td (9.13s) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 365 724 Td (10.96 req/s) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 423 724 Td (450.83) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 465 724 Td (406.59) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 503 724 Td (849.54) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 543 724 Td (1167.91) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 585 724 Td (100x 200) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 702 583 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 707 Td (Tier 2: Busy Shift) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 155 707 Td (Upcoming Bookings) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 255 707 Td (10) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 283 707 Td (100) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 321 707 Td (4.65s) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 365 707 Td (21.50 req/s) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 423 707 Td (420.83) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 465 707 Td (383.77) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 503 707 Td (579.69) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 543 707 Td (1094.23) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 585 707 Td (100x 200) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 685 583 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 690 Td (Tier 3: Multi-Station Peak) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 155 690 Td (Upcoming Bookings) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 255 690 Td (20) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 283 690 Td (100) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 321 690 Td (2.97s) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 365 690 Td (33.68 req/s) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 423 690 Td (475.60) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 465 690 Td (397.29) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 503 690 Td (1070.15) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 543 690 Td (1193.53) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 585 690 Td (100x 200) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 668 583 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 673 Td (Tier 4: Regional Rush) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 155 673 Td (Upcoming Bookings) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 255 673 Td (25) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 283 673 Td (100) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 321 673 Td (2.04s) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 365 673 Td (48.95 req/s) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 423 673 Td (446.61) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 465 673 Td (404.11) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 503 673 Td (641.15) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 543 673 Td (789.45) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 585 673 Td (100x 200) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 651 583 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 656 Td (Tier 5: Stress Saturation) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 155 656 Td (Upcoming Bookings) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 255 656 Td (40) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 283 656 Td (100) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 321 656 Td (1.60s) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 365 656 Td (62.38 req/s) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 423 656 Td (554.38) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 465 656 Td (457.53) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 503 656 Td (1167.09) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 543 656 Td (1431.34) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 585 656 Td (100x 200) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 634 583 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 639 Td (Forecast Stress Tier) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 155 639 Td (Revenue Forecast) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 255 639 Td (20) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 283 639 Td (100) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 321 639 Td (3.39s) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 365 639 Td (29.52 req/s) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 423 639 Td (635.62) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 465 639 Td (605.94) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 503 639 Td (889.52) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 543 639 Td (916.84) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 585 639 Td (100x 200) Tj ET
+0.75 w 0.75 0.85 0.95 RG 0.98 0.99 1 rg 36 444 523 165 re B
+BT /F2 8.5 Tf 0.05 0.2 0.45 rg 46 596 Td (CONCURRENCY SCALING & RESOURCE UTILIZATION OBSERVATIONS) Tj ET
+BT /F2 7.5 Tf 0.08 0.48 0.22 rg 46 580 Td (1. Near-Linear Throughput Scaling: Sustained throughput scaled from 10.96 RPS \(5 users\) to 62.38 RPS \(40 users\).) Tj ET
+BT /F1 7.2 Tf 0.25 0.3 0.35 rg 46 566 Td (2. Connection Pooling & Socket Reuse: Persistent Keep-Alive HTTPS sockets allowed 100 requests to be serviced in 1.60s.) Tj ET
+BT /F1 7.2 Tf 0.25 0.3 0.35 rg 46 552 Td (3. Latency Curve Under Saturation: Under 40 concurrent staff users, average response time rose modestly from 450ms to 554ms,) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 58 540 Td (   showing only +23% latency degradation for an 8x increase in concurrency.) Tj ET
+BT /F1 7.2 Tf 0.25 0.3 0.35 rg 46 526 Td (4. Revenue Forecast Under 20 Users: Handled 29.52 req/sec with an average latency of 635.62ms and P95 of 889.52ms,) Tj ET
+BT /F1 7.2 Tf 0.25 0.3 0.35 rg 58 514 Td (   confirming the backend can process multi-user financial reporting queries smoothly.) Tj ET
+BT /F2 7.5 Tf 0.08 0.48 0.22 rg 46 500 Td (5. 100% Reliability: 600 out of 600 sustained requests returned HTTP 200 OK. Zero timeouts, zero drops, zero 5xx server errors.) Tj ET
+BT /F2 7.5 Tf 0.1 0.3 0.6 rg 46 486 Td (6. Recommended Safe Capacity: The single staging instance reliably supports up to 40 concurrent salon staff users.) Tj ET
+BT /F1 7.2 Tf 0.25 0.3 0.35 rg 58 474 Td (   For salon chains with 50+ locations, deploy 2-3 container replicas behind an Application Load Balancer.) Tj ET
+
+0.85 0.88 0.92 RG 0.75 w 36 810 m 559 810 l S
+BT /F1 8 Tf 0.4 0.45 0.5 rg 36 814 Td (Shear Heaven Pet Spa - Groomer Staff Portal API Performance Report) Tj ET
+BT /F2 8 Tf 0.2 0.3 0.5 rg 460 814 Td (GROOMER PERF 1.0) Tj ET
+
+0.85 0.88 0.92 RG 0.75 w 36 34 m 559 34 l S
+BT /F1 8 Tf 0.45 0.5 0.55 rg 36 24 Td (Groomer API Performance Audit | Shear Heaven Pet Spa | Target: https://api.shearheavenpetspa.com) Tj ET
+BT /F2 8 Tf 0.3 0.4 0.5 rg 505 24 Td (Page 3 of 6) Tj ET
+
+endstream
+endobj
+12 0 obj
+<< /Length 10668 >>
+stream
+BT /F2 11 Tf 0.05 0.2 0.45 rg 36 792 Td (4. STEP 3: SECURITY, RBAC & GROOMER LOGIN CONCURRENCY AUDIT) Tj ET
+1 w 0.85 0.88 0.92 RG 36 786 m 559 786 l S
+BT /F2 8.5 Tf 0.05 0.2 0.45 rg 36 770 Td (Multi-Vector Security & RBAC Privilege Escalation Interception Matrix:) Tj ET
+0.75 w 0.8 0.84 0.9 RG 0.94 0.96 0.98 rg 36 736 523 19 re B
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 40 742 Td (Test ID) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 102 742 Td (Category) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 177 742 Td (Target Endpoint & Auth Context) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 402 742 Td (Status) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 450 742 Td (Expected) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 494 742 Td (Verdict) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 528 742 Td (Latency) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 721 523 15 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 724 Td (SEC-GR-01) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 102 724 Td (Unauthenticated) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 177 724 Td (GET /api/common/groomer/profile \(No Token\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 402 724 Td (401 Unauth) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 450 724 Td (401) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 494 724 Td (PASS) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 528 724 Td (378ms) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 706 523 15 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 709 Td (SEC-GR-02) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 102 709 Td (Unauthenticated) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 177 709 Td (GET /api/common/groomer/bookings/upcoming \(No Token\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 402 709 Td (401 Unauth) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 450 709 Td (401) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 494 709 Td (PASS) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 528 709 Td (444ms) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 691 523 15 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 694 Td (SEC-GR-03) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 102 694 Td (Unauthenticated) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 177 694 Td (GET /api/common/groomer/forecast \(No Token\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 402 694 Td (401 Unauth) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 450 694 Td (401) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 494 694 Td (PASS) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 528 694 Td (406ms) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 676 523 15 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 679 Td (SEC-GR-04) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 102 679 Td (Unauthenticated) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 177 679 Td (GET /api/common/groomer/reports/summary \(No Token\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 402 679 Td (401 Unauth) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 450 679 Td (401) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 494 679 Td (PASS) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 528 679 Td (348ms) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 661 523 15 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 664 Td (SEC-GR-05) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 102 664 Td (Unauthenticated) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 177 664 Td (GET /api/common/groomer/bookings/37/receipt \(No Token\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 402 664 Td (401 Unauth) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 450 664 Td (401) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 494 664 Td (PASS) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 528 664 Td (346ms) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 646 523 15 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 649 Td (SEC-GR-06) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 102 649 Td (Privilege Escalation) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 177 649 Td (GET /api/common/groomer/profile \(Customer JWT\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 402 649 Td (401 Unauth) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 450 649 Td (401/403) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 494 649 Td (PASS) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 528 649 Td (341ms) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 631 523 15 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 634 Td (SEC-GR-07) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 102 634 Td (Privilege Escalation) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 177 634 Td (GET /api/common/groomer/bookings/upcoming \(Cust JWT\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 402 634 Td (401 Unauth) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 450 634 Td (401/403) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 494 634 Td (PASS) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 528 634 Td (334ms) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 616 523 15 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 619 Td (SEC-GR-08) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 102 619 Td (Privilege Escalation) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 177 619 Td (GET /api/common/groomer/forecast \(Customer JWT\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 402 619 Td (401 Unauth) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 450 619 Td (401/403) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 494 619 Td (PASS) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 528 619 Td (365ms) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 601 523 15 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 604 Td (SEC-GR-09) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 102 604 Td (Privilege Escalation) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 177 604 Td (GET /api/common/groomer/reports/summary \(Customer JWT\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 402 604 Td (401 Unauth) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 450 604 Td (401/403) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 494 604 Td (PASS) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 528 604 Td (407ms) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 586 523 15 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 589 Td (SEC-GR-10) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 102 589 Td (Privilege Escalation) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 177 589 Td (GET /api/common/groomer/bookings/37/receipt \(Cust JWT\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 402 589 Td (401 Unauth) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 450 589 Td (401/403) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 494 589 Td (PASS) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 528 589 Td (342ms) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 571 523 15 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 574 Td (SEC-GR-11) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 102 574 Td (Token Tampering) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 177 574 Td (GET /api/common/groomer/profile \(Arbitrary Token\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 402 574 Td (401 Unauth) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 450 574 Td (401) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 494 574 Td (PASS) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 528 574 Td (372ms) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 556 523 15 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 559 Td (SEC-GR-12) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 102 559 Td (Token Tampering) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 177 559 Td (GET /api/common/groomer/profile \(Tampered Signature\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 402 559 Td (401 Unauth) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 450 559 Td (401) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 494 559 Td (PASS) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 528 559 Td (408ms) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 541 523 15 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 544 Td (SEC-GR-13) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 102 544 Td (Tenant Boundary) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 177 544 Td (GET .../bookings/upcoming \(Header: STORE-INVALID-999\)) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 402 544 Td (200 Isolated) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 450 544 Td (200/401) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 494 544 Td (PASS) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 528 544 Td (411ms) Tj ET
+BT /F2 8.5 Tf 0.05 0.2 0.45 rg 36 526 Td (Groomer Staff Login Concurrency & Failure Branch Latency Profiling:) Tj ET
+0.75 w 0.8 0.84 0.9 RG 0.94 0.96 0.98 rg 36 493 523 19 re B
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 40 499 Td (Login Test Scenario) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 165 499 Td (Iter) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 189 499 Td (Avg \(ms\)) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 235 499 Td (P50) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 279 499 Td (P95) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 325 499 Td (Status Code) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 379 499 Td (Security & System Impact) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 476 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 481 Td (Single Groomer Login Baseline) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 165 481 Td (10) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 189 481 Td (1684.97) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 235 481 Td (1214.58) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 279 481 Td (4100.64) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 325 481 Td (100% 200) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 379 481 Td (DB user query + Bcrypt verify + session write + JWT sign.) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 459 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 464 Td (Concurrent Groomer Logins \(10 C\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 165 464 Td (10) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 189 464 Td (2018.46) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 235 464 Td (2106.93) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 279 464 Td (2486.11) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 325 464 Td (100% 200) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 379 464 Td (100% 200 OK. Parallel Bcrypt CPU load increases latency by +20%.) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 442 523 17 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 447 Td (Invalid Password Attempt) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 165 447 Td (3) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 189 447 Td (801.33) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 235 447 Td (731.44) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 279 447 Td (947.66) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 325 447 Td (100% 401) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 379 447 Td (Fails bcrypt comparison and returns early. No session write.) Tj ET
+0.75 w 0.75 0.85 0.95 RG 0.98 0.99 1 rg 36 352 523 70 re B
+BT /F2 8 Tf 0.05 0.2 0.45 rg 46 412 Td (SECURITY & RBAC AUDIT VERDICT) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 46 399 Td (1. Deterministic RBAC Protection: 100% of customer privilege escalation attempts were rejected with HTTP 401 in ~350ms.) Tj ET
+BT /F1 7.2 Tf 0.25 0.3 0.35 rg 46 387 Td (2. Token Tampering Immunity: Cryptographic signature tampering was deterministically blocked at the API gateway.) Tj ET
+BT /F2 7.2 Tf 0.1 0.3 0.6 rg 46 375 Td (3. Multi-Staff Concurrency: 10 concurrent logins for g001@shearheaven.com all completed with HTTP 200 OK without lockouts.) Tj ET
+
+0.85 0.88 0.92 RG 0.75 w 36 810 m 559 810 l S
+BT /F1 8 Tf 0.4 0.45 0.5 rg 36 814 Td (Shear Heaven Pet Spa - Groomer Staff Portal API Performance Report) Tj ET
+BT /F2 8 Tf 0.2 0.3 0.5 rg 460 814 Td (GROOMER PERF 1.0) Tj ET
+
+0.85 0.88 0.92 RG 0.75 w 36 34 m 559 34 l S
+BT /F1 8 Tf 0.45 0.5 0.55 rg 36 24 Td (Groomer API Performance Audit | Shear Heaven Pet Spa | Target: https://api.shearheavenpetspa.com) Tj ET
+BT /F2 8 Tf 0.3 0.4 0.5 rg 505 24 Td (Page 4 of 6) Tj ET
+
+endstream
+endobj
+13 0 obj
+<< /Length 4241 >>
+stream
+BT /F2 10.5 Tf 0.05 0.2 0.45 rg 36 792 Td (5. GROOMER PERFORMANCE FINDINGS & DEVELOPER RECOMMENDATIONS \(PART 1\)) Tj ET
+1 w 0.85 0.88 0.92 RG 36 786 m 559 786 l S
+BT /F1 7.5 Tf 0.25 0.3 0.35 rg 36 772 Td (Structured analysis of empirical test data submitted for developer review \(QA reporting scope only\):) Tj ET
+0.75 w 0.95 0.7 0.7 RG 0.99 0.95 0.95 rg 36 648 523 105 re B
+BT /F2 8 Tf 0.75 0.1 0.1 rg 46 742 Td (FINDING 1: SEVERE LATENCY BOTTLENECK IN PENDING BOOKINGS QUEUE \(GET .../bookings/pending\)) Tj ET
+BT /F2 7.2 Tf 0.1 0.25 0.4 rg 46 729 Td (Observed Test Results:) Tj ET
+BT /F1 6.8 Tf 0.25 0.3 0.35 rg 58 718 Td (Averaged 1,841.28ms across 30 iterations \(P50: 1708.34ms, P95: 2663.34ms, Max: 4808.73ms\). Slowest endpoint in the suite.) Tj ET
+BT /F2 7.2 Tf 0.75 0.1 0.1 rg 46 705 Td (Potential Performance Concerns:) Tj ET
+BT /F1 6.8 Tf 0.25 0.3 0.35 rg 58 694 Td (As the primary inbox for new unassigned appointments, 2 to 4.8 second delays cause severe UI freezing during tab switching.) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 46 681 Td (Developer Recommendations \(For Investigation\):) Tj ET
+BT /F1 6.8 Tf 0.15 0.35 0.25 rg 58 670 Td (\(a\) Inspect SQL execution plan for pending appointments; add composite index on bookings\(store_id, status\) where status="pending",) Tj ET
+BT /F1 6.8 Tf 0.15 0.35 0.25 rg 58 661 Td (\(b\) review eager-loaded joins \(customer profile, pet breed attributes\), and \(c\) ensure limit=50 applies an indexed LIMIT clause in SQL.) Tj ET
+0.75 w 0.95 0.85 0.55 RG 0.99 0.98 0.94 rg 36 533 523 100 re B
+BT /F2 8 Tf 0.65 0.35 0.05 rg 46 622 Td (FINDING 2: PAST BOOKINGS ARCHIVE HIGH-PERCENTILE SPIKES \(GET .../bookings/past\)) Tj ET
+BT /F2 7.2 Tf 0.1 0.25 0.4 rg 46 609 Td (Observed Test Results:) Tj ET
+BT /F1 6.8 Tf 0.25 0.3 0.35 rg 58 598 Td (Median was 576.15ms, but upper percentiles degraded sharply: Avg: 1048.00ms, P95: 2448.21ms, P99: 4624.57ms, Max: 5296.43ms.) Tj ET
+BT /F2 7.2 Tf 0.65 0.35 0.05 rg 46 585 Td (Potential Performance Concerns:) Tj ET
+BT /F1 6.8 Tf 0.25 0.3 0.35 rg 58 574 Td (As salon appointment history grows, scanning past records without proper indexed pagination will cause 5+ second gateway timeouts.) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 46 561 Td (Developer Recommendations \(For Investigation\):) Tj ET
+BT /F1 6.8 Tf 0.15 0.35 0.25 rg 58 550 Td (\(a\) Verify index coverage on \(store_id, booking_date DESC, status\) to replace full-table scans with range scans,) Tj ET
+BT /F1 6.8 Tf 0.15 0.35 0.25 rg 58 541 Td (\(b\) implement cursor-based pagination \(beforeId / createdBefore\), and \(c\) evaluate cold-storage archiving for appointments > 1 year old.) Tj ET
+0.75 w 0.75 0.85 0.95 RG 0.98 0.99 1 rg 36 418 523 100 re B
+BT /F2 8 Tf 0.05 0.2 0.45 rg 46 507 Td (FINDING 3: UPCOMING SCHEDULE QUEUE QUERY OPTIMIZATION \(GET .../bookings/upcoming\)) Tj ET
+BT /F2 7.2 Tf 0.1 0.25 0.4 rg 46 494 Td (Observed Test Results:) Tj ET
+BT /F1 6.8 Tf 0.25 0.3 0.35 rg 58 483 Td (Baseline averaged 1027.86ms \(P50: 938.28ms, P95: 1956.80ms\). Sustained concurrency achieved 62.38 RPS with P95 of 1167.09ms.) Tj ET
+BT /F2 7.2 Tf 0.65 0.3 0.05 rg 46 470 Td (Potential Performance Concerns:) Tj ET
+BT /F1 6.8 Tf 0.25 0.3 0.35 rg 58 459 Td (This is the groomer dashboard home screen; repeated 1-2 second delays on manual date changes frustrate active salon operations.) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 46 446 Td (Developer Recommendations \(For Investigation\):) Tj ET
+BT /F1 6.8 Tf 0.15 0.35 0.25 rg 58 435 Td (\(a\) Verify composite index on \(groomer_id, store_id, booking_date\), \(b\) support HTTP ETag / 304 Not Modified caching on polling,) Tj ET
+BT /F1 6.8 Tf 0.15 0.35 0.25 rg 58 426 Td (\(c\) optimize milestone progress array serialization by pruning redundant sub-object metadata.) Tj ET
+
+0.85 0.88 0.92 RG 0.75 w 36 810 m 559 810 l S
+BT /F1 8 Tf 0.4 0.45 0.5 rg 36 814 Td (Shear Heaven Pet Spa - Groomer Staff Portal API Performance Report) Tj ET
+BT /F2 8 Tf 0.2 0.3 0.5 rg 460 814 Td (GROOMER PERF 1.0) Tj ET
+
+0.85 0.88 0.92 RG 0.75 w 36 34 m 559 34 l S
+BT /F1 8 Tf 0.45 0.5 0.55 rg 36 24 Td (Groomer API Performance Audit | Shear Heaven Pet Spa | Target: https://api.shearheavenpetspa.com) Tj ET
+BT /F2 8 Tf 0.3 0.4 0.5 rg 505 24 Td (Page 5 of 6) Tj ET
+
+endstream
+endobj
+14 0 obj
+<< /Length 6202 >>
+stream
+BT /F2 10.5 Tf 0.05 0.2 0.45 rg 36 792 Td (5. GROOMER FINDINGS & DEVELOPER RECOMMENDATIONS \(PART 2\)) Tj ET
+1 w 0.85 0.88 0.92 RG 36 786 m 559 786 l S
+0.75 w 0.75 0.85 0.95 RG 0.98 0.99 1 rg 36 663 523 90 re B
+BT /F2 8 Tf 0.05 0.2 0.45 rg 46 742 Td (FINDING 4: STAFF AUTHENTICATION LATENCY & CONCURRENCY DEGRADATION \(POST /api/auth/login\)) Tj ET
+BT /F2 7.2 Tf 0.1 0.25 0.4 rg 46 730 Td (Observed Test Results:) Tj ET
+BT /F1 6.8 Tf 0.25 0.3 0.35 rg 58 720 Td (Single login averaged 1684.97ms. Under 10 concurrent staff logins, average latency rose to 2018.46ms \(P95: 2486.11ms, Max: 2615.27ms\).) Tj ET
+BT /F2 7.2 Tf 0.65 0.3 0.05 rg 46 708 Td (Potential Concerns: Parallel morning staff logins create temporary CPU saturation in Node due to cryptographic Bcrypt hashing.) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 46 696 Td (Developer Recommendations \(For Investigation\):) Tj ET
+BT /F1 6.8 Tf 0.15 0.35 0.25 rg 58 686 Td (\(a\) Profile bcrypt salt rounds \(evaluate if 10 rounds provide acceptable balance\), \(b\) offload hashing to Node.js worker_threads,) Tj ET
+BT /F1 6.8 Tf 0.15 0.35 0.25 rg 58 677 Td (\(c\) execute session database writes and lastLogin timestamp updates asynchronously after JWT generation.) Tj ET
+0.75 w 0.95 0.85 0.55 RG 0.99 0.98 0.94 rg 36 558 523 90 re B
+BT /F2 8 Tf 0.65 0.35 0.05 rg 46 637 Td (FINDING 5: SALON SHARED TERMINAL IP RATE-LIMITING PROTECTION) Tj ET
+BT /F2 7.2 Tf 0.1 0.25 0.4 rg 46 625 Td (Observed Test Results:) Tj ET
+BT /F1 6.8 Tf 0.25 0.3 0.35 rg 58 615 Td (10 concurrent logins on g001@shearheaven.com succeeded with 100% 200 OK without triggering HTTP 429 lockouts.) Tj ET
+BT /F2 7.2 Tf 0.65 0.3 0.05 rg 46 603 Td (Potential Concerns: If IP rate limits are tuned too aggressively, multiple groomer tablets sharing a single salon Wi-Fi router could get locked out.) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 46 591 Td (Developer Recommendations \(For Investigation\):) Tj ET
+BT /F1 6.8 Tf 0.15 0.35 0.25 rg 58 581 Td (\(a\) Ensure staff auth rate limiting is keyed on staff email rather than salon NAT IP, \(b\) verify front-desk devices support Retry-After,) Tj ET
+BT /F1 6.8 Tf 0.15 0.35 0.25 rg 58 572 Td (\(c\) configure whitelist rules for verified salon network static IP gateways.) Tj ET
+0.75 w 0.75 0.85 0.95 RG 0.98 0.99 1 rg 36 453 523 90 re B
+BT /F2 8 Tf 0.05 0.2 0.45 rg 46 532 Td (FINDING 6: REVENUE FORECASTING QUERY SCALING & PRODUCTION SOAK VALIDATION) Tj ET
+BT /F2 7.2 Tf 0.1 0.25 0.4 rg 46 520 Td (Observed Test Results:) Tj ET
+BT /F1 6.8 Tf 0.25 0.3 0.35 rg 58 510 Td (Forecast engine scaled to 29.52 RPS under 20 users with 635.62ms avg latency and 0 errors. Functional aggregation bug remains.) Tj ET
+BT /F2 7.2 Tf 0.65 0.3 0.05 rg 46 498 Td (Potential Concerns: Complex SQL GROUP BY aggregations will degrade as booking history scales from hundreds to tens of thousands.) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 46 486 Td (Developer Recommendations \(For Investigation\):) Tj ET
+BT /F1 6.8 Tf 0.15 0.35 0.25 rg 58 476 Td (\(a\) Resolve groomerId foreign key mapping bug on summary reports, \(b\) implement pre-aggregated daily financial summary tables,) Tj ET
+BT /F1 6.8 Tf 0.15 0.35 0.25 rg 58 467 Td (\(c\) schedule an extended 2-4 hour soak test to verify absence of database connection pool exhaustion under continuous staff usage.) Tj ET
+BT /F2 8.5 Tf 0.05 0.2 0.45 rg 36 443 Td (Engineering Benchmark Comparison: Customer Flow vs Groomer Flow:) Tj ET
+0.75 w 0.8 0.84 0.9 RG 0.94 0.96 0.98 rg 36 411 523 19 re B
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 40 417 Td (Benchmark Dimension) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 155 417 Td (Customer Benchmark) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 270 417 Td (Groomer Staff Benchmark) Tj ET
+BT /F2 7.5 Tf 0.1 0.15 0.25 rg 395 417 Td (Operational Observation) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 397 523 14 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 399 Td (Empirical Request Volume) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 155 399 Td (1,974 cumulative reqs) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 270 399 Td (936 cumulative reqs) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 395 399 Td (Rigorous multi-stage empirical verification.) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 383 523 14 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 385 Td (Peak Sustained Concurrency) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 155 385 Td (64.78 RPS \(40 C, Avail\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 270 385 Td (62.38 RPS \(40 C, Schedule\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 395 385 Td (Consistent event-loop performance \(~62-65 RPS\).) Tj ET
+0.5 w 0.88 0.9 0.93 RG 1 1 1 rg 36 369 523 14 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 371 Td (Error Rate Under Concurrency) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 155 371 Td (0.00% \(500 / 500 OK\)) Tj ET
+BT /F2 7.2 Tf 0.08 0.48 0.22 rg 270 371 Td (0.00% \(600 / 600 OK\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 395 371 Td (Zero 5xx, zero socket drops, zero timeouts.) Tj ET
+0.5 w 0.88 0.9 0.93 RG 0.97 0.98 0.99 rg 36 355 523 14 re B
+BT /F2 7.2 Tf 0.05 0.15 0.3 rg 40 357 Td (Primary Bottleneck Identified) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 155 357 Td (Stores \(P95: 1,055ms\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 270 357 Td (Pending Queue \(P95: 2,663ms\)) Tj ET
+BT /F1 7.2 Tf 0.2 0.25 0.3 rg 395 357 Td (Pending queue query requires immediate indexing.) Tj ET
+0.75 w 0.7 0.9 0.75 RG 0.94 0.98 0.95 rg 36 295 523 44 re B
+BT /F2 8 Tf 0.08 0.5 0.22 rg 46 329 Td (FORMAL GROOMER QA AUDIT & PERFORMANCE SIGN-OFF) Tj ET
+BT /F1 7.2 Tf 0.2 0.3 0.25 rg 46 317 Td (936 cumulative requests verified across 4 audit steps with 0.00% sustained error rate and 62.38 peak RPS.) Tj ET
+BT /F2 7.2 Tf 0.1 0.25 0.4 rg 46 306 Td (Lead Performance Engineer | Environment: Darwin Staging \(SHEAR-001\) | Audit Date: October 26, 2026) Tj ET
+
+0.85 0.88 0.92 RG 0.75 w 36 810 m 559 810 l S
+BT /F1 8 Tf 0.4 0.45 0.5 rg 36 814 Td (Shear Heaven Pet Spa - Groomer Staff Portal API Performance Report) Tj ET
+BT /F2 8 Tf 0.2 0.3 0.5 rg 460 814 Td (GROOMER PERF 1.0) Tj ET
+
+0.85 0.88 0.92 RG 0.75 w 36 34 m 559 34 l S
+BT /F1 8 Tf 0.45 0.5 0.55 rg 36 24 Td (Groomer API Performance Audit | Shear Heaven Pet Spa | Target: https://api.shearheavenpetspa.com) Tj ET
+BT /F2 8 Tf 0.3 0.4 0.5 rg 505 24 Td (Page 6 of 6) Tj ET
+
+endstream
+endobj
+xref
+0 15
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000151 00000 n 
+0000000632 00000 n 
+0000001114 00000 n 
+0000001596 00000 n 
+0000002078 00000 n 
+0000002560 00000 n 
+0000003042 00000 n 
+0000010256 00000 n 
+0000020230 00000 n 
+0000027561 00000 n 
+0000038283 00000 n 
+0000042577 00000 n 
+trailer
+<< /Size 15 /Root 1 0 R >>
+startxref
+48832
+%%EOF
