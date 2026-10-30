@@ -1,8 +1,71 @@
-Coupon will have a unique six digit code with all capital letter and digit.
-There must a start and expiry date
-value of the coupon can be 10% on services 15% on packages or $5 on service or $25 on packages
+Task: Update the New Service Form UI and Validation
 
-When the customer checkout they can select coupon and enter this coupon code to get the discounts
-Groomers are normally work based on commissions or hourly salary, so when we create groomer profile we need to set the employment type as commission based or hourly salary.
+Modify the existing New Service creation form based on the provided screenshot. Make only the requested changes and preserve the existing UI design and functionality wherever possible.
 
-Also we need to have a settings in payroll settings where we need to configure how the commission will be calculated, whether that is based on original amount (which is before any discount) or after discount amount.
+1. Add an Add Button
+
+In the pricing table under the Size and Weight tier sections:
+
+Add an Add (+) button that allows users to add a new pricing row.
+
+Position the button clearly near the pricing table.
+
+When clicked, append a new editable row with the required fields, such as Price and Duration.
+
+Ensure the new row can be configured and saved along with the service.
+
+If the application supports configurable tier names or keys, allow the user to enter the required values for the new tier.
+
+Ensure newly added rows are saved correctly and displayed when the service is reopened.
+
+2. Add a Delete Button
+
+Add a Delete/Remove button to each pricing row.
+
+Clicking the button should remove the corresponding row.
+
+Do not remove or modify other rows accidentally.
+
+Ensure deleted rows are excluded when the service is saved.
+
+If the user removes a row accidentally, allow them to add it again before saving.
+
+Show a confirmation dialog only if required by the existing UI conventions.
+
+3. Remove Unnecessary Validation
+
+Review the validation rules applied to the New Service form, particularly the Size/Weight pricing table.
+
+Remove unnecessary or overly restrictive validation that prevents users from adding, editing, or deleting pricing rows.
+
+Do not enforce a fixed number of pricing rows if the requirement is to allow users to add or remove tiers dynamically.
+
+Remove hardcoded restrictions that prevent valid custom tier configurations.
+
+Ensure the form does not display validation errors for valid inputs.
+
+Keep essential validation for genuinely invalid data, such as non-numeric prices, negative prices, invalid durations, or missing mandatory fields.
+
+Do not remove backend validation or security checks that protect data integrity.
+
+4. Verify Both Size and Weight Modes
+
+Test the changes in both sections:
+
+Size (4 tiers)
+
+Add a new size pricing row.
+
+Enter a valid price and duration.
+
+Delete an existing row.
+
+Verify that the correct rows remain.
+
+Weight (4 tiers)
+
+Repeat the same Add, Edit, and Delete operations.
+
+Verify that the changes work independently in Weight mode.
+
+Also verify that switching between Size and Weight does not accidentally overwrite or mix up their pricing data.
