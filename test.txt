@@ -1,5 +1,11 @@
-oksana and malany every endtime 2pm 
-oksana statrtime 7.30  sunday 8
-malany start 8  end at 2pm
-richard and marisa traice  stsrt time 8.30  end time 4.30
-anbu ith azure la thada
+BUG 06 – Groomer Reassignment Allowed After Service Completion
+Appointment ID: #132
+
+Actual Result:
+•⁠  ⁠After all service milestones are completed, the system still allows the admin to reassign the service to another groomer.
+•⁠  ⁠The groomer assignment dropdown remains enabled.
+•⁠  ⁠The admin can select another groomer even though the service has already been completed.
+Expected Result:
+•⁠  ⁠Once all service milestones are completed, the system should not allow groomer reassignment.
+•⁠  ⁠The groomer assignment dropdown should be disabled after service completion.
+•⁠  ⁠The completed appointment should retain its original groomer assignment.
