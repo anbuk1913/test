@@ -1,28 +1,14 @@
-BUG 05 – Duplicate Grooming Completed Option in Milestone Dropdown
-Module: Groomer Portal → Appointment Details → Visit Steps
-Appointment ID: #132
+BUG 07 – Completed Service Revenue Not Updated Under Assigned Groomer in Financial Report
+Module: Groomer Portal → Forecast & Reports → By Groomer
+
+Groomer Name: Merisa Brown
 
 Actual Result:
-•⁠  ⁠The Grooming Completed option is displayed twice in the milestone dropdown.
-•⁠  ⁠One option displays a tick mark (✓), while the other does not.
-•⁠  ⁠After selecting Grooming In Progress and applying it, the Grooming Completed option can still be selected again.
+•⁠  ⁠A service was completed using groomer Merisa Brown.
+•⁠  ⁠However, the Financial Report does not reflect the completed service under Merisa Brown.
+•⁠  ⁠Merisa Brown's report shows 3 visits, 0 completed services and $0.00 service sales.
+•⁠  ⁠The completed service and its revenue are not reflected under Merisa Brown in the groomer-wise financial summary.
 Expected Result:
-•⁠  ⁠The Grooming Completed option should be displayed only once in the milestone dropdown.
-•⁠  ⁠Once a milestone is completed, it should be marked as completed and should not appear as a duplicate option.
-•⁠  ⁠The milestone dropdown should display the correct status based on the appointment's current progress.
-
-
-
-
-
-BUG 06 – Groomer Reassignment Allowed After Service Completion
-Appointment ID: #132
-
-Actual Result:
-•⁠  ⁠After all service milestones are completed, the system still allows the admin to reassign the service to another groomer.
-•⁠  ⁠The groomer assignment dropdown remains enabled.
-•⁠  ⁠The admin can select another groomer even though the service has already been completed.
-Expected Result:
-•⁠  ⁠Once all service milestones are completed, the system should not allow groomer reassignment.
-•⁠  ⁠The groomer assignment dropdown should be disabled after service completion.
-•⁠  ⁠The completed appointment should retain its original groomer assignment.
+•⁠  ⁠Once Merisa Brown completes a service, the Financial Report should automatically update her completed service count.
+•⁠  ⁠The service sales, tax collected and total collected amount should be reflected under Merisa Brown.
+•⁠  ⁠The financial report should correctly attribute the completed service revenue to the groomer who performed the service.
