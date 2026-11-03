@@ -1,34 +1,5 @@
-DEF-ADM-002: Admin Portal Redundant 404 Consumer API Calls — ❌ NOT FIXED (Open)
-
-  
-
-  
-Network Finding: During navigation inside the Admin Portal, the frontend client triggered 15 calls to consumer endpoints that do not exist on the admin API gateway:
-  
-  
-
-  
-GET https://uatadminapi.mycarepedia.com/doctor/topCard -> 404 Not Found
-
-  
-GET https://uatadminapi.mycarepedia.com/doctor/commontext -> 404 Not Found
-
-  
-
-  
-Engineering Fix Needed: Remove consumer marketing component hooks/polling from the admin dashboard bundle.
-
-
-
-
-
-
-
-
-
-1. Patient Login & Signup API Verification
-API-PAT-01: Patient Login SUBMIT Debounce — ❌ NOT FIXED (Open)
-Test Flow: Navigated to homepage -> opened Patient Login modal -> entered credentials -> executed rapid double-click on SUBMIT.
-Network Finding: Intercepted 2 concurrent POST https://devapipm.mycarepedia.com/login requests within 25ms.
-UI Finding: The submit button element does not transition to disabled and shows no loading indicator while the initial request is in-flight.
-Engineering Fix Needed: Implement disabled={isSubmitting} and a synchronous submission lock in PatientLoginModal.jsx
+oksana and malany every endtime 2pm 
+oksana statrtime 7.30  sunday 8
+malany start 8  end at 2pm
+richard and marisa traice  stsrt time 8.30  end time 4.30
+anbu ith azure la thada
