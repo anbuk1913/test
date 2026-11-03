@@ -1,71 +1,34 @@
-Task: Update the New Service Form UI and Validation
+DEF-ADM-002: Admin Portal Redundant 404 Consumer API Calls — ❌ NOT FIXED (Open)
 
-Modify the existing New Service creation form based on the provided screenshot. Make only the requested changes and preserve the existing UI design and functionality wherever possible.
+  
 
-1. Add an Add Button
+  
+Network Finding: During navigation inside the Admin Portal, the frontend client triggered 15 calls to consumer endpoints that do not exist on the admin API gateway:
+  
+  
 
-In the pricing table under the Size and Weight tier sections:
+  
+GET https://uatadminapi.mycarepedia.com/doctor/topCard -> 404 Not Found
 
-Add an Add (+) button that allows users to add a new pricing row.
+  
+GET https://uatadminapi.mycarepedia.com/doctor/commontext -> 404 Not Found
 
-Position the button clearly near the pricing table.
+  
 
-When clicked, append a new editable row with the required fields, such as Price and Duration.
+  
+Engineering Fix Needed: Remove consumer marketing component hooks/polling from the admin dashboard bundle.
 
-Ensure the new row can be configured and saved along with the service.
 
-If the application supports configurable tier names or keys, allow the user to enter the required values for the new tier.
 
-Ensure newly added rows are saved correctly and displayed when the service is reopened.
 
-2. Add a Delete Button
 
-Add a Delete/Remove button to each pricing row.
 
-Clicking the button should remove the corresponding row.
 
-Do not remove or modify other rows accidentally.
 
-Ensure deleted rows are excluded when the service is saved.
 
-If the user removes a row accidentally, allow them to add it again before saving.
-
-Show a confirmation dialog only if required by the existing UI conventions.
-
-3. Remove Unnecessary Validation
-
-Review the validation rules applied to the New Service form, particularly the Size/Weight pricing table.
-
-Remove unnecessary or overly restrictive validation that prevents users from adding, editing, or deleting pricing rows.
-
-Do not enforce a fixed number of pricing rows if the requirement is to allow users to add or remove tiers dynamically.
-
-Remove hardcoded restrictions that prevent valid custom tier configurations.
-
-Ensure the form does not display validation errors for valid inputs.
-
-Keep essential validation for genuinely invalid data, such as non-numeric prices, negative prices, invalid durations, or missing mandatory fields.
-
-Do not remove backend validation or security checks that protect data integrity.
-
-4. Verify Both Size and Weight Modes
-
-Test the changes in both sections:
-
-Size (4 tiers)
-
-Add a new size pricing row.
-
-Enter a valid price and duration.
-
-Delete an existing row.
-
-Verify that the correct rows remain.
-
-Weight (4 tiers)
-
-Repeat the same Add, Edit, and Delete operations.
-
-Verify that the changes work independently in Weight mode.
-
-Also verify that switching between Size and Weight does not accidentally overwrite or mix up their pricing data.
+1. Patient Login & Signup API Verification
+API-PAT-01: Patient Login SUBMIT Debounce — ❌ NOT FIXED (Open)
+Test Flow: Navigated to homepage -> opened Patient Login modal -> entered credentials -> executed rapid double-click on SUBMIT.
+Network Finding: Intercepted 2 concurrent POST https://devapipm.mycarepedia.com/login requests within 25ms.
+UI Finding: The submit button element does not transition to disabled and shows no loading indicator while the initial request is in-flight.
+Engineering Fix Needed: Implement disabled={isSubmitting} and a synchronous submission lock in PatientLoginModal.jsx
