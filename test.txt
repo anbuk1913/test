@@ -1,3 +1,20 @@
+BUG 05 – Duplicate Grooming Completed Option in Milestone Dropdown
+Module: Groomer Portal → Appointment Details → Visit Steps
+Appointment ID: #132
+
+Actual Result:
+•⁠  ⁠The Grooming Completed option is displayed twice in the milestone dropdown.
+•⁠  ⁠One option displays a tick mark (✓), while the other does not.
+•⁠  ⁠After selecting Grooming In Progress and applying it, the Grooming Completed option can still be selected again.
+Expected Result:
+•⁠  ⁠The Grooming Completed option should be displayed only once in the milestone dropdown.
+•⁠  ⁠Once a milestone is completed, it should be marked as completed and should not appear as a duplicate option.
+•⁠  ⁠The milestone dropdown should display the correct status based on the appointment's current progress.
+
+
+
+
+
 BUG 06 – Groomer Reassignment Allowed After Service Completion
 Appointment ID: #132
 
