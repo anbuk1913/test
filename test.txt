@@ -1,7 +1,8 @@
-ssue: Future Dates – Entire Working Day Displayed as Lunch Break
+issue: Decline Booking Confirmation Popup Displays the Website URL Instead of a Proper Dialog Title
+Actual Result:
 
-For the future dates (10-Nov-2026 and 11-Nov-2026), the entire working duration (08:00 AM to 05:30 PM) is incorrectly displayed as a Lunch Break. All 60-minute time slots are marked as Break, and no available booking slots are displayed, even though the groomer is configured as a working day.
+When clicking the Decline button for a booking request in the Groomer Portal, the confirmation popup displays the website URL (pcmdev.shearheavenpetspa.com says) as the dialog title instead of a proper application name or meaningful title. The popup asks, "Decline this booking request?" but uses the browser's default alert style.
 
 Expected Result:
-•⁠  ⁠Only the configured lunch break duration should display as Break.
-•⁠  ⁠Remaining working hours should display as Available.
+
+When the groomer clicks the Decline button, the system should display a properly designed, application-branded confirmation dialog instead of the browser's default alert showing the website URL. The dialog should clearly ask for confirmation to decline the booking, with Confirm and Cancel options.
