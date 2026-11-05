@@ -1,23 +1,7 @@
-One more change we need to do in the form. 
-Each groomer can have different time in each days. 
-Example:
-Groomer: Oksana 
-Monday stat at 7:00am - 2:00pm
-Sunday start at 8:00am - 1:00pm
+ssue: Future Dates – Entire Working Day Displayed as Lunch Break
 
+For the future dates (10-Nov-2026 and 11-Nov-2026), the entire working duration (08:00 AM to 05:30 PM) is incorrectly displayed as a Lunch Break. All 60-minute time slots are marked as Break, and no available booking slots are displayed, even though the groomer is configured as a working day.
 
-
-Defect: UI BUG 04 – Groomer Slot Calendar Grid Missing Break Badges & Labels
-Module: Groomer Portal → My Availability → Slot Calendar Tab (Weekly Overview)
-Stylist & Store: Richard Cooke (SHEAR-001 / DWG-001)
-
-Actual Result
-Completely Blank Blocks: The calendar grid displays plain, empty, blank column blocks with no badge, icon, chip, or label.
-No Tooltips or Explanations: There is no tooltip or hover text explaining why the time period is blocked.
-Lack of Operational Visibility: Groomers cannot identify what the blocked block represents unless they navigate away from the visual calendar grid to the "Time Off & Breaks" list view.
-DOM Inspection Evidence: Inspection of the calendar table confirmed 0 badge elements and 0 break-related text tokens (hasLunchKeyword: false, hasChips: false).
-
-Expected Result
-Visible Badges / Chips: When a groomer configures a scheduled break (e.g., Lunch Break 12:00 PM – 1:00 PM) or partial leave (e.g., Personal Time Off 10:00 AM – 12:00 PM), the weekly calendar grid should display an informational badge or chip directly inside the blocked time slot (e.g., 🍽️ Lunch Break 12:00 – 1:00 PM).
-Tooltips & Details: Hovering over or clicking the block should reveal full details, including the break title, time range, and reason.
-Schedule Clarity: Groomers should be able to see their entire daily schedule at a glance and immediately distinguish between an unbooked open slot, a salon closure, and an active break without switching tabs.
+Expected Result:
+•⁠  ⁠Only the configured lunch break duration should display as Break.
+•⁠  ⁠Remaining working hours should display as Available.
