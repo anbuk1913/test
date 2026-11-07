@@ -1,7 +1,20 @@
-Issue: Future Dates – Entire Working Day Displayed as Lunch Break
+List of value table:
+Category 
+Sub category
+Code
+Display text 
+description 
+Label
+Active 
+—————————-
+Category subcategory display text
+Species  speciesType Dog
+Species  speciesType Cat
+Pet PetPersonality Biter
+Pet PetPersonality Barker
+Pet PetPersonality aggressive
+Pet PetPersonality Shy
 
-For the future dates (10-Nov-2026 and 11-Nov-2026), the entire working duration (08:00 AM to 05:30 PM) is incorrectly displayed as a Lunch Break. All 60-minute time slots are marked as Break, and no available booking slots are displayed, even though the groomer is configured as a working day.
 
-Expected Result:
-•⁠  ⁠Only the configured lunch break duration should display as Break.
-•⁠  ⁠Remaining working hours should display as Available.
+
+These are information we need to collect and we also need to provide a printing options.
