@@ -1,26 +1,21 @@
-### Groomer Appointment Book – Multiple Booking Display Enhancement
+**Bug Fix: Incorrect Appointment Duration Display in Groomer – Book for Customer**
 
-**Current Issue:**
+In the Groomer Portal → Book for Customer page, I selected the **Grooming · 60 min** service. However, the available time slots section displays **75 min appointment · $85**.
 
-In the Groomer Appointment Book, when multiple bookings are scheduled for the same date and time slot, the UI does not properly display all bookings.
+**Expected Behaviour:**
+- When a 60-minute Grooming service is selected, the appointment duration should display as **60 min**.
+- The displayed appointment duration must match the selected service's configured duration.
+- The appointment price should also correspond to the selected service and any applicable add-ons or package selections.
 
-**Example:**
-- Date: 18th November 2026
-- Time Slot: 1:00 PM – 2:00 PM
-- Total Bookings: 4
-- All 4 bookings belong to the same groomer and have the same time slot.
+**Required Fix:**
+1. Trace how the appointment duration is calculated and displayed.
+2. Check whether an additional 15 minutes is being added from buffer time, cleanup time, or another duration configuration.
+3. Ensure the service duration and appointment duration are handled correctly.
+4. Do not hardcode the duration to 60 minutes.
+5. Verify that changing services dynamically updates the displayed duration.
+6. Ensure the available time slots and actual booking duration use consistent values.
+7. Check that existing buffer-time logic is preserved if it is intentionally required for scheduling.
 
-**Expected Enhancement:**
+**Important:** Fix the root cause rather than just changing the UI text. Do not break existing booking, availability, or scheduling functionality.
 
-1. All 4 bookings should be displayed within the same time slot in the Groomer Appointment Book.
-2. The UI should dynamically accommodate multiple bookings without overlapping or hiding appointment details.
-3. Display all bookings clearly with their respective service names, customer names, and booking details.
-4. If multiple bookings exist in the same time slot, arrange them in a readable layout (stacked cards or another suitable layout).
-5. Ensure the calendar UI remains responsive and visually consistent.
-6. Do not break the existing calendar layout, appointment navigation, date selection, or other booking functionalities.
-
-**Important:**
-
-This is a UI display enhancement only. Do not change the existing booking logic, API response, or appointment data. All bookings must be displayed correctly without affecting the current UI design or existing functionality.
-
-**Expected Result:** If 4 bookings exist in the same groomer, date, and time slot, all 4 appointments should be visible clearly in the Groomer Appointment Book without overlapping or UI distortion.
+After fixing, test multiple services with different configured durations and verify both UI display and actual booking behaviour.
