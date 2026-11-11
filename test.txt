@@ -1,21 +1,13 @@
-**Bug Fix: Incorrect Appointment Duration Display in Groomer – Book for Customer**
+Appointment Book Week Date Range Mismatch
+Module: Groomer Portal → Appointment Book → Week Calendar
 
-In the Groomer Portal → Book for Customer page, I selected the **Grooming · 60 min** service. However, the available time slots section displays **75 min appointment · $85**.
-
-**Expected Behaviour:**
-- When a 60-minute Grooming service is selected, the appointment duration should display as **60 min**.
-- The displayed appointment duration must match the selected service's configured duration.
-- The appointment price should also correspond to the selected service and any applicable add-ons or package selections.
-
-**Required Fix:**
-1. Trace how the appointment duration is calculated and displayed.
-2. Check whether an additional 15 minutes is being added from buffer time, cleanup time, or another duration configuration.
-3. Ensure the service duration and appointment duration are handled correctly.
-4. Do not hardcode the duration to 60 minutes.
-5. Verify that changing services dynamically updates the displayed duration.
-6. Ensure the available time slots and actual booking duration use consistent values.
-7. Check that existing buffer-time logic is preserved if it is intentionally required for scheduling.
-
-**Important:** Fix the root cause rather than just changing the UI text. Do not break existing booking, availability, or scheduling functionality.
-
-After fixing, test multiple services with different configured durations and verify both UI display and actual booking behaviour.
+Actual Result:
+•⁠  ⁠The week date range displays 2026-11-08 to 2026-11-13.
+•⁠  ⁠However, the calendar displays appointments for 7 days (November 08 to November 14).
+•⁠  ⁠November 14 is displayed in the calendar even though it is not included in the selected week date range.
+•⁠  ⁠The week range and calendar date columns are inconsistent.
+Expected Result:
+•⁠  ⁠The week date range and calendar columns should display the same dates.
+•⁠  ⁠If the selected range is November 08 to November 13, only those 6 days should be displayed.
+•⁠  ⁠Alternatively, if the calendar is designed to show 7 days, the date range should display November 08 to November 14.
+Impact: Groomers may get confused about the selected week and appointment schedules.
