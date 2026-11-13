@@ -1,13 +1,21 @@
-Appointment Book Week Date Range Mismatch
-Module: Groomer Portal → Appointment Book → Week Calendar
+n the Groomer Portal → Appointment Book page, there is an issue with the appointment details card displayed when hovering over an appointment time-slot card.
 
-Actual Result:
-•⁠  ⁠The week date range displays 2026-11-08 to 2026-11-13.
-•⁠  ⁠However, the calendar displays appointments for 7 days (November 08 to November 14).
-•⁠  ⁠November 14 is displayed in the calendar even though it is not included in the selected week date range.
-•⁠  ⁠The week range and calendar date columns are inconsistent.
-Expected Result:
-•⁠  ⁠The week date range and calendar columns should display the same dates.
-•⁠  ⁠If the selected range is November 08 to November 13, only those 6 days should be displayed.
-•⁠  ⁠Alternatively, if the calendar is designed to show 7 days, the date range should display November 08 to November 14.
-Impact: Groomers may get confused about the selected week and appointment schedules.
+*Issue Description:*
+When hovering over an appointment card in the calendar, the popup displays appointment details incorrectly. The information shown in the hover details does not appear to be displayed correctly for the selected appointment.
+
+*Required Fix:*
+1.⁠ ⁠Verify the hover interaction for every appointment card.
+2.⁠ ⁠Ensure the popup displays the correct details for the exact appointment being hovered.
+3.⁠ ⁠Verify the appointment ID, time slot, duration, customer name, phone number, pet name, breed, service name and appointment status.
+4.⁠ ⁠Ensure details are mapped to the correct appointment and are not mixed with another appointment's data.
+5.⁠ ⁠Check that all details are properly aligned, readable and displayed without overlapping or clipping.
+6.⁠ ⁠Ensure the popup remains stable when hovering over different appointment cards.
+7.⁠ ⁠Verify the behaviour for all appointment statuses: Confirmed, Completed, Pending, Follow Up / In Progress and Cancelled.
+
+*Important:*
+•⁠  ⁠Identify the root cause and fix the issue.
+•⁠  ⁠Do not modify existing appointment data or booking functionality.
+•⁠  ⁠Preserve the existing UI design.
+•⁠  ⁠Retest the hover details using multiple appointments and different time slots.
+
+*Expected Result:* When hovering over any appointment card, the popup should display all details correctly and consistently for that specific appointment.
