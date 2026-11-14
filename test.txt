@@ -1,21 +1,76 @@
-n the Groomer Portal → Appointment Book page, there is an issue with the appointment details card displayed when hovering over an appointment time-slot card.
+Writing
 
-*Issue Description:*
-When hovering over an appointment card in the calendar, the popup displays appointment details incorrectly. The information shown in the hover details does not appear to be displayed correctly for the selected appointment.
 
-*Required Fix:*
-1.⁠ ⁠Verify the hover interaction for every appointment card.
-2.⁠ ⁠Ensure the popup displays the correct details for the exact appointment being hovered.
-3.⁠ ⁠Verify the appointment ID, time slot, duration, customer name, phone number, pet name, breed, service name and appointment status.
-4.⁠ ⁠Ensure details are mapped to the correct appointment and are not mixed with another appointment's data.
-5.⁠ ⁠Check that all details are properly aligned, readable and displayed without overlapping or clipping.
-6.⁠ ⁠Ensure the popup remains stable when hovering over different appointment cards.
-7.⁠ ⁠Verify the behaviour for all appointment statuses: Confirmed, Completed, Pending, Follow Up / In Progress and Cancelled.
 
-*Important:*
-•⁠  ⁠Identify the root cause and fix the issue.
-•⁠  ⁠Do not modify existing appointment data or booking functionality.
-•⁠  ⁠Preserve the existing UI design.
-•⁠  ⁠Retest the hover details using multiple appointments and different time slots.
 
-*Expected Result:* When hovering over any appointment card, the popup should display all details correctly and consistently for that specific appointment.
+
+Please review the attached Shear Heaven Pet Care – Retest Report (14 Nov 2026) and fix all the issues identified in it.
+
+The report contains 72 issues across the Landing Page, Groomer Portal, field validations, and UI. Please go through every bug individually and implement the necessary fixes.
+1.⁠ ⁠Fix All Reported Issues
+•⁠  ⁠Fix all 39 issues marked as Still Reproducible.
+•⁠  ⁠Complete the remaining fixes for all 7 Partially Fixed issues.
+•⁠  ⁠Review the 26 issues already marked as Fixed and ensure that no regressions are introduced.
+•⁠  ⁠Address all 6 newly identified UI issues.
+•⁠  ⁠Do not skip any issue or make changes only to the visible symptoms.
+2.⁠ ⁠Landing Page UI Fixes
+Resolve all remaining and partially fixed issues, including:
+•⁠  ⁠Book Stylist button overlapping the Pet Parents Rating label.
+•⁠  ⁠Improper alignment of service, package, and stylist cards.
+•⁠  ⁠Unnecessary carousel navigation arrows.
+•⁠  ⁠Inconsistent text casing.
+•⁠  ⁠Category tabs getting clipped on tablet screens.
+3.⁠ ⁠Groomer Portal UI Fixes
+Resolve all remaining issues, including:
+•⁠  ⁠Weekly working days displayed in the wrong order.
+•⁠  ⁠Inconsistent date and time formats.
+•⁠  ⁠Small and unreadable text in availability and appointment grids.
+•⁠  ⁠Incorrect full-day timeline labels.
+•⁠  ⁠Weekly hours table overflowing on mobile screens.
+•⁠  ⁠Read-only client information appearing as editable fields.
+•⁠  ⁠Inconsistent text sizes in weekly availability cells.
+•⁠  ⁠Internal technical information and database table names exposed to groomers.
+4.⁠ ⁠Field and API Validation Fixes
+Fix all 29 validation issues mentioned in the report, including:
+•⁠  ⁠Required fields accepting empty values.
+•⁠  ⁠Incorrect minimum and maximum character limits.
+•⁠  ⁠Missing maxlength restrictions.
+•⁠  ⁠Invalid phone number formats and duplicate phone numbers being accepted.
+•⁠  ⁠Inconsistent name validation.
+•⁠  ⁠Invalid service durations and size-tier values.
+•⁠  ⁠Invalid date, time, tax state, and state code values being accepted.
+•⁠  ⁠Incorrect money and percentage validations.
+•⁠  ⁠Special characters and spaces accepted in code fields.
+•⁠  ⁠HTML/script markup being stored in names and titles.
+•⁠  ⁠File upload validation and oversized file handling.
+•⁠  ⁠Duplicate record handling and database consistency.
+•⁠  ⁠Raw server and database error messages displayed to users.
+•⁠  ⁠Groomer deletion leaving orphan weekly-hours records.
+Ensure frontend and backend validations follow the same rules and return appropriate user-friendly error messages.
+5.⁠ ⁠Newly Identified UI Issues
+Fix all 6 new UI issues:
+•⁠  ⁠Appointment blocks overlapping each other.
+•⁠  ⁠Appointment preview panel opening outside the visible screen.
+•⁠  ⁠Incorrect error toast when clicking appointments on past dates.
+•⁠  ⁠Header time and phone number formatting issues.
+•⁠  ⁠Unnecessary 'Swipe for more categories' message.
+•⁠  ⁠Single package card alignment and clipped pricing.
+6.⁠ ⁠Technical Requirements
+•⁠  ⁠Identify and fix the actual root cause of every issue.
+•⁠  ⁠Maintain existing business logic and functionality.
+•⁠  ⁠Do not break existing working modules.
+•⁠  ⁠Ensure responsive behaviour across desktop, tablet, and mobile.
+•⁠  ⁠Verify API responses, database records, and frontend behaviour.
+•⁠  ⁠Do not delete or modify existing production data.
+•⁠  ⁠Avoid hardcoded fixes that solve only the reported test data.
+7.⁠ ⁠Final Verification
+After implementing the fixes:
+1.⁠ ⁠Execute the same reproduction steps from the report.
+2.⁠ ⁠Retest every previously reported issue.
+3.⁠ ⁠Verify all related workflows and integrations.
+4.⁠ ⁠Perform regression testing on affected modules.
+5.⁠ ⁠Capture screenshots and API evidence.
+6.⁠ ⁠Update each bug status as Fixed, Partially Fixed, or Still Reproducible.
+Prepare a final Excel/PDF report containing the Bug ID, issue description, root cause, fix implemented, retest result, and evidence.
+
+Important: Do not simply change the bug status or claim that an issue is fixed. Implement the actual code changes, execute the tests, and confirm that every issue is resolved before marking it as Fixed.
