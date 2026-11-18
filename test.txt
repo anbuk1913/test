@@ -1,76 +1,144 @@
-Writing
+import { useEffect, useRef } from 'react';
+import { io, type Socket } from 'socket.io-client';
+import {
+  getAccessToken,
+  getApiBaseUrl,
+  refreshPortalSession,
+  type Role,
+  type TenantIds,
+} from '../api/http';
+import type { ApiNotification } from '../types';
 
+type RealtimeHandlers = {
+  onNotification?: (item: ApiNotification) => void;
+  onStaffActivity?: (payload: Record<string, unknown>) => void;
+  onBookingProgress?: (payload: Record<string, unknown>) => void;
+  onConnectChange?: (connected: boolean) => void;
+};
 
+const ENABLE_WEBSOCKET = String(import.meta.env.VITE_SOCKET_WEBSOCKET || '').toLowerCase() === 'true';
 
+let sharedSocket: Socket | null = null;
+let sharedKey = '';
 
+function socketKey(role: Role, token: string, tenant: TenantIds | null | undefined): string {
+  const t = tenant ? `${tenant.clientId}|${tenant.regionId}|${tenant.storeId}` : '';
+  return `${role}:${token.slice(0, 12)}:${t}`;
+}
 
-Please review the attached Shear Heaven Pet Care – Retest Report (14 Nov 2026) and fix all the issues identified in it.
+function disconnectShared(): void {
+  if (sharedSocket) {
+    sharedSocket.removeAllListeners();
+    sharedSocket.disconnect();
+    sharedSocket = null;
+  }
+  sharedKey = '';
+}
 
-The report contains 72 issues across the Landing Page, Groomer Portal, field validations, and UI. Please go through every bug individually and implement the necessary fixes.
-1.⁠ ⁠Fix All Reported Issues
-•⁠  ⁠Fix all 39 issues marked as Still Reproducible.
-•⁠  ⁠Complete the remaining fixes for all 7 Partially Fixed issues.
-•⁠  ⁠Review the 26 issues already marked as Fixed and ensure that no regressions are introduced.
-•⁠  ⁠Address all 6 newly identified UI issues.
-•⁠  ⁠Do not skip any issue or make changes only to the visible symptoms.
-2.⁠ ⁠Landing Page UI Fixes
-Resolve all remaining and partially fixed issues, including:
-•⁠  ⁠Book Stylist button overlapping the Pet Parents Rating label.
-•⁠  ⁠Improper alignment of service, package, and stylist cards.
-•⁠  ⁠Unnecessary carousel navigation arrows.
-•⁠  ⁠Inconsistent text casing.
-•⁠  ⁠Category tabs getting clipped on tablet screens.
-3.⁠ ⁠Groomer Portal UI Fixes
-Resolve all remaining issues, including:
-•⁠  ⁠Weekly working days displayed in the wrong order.
-•⁠  ⁠Inconsistent date and time formats.
-•⁠  ⁠Small and unreadable text in availability and appointment grids.
-•⁠  ⁠Incorrect full-day timeline labels.
-•⁠  ⁠Weekly hours table overflowing on mobile screens.
-•⁠  ⁠Read-only client information appearing as editable fields.
-•⁠  ⁠Inconsistent text sizes in weekly availability cells.
-•⁠  ⁠Internal technical information and database table names exposed to groomers.
-4.⁠ ⁠Field and API Validation Fixes
-Fix all 29 validation issues mentioned in the report, including:
-•⁠  ⁠Required fields accepting empty values.
-•⁠  ⁠Incorrect minimum and maximum character limits.
-•⁠  ⁠Missing maxlength restrictions.
-•⁠  ⁠Invalid phone number formats and duplicate phone numbers being accepted.
-•⁠  ⁠Inconsistent name validation.
-•⁠  ⁠Invalid service durations and size-tier values.
-•⁠  ⁠Invalid date, time, tax state, and state code values being accepted.
-•⁠  ⁠Incorrect money and percentage validations.
-•⁠  ⁠Special characters and spaces accepted in code fields.
-•⁠  ⁠HTML/script markup being stored in names and titles.
-•⁠  ⁠File upload validation and oversized file handling.
-•⁠  ⁠Duplicate record handling and database consistency.
-•⁠  ⁠Raw server and database error messages displayed to users.
-•⁠  ⁠Groomer deletion leaving orphan weekly-hours records.
-Ensure frontend and backend validations follow the same rules and return appropriate user-friendly error messages.
-5.⁠ ⁠Newly Identified UI Issues
-Fix all 6 new UI issues:
-•⁠  ⁠Appointment blocks overlapping each other.
-•⁠  ⁠Appointment preview panel opening outside the visible screen.
-•⁠  ⁠Incorrect error toast when clicking appointments on past dates.
-•⁠  ⁠Header time and phone number formatting issues.
-•⁠  ⁠Unnecessary 'Swipe for more categories' message.
-•⁠  ⁠Single package card alignment and clipped pricing.
-6.⁠ ⁠Technical Requirements
-•⁠  ⁠Identify and fix the actual root cause of every issue.
-•⁠  ⁠Maintain existing business logic and functionality.
-•⁠  ⁠Do not break existing working modules.
-•⁠  ⁠Ensure responsive behaviour across desktop, tablet, and mobile.
-•⁠  ⁠Verify API responses, database records, and frontend behaviour.
-•⁠  ⁠Do not delete or modify existing production data.
-•⁠  ⁠Avoid hardcoded fixes that solve only the reported test data.
-7.⁠ ⁠Final Verification
-After implementing the fixes:
-1.⁠ ⁠Execute the same reproduction steps from the report.
-2.⁠ ⁠Retest every previously reported issue.
-3.⁠ ⁠Verify all related workflows and integrations.
-4.⁠ ⁠Perform regression testing on affected modules.
-5.⁠ ⁠Capture screenshots and API evidence.
-6.⁠ ⁠Update each bug status as Fixed, Partially Fixed, or Still Reproducible.
-Prepare a final Excel/PDF report containing the Bug ID, issue description, root cause, fix implemented, retest result, and evidence.
+/**
+ * Maintains one Socket.IO connection per active portal session (customer / groomer / staff).
+ */
+export function useRealtimeSocket(
+  enabled: boolean,
+  role: Role,
+  tenant: TenantIds | null | undefined,
+  handlers: RealtimeHandlers
+): void {
+  const handlersRef = useRef(handlers);
+  handlersRef.current = handlers;
 
-Important: Do not simply change the bug status or claim that an issue is fixed. Implement the actual code changes, execute the tests, and confirm that every issue is resolved before marking it as Fixed.
+  useEffect(() => {
+    if (!enabled) {
+      disconnectShared();
+      return undefined;
+    }
+
+    const token = getAccessToken(role);
+    if (!token) {
+      disconnectShared();
+      return undefined;
+    }
+
+    const key = socketKey(role, token, tenant);
+    if (sharedSocket && sharedKey === key && sharedSocket.connected) {
+      return undefined;
+    }
+
+    disconnectShared();
+    sharedKey = key;
+
+    const apiBase = getApiBaseUrl();
+    const tenantPayload = tenant || undefined;
+    const socket = io(apiBase || undefined, {
+      path: '/socket.io',
+      // Function form: re-read the latest access token on every (re)connect attempt,
+      // so a token refreshed by the HTTP client is picked up automatically.
+      auth: (cb) => cb({ token: getAccessToken(role) ?? '', tenant: tenantPayload }),
+      // The production proxy currently blocks the wss:// upgrade, so stay on HTTP long-polling.
+      // Set VITE_SOCKET_WEBSOCKET=true once the proxy forwards Upgrade/Connection headers.
+      transports: ENABLE_WEBSOCKET ? ['polling', 'websocket'] : ['polling'],
+      reconnection: true,
+      reconnectionAttempts: 10,
+    });
+    sharedSocket = socket;
+
+    const reportConnect = (connected: boolean) => {
+      handlersRef.current.onConnectChange?.(connected);
+    };
+
+    // Auth failures from the server middleware stop Socket.IO's auto-reconnect,
+    // so refresh the session once and reconnect manually.
+    let authRetries = 0;
+    const MAX_AUTH_RETRIES = 1;
+
+    socket.on('connect', () => {
+      authRetries = 0;
+      reportConnect(true);
+    });
+    socket.on('disconnect', (reason) => {
+      if (import.meta.env.DEV) console.info('[socket] disconnected:', reason);
+      reportConnect(false);
+    });
+    socket.on('connect_error', async (err: Error) => {
+      console.error('[socket] connect_error:', err.message);
+      reportConnect(false);
+
+      // socket.active === false means the server rejected the handshake (middleware error);
+      // transport errors keep active === true and are retried by the built-in reconnection.
+      const isAuthError = /token|unauthori[sz]ed|jwt|expired|forbidden/i.test(err.message);
+      if (socket.active || !isAuthError || authRetries >= MAX_AUTH_RETRIES) return;
+
+      authRetries += 1;
+      const refreshed = await refreshPortalSession(role, apiBase).catch(() => false);
+      if (refreshed && sharedSocket === socket && getAccessToken(role)) {
+        socket.connect();
+      }
+    });
+    reportConnect(socket.connected);
+
+    socket.on('notification', (raw: ApiNotification) => {
+      if (!raw?.title) return;
+      handlersRef.current.onNotification?.({
+        id: raw.id ?? 0,
+        title: raw.title,
+        message: raw.message,
+        type: raw.type || 'general',
+        data: raw.data || {},
+        isRead: Boolean(raw.isRead),
+        createdAt: raw.createdAt || new Date().toISOString(),
+      });
+    });
+
+    socket.on('staff_activity', (payload: Record<string, unknown>) => {
+      handlersRef.current.onStaffActivity?.(payload);
+    });
+
+    socket.on('booking_progress', (payload: Record<string, unknown>) => {
+      handlersRef.current.onBookingProgress?.(payload);
+    });
+
+    return () => {
+      disconnectShared();
+    };
+  }, [enabled, role, tenant?.clientId, tenant?.regionId, tenant?.storeId]);
+}
