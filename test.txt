@@ -1,16 +1,6 @@
-When a customer applies both a coupon and a promotion code, if the combined discount exceeds the original service price, subtract the original service amount from the total discount and display the remaining excess amount in a popup notification.
+In Super Admin → User Management → Roles, create both types of roles:
 
-**Example:**
-- Original Service Amount: $78
-- Combined Coupon + Promotion Discount: $81
-- Excess Amount: $3
+1. **Store Role:** Create a role that is applicable only to the selected store.
+2. **Platform Role:** Create a common role that is applicable across all stores.
 
-**Expected Behaviour:**
-1. Deduct the original service amount ($78) from the combined discount ($81).
-2. Display the payable service amount as $0.
-3. Show a popup notification indicating the excess discount amount ($3).
-
-**Popup Message:**
-"The combined discount exceeds the original service amount by $3."
-
-The excess amount should be calculated dynamically based on the original service amount and the combined coupon and promotion discounts.
+Ensure both roles are created successfully with the correct scope and permissions.
