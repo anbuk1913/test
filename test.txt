@@ -1,10 +1,26 @@
-No Field Length Limitation in Create Platform Staff
+the platform user's store filter shows only one store
 
-Actual Result:
-In the Create Platform Staff section, the input fields do not have proper character-length limitations. Users can enter more characters than expected in the fields without any restriction or validation.
+Module: Staff portal (/store-admin), store filter in the header
+Role: QA Platform Limited (platform-wide: Discounts – View + Update, Financial reports – View)
+User: qa.platltd1124@mailinator.com
+Severity: High (a fix for RB-01 broke this)
 
-Expected Result:
-Each input field should have an appropriate minimum and maximum character limit. The system should restrict excess characters and display proper validation messages wherever required.
+Steps to reproduce
 
-Impact:
-Users can enter excessively long or invalid data, which may lead to data consistency and validation issues.
+Sign in at /store-admin as qa.platltd1124@mailinator.com.
+Open the Filter by store dropdown at the top right.
+Look at the "Viewing store" banner on Discounts or Reports.
+
+Expected result
+
+The dropdown lists every client and store the platform role covers: 23 stores, as in the first test.
+Each option shows the store name and code, e.g. "QA Auto Store Edited — QAA-001" or "Shear Heaven Darwin — SHEAR-001".
+Choosing another store reloads Discounts and Reports with that store's data.
+The banner shows the store name, e.g. "Viewing store: QA Auto Store Edited".
+
+Actual result
+
+The dropdown has only one option, "QAA-001 — QAA-001", so the user can't switch stores.
+The banner shows only the code: "Viewing store: QAA-001".
+The platform user is stuck on one store in the portal and behaves like a store-only role, even though the server still returns other stores' data (discounts for SHEAR-001 load fine).
+The store list (GET /api/common/stores) is now refused with 403 "You do not have permission" for this role. The page probably builds the dropdown from that list, so it falls back to the user's own store.
