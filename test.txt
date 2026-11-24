@@ -1,6 +1,10 @@
-In Super Admin → User Management → Roles, create both types of roles:
+No Field Length Limitation in Create Platform Staff
 
-1. **Store Role:** Create a role that is applicable only to the selected store.
-2. **Platform Role:** Create a common role that is applicable across all stores.
+Actual Result:
+In the Create Platform Staff section, the input fields do not have proper character-length limitations. Users can enter more characters than expected in the fields without any restriction or validation.
 
-Ensure both roles are created successfully with the correct scope and permissions.
+Expected Result:
+Each input field should have an appropriate minimum and maximum character limit. The system should restrict excess characters and display proper validation messages wherever required.
+
+Impact:
+Users can enter excessively long or invalid data, which may lead to data consistency and validation issues.
