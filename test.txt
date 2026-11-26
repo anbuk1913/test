@@ -1,4 +1,4 @@
-I need to write a new apis for these add these apis 
+I need to write a below new apis 
 
 
 GET /api/v1/pdfs/my-submissions — List contributor's own submitted PDFs across all statuses
