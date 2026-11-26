@@ -1,3 +1,6 @@
+I need to write a new apis for these add these apis 
+
+
 GET /api/v1/pdfs/my-submissions — List contributor's own submitted PDFs across all statuses
 GET /api/v1/search/suggestions — Search autocomplete suggestions
 GET /api/v1/search/history — Get user search history
