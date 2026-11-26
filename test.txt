@@ -1,3 +1,17 @@
+GET /api/v1/pdfs/my-submissions — List contributor's own submitted PDFs across all statuses
+GET /api/v1/search/suggestions — Search autocomplete suggestions
+GET /api/v1/search/history — Get user search history
+POST /api/v1/search/history — Save a search history entry
+DELETE /api/v1/search/history/:id — Delete a single search history item
+DELETE /api/v1/search/history — Clear all search history
+GET /api/v1/submissions/analytics — Aggregated contributor submission metrics & views
+GET /api/v1/submissions/history — Unified video + PDF submission history
+GET /api/v1/submissions/:type/:id — Single submission lifecycle detail & timeline
+DELETE /api/v1/submissions/:type/:id — Withdraw a pending submission
+GET /api/v1/admin/pdfs/metrics — Admin PDF dashboard status counts
+
+
+
 1. Missing Endpoints (With Expected Request & Response Contracts)
 
 Note: Contracts below use the observed DevAPI envelope ({ success, message, data, meta }) and field definitions from ContentStream-Backend where applicable.
