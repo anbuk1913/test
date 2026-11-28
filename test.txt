@@ -1,240 +1,144 @@
-
-
-All Allowed Types
-templateId (ContentTemplateType)
-Value	Purpose
-"article"	Formatted rich text / article page
-"document_page"	Uploaded document (.pdf, .txt, .doc, .docx) + notes
-"video_lesson"	YouTube video guide + structured notes
-"multimedia_page"	Mixed sections (headings, text, lists, images, documents, YouTube)
-
-
-creationMethod (ContentCreationMethod)
-
-Value	Purpose
-"type"	Typed directly inside the mobile editor
-"paste"	Copied & pasted content (normalized to formatted text/lists)
-"upload"	Created primarily by uploading files (.pdf, .txt, .doc, .docx, images)
-"mixed"	Combination of typed/pasted text, uploaded files/images, and/or YouTube links
-
-
-2. Reference Payloads & Responses (POST /api/v1/content-pages)
-A. templateId: "article" + creationMethod: "type" (or "paste")
-
-Request:
-
+1. Upload Block Media Asset (Images / Documents for Dynamic Pages)
+Endpoint: POST /api/v1/media/upload
+Auth: Contributor / User (Bearer <accessToken>)
+Request Payload (multipart/form-data):
+file: Binary file (image/jpeg, image/png, image/webp, image/gif <= 10 MB; or application/pdf, text/plain, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document <= 20 MB)
+Response (201 Created):
 json
 {
-  "pageName": "Rainwater Harvesting Basics",
-  "title": "Monsoon Rooftop Catchment Guide",
-  "description": "Practical guide for village rainwater filtration and storage.",
-  "categoryId": "a8cad5ac-49c2-4670-87f6-a78bb4960bc5",
-  "templateId": "article",
-  "creationMethod": "paste",
-  "metadata": {
-    "authorNote": "Adapted from 2026 field handbook",
-    "estimatedReadMinutes": 3,
-    "externalReferenceUrl": "https://merasaath.com/water-guide"
-  },
-  "blocks": [
-    {
-      "id": "hdg_1",
-      "type": "heading",
-      "level": 1,
-      "text": "System Components"
-    },
-    {
-      "id": "txt_1",
-      "type": "formatted_text",
-      "body": "## First Flush Setup\nInstall a **mesh leaf screen** and clean *gutters* before monsoon.\n- Leaf diverter\n- Sand-gravel filter\n1. Inspect roof slope\n2. Flush tank valve"
-    }
-  ]
+  "success": true,
+  "message": "Media uploaded successfully.",
+  "data": {
+    "id": "674a1f2c9b8d4a0012a10001",
+    "url": "https://devapi.merasaath.com/api/v1/media/674a1f2c9b8d4a0012a10001/file",
+    "fileName": "solar_diagram.png",
+    "mimeType": "image/png",
+    "fileSize": 248190
+  }
 }
-B. templateId: "document_page" + creationMethod: "upload"
-
-(Attach .pdf, .txt, .doc, or .docx via POST /api/v1/media/upload first, then pass returned id & url in document block) Request:
-
+2. Create Dynamic Content Page
+Endpoint: POST /api/v1/content-pages
+Auth: Contributor / User (Bearer <accessToken>) — server forces status: "pending" and derives contributorId from JWT
+Request Payload (application/json):
 json
 {
-  "pageName": "Soil Health Handbook",
-  "title": "Kharif Nutrient Management Manual (DOCX)",
-  "description": "Downloadable reference manual with testing notes.",
-  "categoryId": "a8cad5ac-49c2-4670-87f6-a78bb4960bc5",
-  "templateId": "document_page",
-  "creationMethod": "upload",
-  "metadata": {
-    "estimatedReadMinutes": 1,
-    "documentFormat": "DOCX"
-  },
-  "blocks": [
-    {
-      "id": "doc_1",
-      "type": "document",
-      "documentId": "674a1f2c9b8d4a0012a10002",
-      "uri": "https://devapi.merasaath.com/api/v1/media/674a1f2c9b8d4a0012a10002/file",
-      "fileName": "soil_handbook.docx",
-      "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-      "fileSize": 48210,
-      "title": "soil_handbook.docx"
-    },
-    {
-      "id": "txt_2",
-      "type": "formatted_text",
-      "body": "Review **Section 3** before soil sampling."
-    }
-  ]
-}
-C. templateId: "video_lesson" + creationMethod: "mixed"
-
-Request:
-
-json
-{
-  "pageName": "Drip Irrigation Maintenance",
-  "title": "Cleaning Filters & Pressure Regulators",
-  "description": "Short training video with step-by-step checklist.",
-  "categoryId": "a8cad5ac-49c2-4670-87f6-a78bb4960bc5",
-  "templateId": "video_lesson",
-  "creationMethod": "mixed",
-  "metadata": {
-    "estimatedReadMinutes": 2,
-    "youtubeVideoId": "dQw4w9WgXcQ"
-  },
-  "blocks": [
-    {
-      "id": "vid_1",
-      "type": "youtube_video",
-      "youtubeUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      "videoId": "dQw4w9WgXcQ",
-      "caption": "Filter flush walkthrough"
-    },
-    {
-      "id": "lst_1",
-      "type": "list",
-      "style": "numbered",
-      "items": [
-        "Turn off main pump",
-        "Open screen filter cap",
-        "Rinse mesh with clean water"
-      ]
-    }
-  ]
-}
-D. templateId: "multimedia_page" + creationMethod: "mixed"
-
-Request:
-
-json
-{
-  "pageName": "Solar Cold Storage Overview",
-  "title": "Community Produce Cooling Hub",
-  "description": "Combined overview with site photo, specs PDF, and briefing.",
+  "pageName": "Solar Irrigation Field Guide",
+  "title": "2026 Community Solar Pump Setup",
+  "description": "Step-by-step installation guide with manual and video.",
   "categoryId": "a8cad5ac-49c2-4670-87f6-a78bb4960bc5",
   "templateId": "multimedia_page",
   "creationMethod": "mixed",
   "metadata": {
-    "authorNote": "Updated for 2026 pilot sites",
+    "authorNote": "Field-tested in Q2 2026",
     "estimatedReadMinutes": 4,
-    "externalReferenceUrl": "https://merasaath.com/cold-storage",
-    "documentFormat": "PDF"
+    "externalReferenceUrl": "https://merasaath.com/guide",
+    "documentFormat": "DOCX",
+    "youtubeVideoId": "dQw4w9WgXcQ"
   },
   "blocks": [
-    {
-      "id": "hdg_2",
-      "type": "heading",
-      "level": 1,
-      "text": "Site Layout"
-    },
-    {
-      "id": "par_1",
-      "type": "paragraph",
-      "text": "The unit maintains **4°C–8°C** using battery-free thermal storage."
-    },
-    {
-      "id": "img_1",
-      "type": "image",
-      "uri": "https://devapi.merasaath.com/api/v1/media/674a1f2c9b8d4a0012a10005/file",
-      "caption": "2 kW solar panel roof array",
-      "fileName": "solar_roof.jpg",
-      "mimeType": "image/jpeg",
-      "fileSize": 195400
-    },
-    {
-      "id": "doc_2",
-      "type": "document",
-      "documentId": "674a1f2c9b8d4a0012a10006",
-      "uri": "https://devapi.merasaath.com/api/v1/media/674a1f2c9b8d4a0012a10006/file",
-      "fileName": "cooling_specs.pdf",
-      "mimeType": "application/pdf",
-      "fileSize": 310400
-    }
+    { "id": "b1", "type": "heading", "level": 1, "text": "Overview" },
+    { "id": "b2", "type": "formatted_text", "body": "## Key Steps\nCheck **wiring** and *voltage*.\n- Item 1\n1. Step 1" },
+    { "id": "b3", "type": "list", "style": "bullet", "items": ["Panel check", "Pump test"] },
+    { "id": "b4", "type": "image", "uri": "https://devapi.merasaath.com/api/v1/media/1/file", "caption": "Wiring layout" },
+    { "id": "b5", "type": "document", "documentId": "doc1", "uri": "https://devapi.merasaath.com/api/v1/media/2/file", "fileName": "manual.docx", "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "fileSize": 18420 },
+    { "id": "b6", "type": "youtube_video", "youtubeUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "videoId": "dQw4w9WgXcQ", "caption": "Demo" }
   ]
 }
-3. Standard Reference Response (201 Created / 200 OK)
+Response (201 Created):
 json
 {
   "success": true,
   "message": "Content page submitted successfully for review.",
   "data": {
     "id": "674a20109b8d4a0012a10010",
-    "pageName": "Solar Cold Storage Overview",
-    "title": "Community Produce Cooling Hub",
-    "description": "Combined overview with site photo, specs PDF, and briefing.",
+    "pageName": "Solar Irrigation Field Guide",
+    "title": "2026 Community Solar Pump Setup",
+    "description": "Step-by-step installation guide with manual and video.",
     "categoryId": "a8cad5ac-49c2-4670-87f6-a78bb4960bc5",
-    "category": {
-      "id": "a8cad5ac-49c2-4670-87f6-a78bb4960bc5",
-      "name": "Agriculture",
-      "slug": "agriculture"
-    },
+    "category": { "id": "a8cad5ac-49c2-4670-87f6-a78bb4960bc5", "name": "Energy", "slug": "energy" },
     "templateId": "multimedia_page",
     "creationMethod": "mixed",
-    "metadata": {
-      "authorNote": "Updated for 2026 pilot sites",
-      "estimatedReadMinutes": 4,
-      "externalReferenceUrl": "https://merasaath.com/cold-storage",
-      "documentFormat": "PDF"
-    },
-    "blocks": [
+    "blocks": [ "..." ],
+    "metadata": { "estimatedReadMinutes": 4, "documentFormat": "DOCX", "youtubeVideoId": "dQw4w9WgXcQ" },
+    "status": "pending",
+    "contributorId": { "id": "u1", "fullName": "Jane Doe", "email": "jane@example.com" },
+    "views": 0,
+    "createdAt": "2026-11-28T11:55:00.000Z",
+    "updatedAt": "2026-11-28T11:55:00.000Z"
+  }
+}
+3. List Published Content Pages (Public / Guest / Users)
+Endpoint: GET /api/v1/content-pages?page=1&limit=20&categoryId=&search=
+Auth: Public (approved / published items only)
+Request Payload: Query params (page, limit, categoryId, search)
+Response (200 OK):
+json
+{
+  "success": true,
+  "message": "Success",
+  "data": {
+    "items": [
       {
-        "id": "hdg_2",
-        "type": "heading",
-        "level": 1,
-        "text": "Site Layout"
-      },
-      {
-        "id": "par_1",
-        "type": "paragraph",
-        "text": "The unit maintains **4°C–8°C** using battery-free thermal storage."
-      },
-      {
-        "id": "img_1",
-        "type": "image",
-        "uri": "https://devapi.merasaath.com/api/v1/media/674a1f2c9b8d4a0012a10005/file",
-        "caption": "2 kW solar panel roof array",
-        "fileName": "solar_roof.jpg",
-        "mimeType": "image/jpeg",
-        "fileSize": 195400
-      },
-      {
-        "id": "doc_2",
-        "type": "document",
-        "documentId": "674a1f2c9b8d4a0012a10006",
-        "uri": "https://devapi.merasaath.com/api/v1/media/674a1f2c9b8d4a0012a10006/file",
-        "fileName": "cooling_specs.pdf",
-        "mimeType": "application/pdf",
-        "fileSize": 310400
+        "id": "674a20109b8d4a0012a10010",
+        "pageName": "Solar Irrigation Field Guide",
+        "title": "2026 Community Solar Pump Setup",
+        "description": "Step-by-step installation guide with manual and video.",
+        "category": { "id": "a8cad5ac-49c2-4670-87f6-a78bb4960bc5", "name": "Energy", "slug": "energy" },
+        "templateId": "multimedia_page",
+        "metadata": { "estimatedReadMinutes": 4 },
+        "status": "published",
+        "contributorId": { "id": "u1", "fullName": "Jane Doe" },
+        "views": 12,
+        "publishedAt": "2026-11-28T12:10:00.000Z",
+        "createdAt": "2026-11-28T11:55:00.000Z"
       }
     ],
-    "status": "pending",
+    "meta": {
+      "currentPage": 1,
+      "totalPages": 1,
+      "totalItems": 1,
+      "limit": 20,
+      "hasNextPage": false,
+      "hasPrevPage": false
+    }
+  }
+}
+4. List My Submitted Content Pages
+Endpoint: GET /api/v1/content-pages/my-submissions?page=1&limit=20&status=
+Auth: Contributor / User (Bearer <accessToken>) — filtered strictly by req.user.id
+Request Payload: Query params (page, limit, status: pending | approved | published | rejected)
+Response (200 OK): Same paginated { items, meta } envelope as #3 (including status and rejectionReason).
+5. Get Content Page by ID
+Endpoint: GET /api/v1/content-pages/:id
+Auth: Optional (published/approved public; pending/rejected only accessible to owner or admin, else 404)
+Request Payload: Path param id
+Response (200 OK): Same single-item { success, message, data } object with full blocks[] and metadata as #2.
+6. Admin / Content Approver Moderation Queue & Preview
+Endpoints:
+GET /api/v1/admin/content-pages?page=1&limit=10&status=pending&categoryId=&search=
+GET /api/v1/admin/content-pages/:id
+Auth: Admin / Content Approver (Bearer <accessToken>, role === 'admin')
+Request Payload: Query params (page, limit, status, categoryId, search) or Path param id
+Response (200 OK): Paginated { items, meta } for queue listing; single full data object (with blocks[] & metadata) for :id.
+7. Admin / Content Approver Approve or Reject Content Page
+Endpoint: PATCH /api/v1/admin/content-pages/:id/review
+Auth: Admin / Content Approver (Bearer <accessToken>, role === 'admin')
+Request Payload (application/json):
+json
+// Approve
+{ "status": "approved" }
+// OR Reject
+{ "status": "rejected", "rejectionReason": "Missing citation sources in section 2." }
+Response (200 OK):
+json
+{
+  "success": true,
+  "message": "Content page approved and published successfully.",
+  "data": {
+    "id": "674a20109b8d4a0012a10010",
+    "pageName": "Solar Irrigation Field Guide",
+    "status": "approved",
     "rejectionReason": null,
-    "contributorId": {
-      "id": "6749a0109b8d4a0012a00001",
-      "fullName": "Jane Doe",
-      "email": "jane@example.com"
-    },
-    "views": 0,
-    "publishedAt": null,
-    "createdAt": "2026-11-28T12:15:00.000Z",
-    "updatedAt": "2026-11-28T12:15:00.000Z"
+    "publishedAt": "2026-11-28T12:10:00.000Z"
   }
 }
