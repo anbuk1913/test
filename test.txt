@@ -1,50 +1,240 @@
-Create Dynamic Content Page
-- **Endpoint:** `POST /api/v1/content-pages`
-- **Auth:** `Bearer <token>` (`user`, `contributor`)
-- **Request (`application/json`):**
-```json
+
+
+All Allowed Types
+templateId (ContentTemplateType)
+Value	Purpose
+"article"	Formatted rich text / article page
+"document_page"	Uploaded document (.pdf, .txt, .doc, .docx) + notes
+"video_lesson"	YouTube video guide + structured notes
+"multimedia_page"	Mixed sections (headings, text, lists, images, documents, YouTube)
+
+
+creationMethod (ContentCreationMethod)
+
+Value	Purpose
+"type"	Typed directly inside the mobile editor
+"paste"	Copied & pasted content (normalized to formatted text/lists)
+"upload"	Created primarily by uploading files (.pdf, .txt, .doc, .docx, images)
+"mixed"	Combination of typed/pasted text, uploaded files/images, and/or YouTube links
+
+
+2. Reference Payloads & Responses (POST /api/v1/content-pages)
+A. templateId: "article" + creationMethod: "type" (or "paste")
+
+Request:
+
+json
 {
-  "pageName": "Solar Microgrid Guide",
-  "title": "Community Solar Deployment Manual",
-  "description": "Step-by-step installation and maintenance guide.",
-  "categoryId": "<categoryId>",
-  "templateId": "article | document_page | video_lesson | multimedia_page",
-  "creationMethod": "type | paste | upload | mixed",
-  "blocks": [
-    { "id": "b1", "type": "heading", "level": 1, "text": "Overview" },
-    { "id": "b2", "type": "formatted_text", "body": "## Steps\nUse **clean** **bold** and *italic* formatting." },
-    { "id": "b3", "type": "list", "style": "numbered", "items": ["Site survey", "Panel setup"] },
-    { "id": "b4", "type": "image", "uri": "https://...", "caption": "Site layout" },
-    { "id": "b5", "type": "document", "documentId": "docId", "uri": "https://...", "fileName": "spec.docx", "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "fileSize": 24576 },
-    { "id": "b6", "type": "youtube_video", "youtubeUrl": "https://www.youtube.com/watch?v=VIDEO_ID", "videoId": "VIDEO_ID", "caption": "Walkthrough" }
-  ],
+  "pageName": "Rainwater Harvesting Basics",
+  "title": "Monsoon Rooftop Catchment Guide",
+  "description": "Practical guide for village rainwater filtration and storage.",
+  "categoryId": "a8cad5ac-49c2-4670-87f6-a78bb4960bc5",
+  "templateId": "article",
+  "creationMethod": "paste",
   "metadata": {
-    "authorNote": "Updated for 2026",
-    "estimatedReadMinutes": 4,
-    "externalReferenceUrl": "https://merasaath.com/reference"
-  }
+    "authorNote": "Adapted from 2026 field handbook",
+    "estimatedReadMinutes": 3,
+    "externalReferenceUrl": "https://merasaath.com/water-guide"
+  },
+  "blocks": [
+    {
+      "id": "hdg_1",
+      "type": "heading",
+      "level": 1,
+      "text": "System Components"
+    },
+    {
+      "id": "txt_1",
+      "type": "formatted_text",
+      "body": "## First Flush Setup\nInstall a **mesh leaf screen** and clean *gutters* before monsoon.\n- Leaf diverter\n- Sand-gravel filter\n1. Inspect roof slope\n2. Flush tank valve"
+    }
+  ]
 }
-```
-- **Response (`201`):**
-```json
+B. templateId: "document_page" + creationMethod: "upload"
+
+(Attach .pdf, .txt, .doc, or .docx via POST /api/v1/media/upload first, then pass returned id & url in document block) Request:
+
+json
+{
+  "pageName": "Soil Health Handbook",
+  "title": "Kharif Nutrient Management Manual (DOCX)",
+  "description": "Downloadable reference manual with testing notes.",
+  "categoryId": "a8cad5ac-49c2-4670-87f6-a78bb4960bc5",
+  "templateId": "document_page",
+  "creationMethod": "upload",
+  "metadata": {
+    "estimatedReadMinutes": 1,
+    "documentFormat": "DOCX"
+  },
+  "blocks": [
+    {
+      "id": "doc_1",
+      "type": "document",
+      "documentId": "674a1f2c9b8d4a0012a10002",
+      "uri": "https://devapi.merasaath.com/api/v1/media/674a1f2c9b8d4a0012a10002/file",
+      "fileName": "soil_handbook.docx",
+      "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "fileSize": 48210,
+      "title": "soil_handbook.docx"
+    },
+    {
+      "id": "txt_2",
+      "type": "formatted_text",
+      "body": "Review **Section 3** before soil sampling."
+    }
+  ]
+}
+C. templateId: "video_lesson" + creationMethod: "mixed"
+
+Request:
+
+json
+{
+  "pageName": "Drip Irrigation Maintenance",
+  "title": "Cleaning Filters & Pressure Regulators",
+  "description": "Short training video with step-by-step checklist.",
+  "categoryId": "a8cad5ac-49c2-4670-87f6-a78bb4960bc5",
+  "templateId": "video_lesson",
+  "creationMethod": "mixed",
+  "metadata": {
+    "estimatedReadMinutes": 2,
+    "youtubeVideoId": "dQw4w9WgXcQ"
+  },
+  "blocks": [
+    {
+      "id": "vid_1",
+      "type": "youtube_video",
+      "youtubeUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "videoId": "dQw4w9WgXcQ",
+      "caption": "Filter flush walkthrough"
+    },
+    {
+      "id": "lst_1",
+      "type": "list",
+      "style": "numbered",
+      "items": [
+        "Turn off main pump",
+        "Open screen filter cap",
+        "Rinse mesh with clean water"
+      ]
+    }
+  ]
+}
+D. templateId: "multimedia_page" + creationMethod: "mixed"
+
+Request:
+
+json
+{
+  "pageName": "Solar Cold Storage Overview",
+  "title": "Community Produce Cooling Hub",
+  "description": "Combined overview with site photo, specs PDF, and briefing.",
+  "categoryId": "a8cad5ac-49c2-4670-87f6-a78bb4960bc5",
+  "templateId": "multimedia_page",
+  "creationMethod": "mixed",
+  "metadata": {
+    "authorNote": "Updated for 2026 pilot sites",
+    "estimatedReadMinutes": 4,
+    "externalReferenceUrl": "https://merasaath.com/cold-storage",
+    "documentFormat": "PDF"
+  },
+  "blocks": [
+    {
+      "id": "hdg_2",
+      "type": "heading",
+      "level": 1,
+      "text": "Site Layout"
+    },
+    {
+      "id": "par_1",
+      "type": "paragraph",
+      "text": "The unit maintains **4°C–8°C** using battery-free thermal storage."
+    },
+    {
+      "id": "img_1",
+      "type": "image",
+      "uri": "https://devapi.merasaath.com/api/v1/media/674a1f2c9b8d4a0012a10005/file",
+      "caption": "2 kW solar panel roof array",
+      "fileName": "solar_roof.jpg",
+      "mimeType": "image/jpeg",
+      "fileSize": 195400
+    },
+    {
+      "id": "doc_2",
+      "type": "document",
+      "documentId": "674a1f2c9b8d4a0012a10006",
+      "uri": "https://devapi.merasaath.com/api/v1/media/674a1f2c9b8d4a0012a10006/file",
+      "fileName": "cooling_specs.pdf",
+      "mimeType": "application/pdf",
+      "fileSize": 310400
+    }
+  ]
+}
+3. Standard Reference Response (201 Created / 200 OK)
+json
 {
   "success": true,
   "message": "Content page submitted successfully for review.",
   "data": {
-    "id": "pageId",
-    "pageName": "Solar Microgrid Guide",
-    "title": "Community Solar Deployment Manual",
-    "description": "Step-by-step installation and maintenance guide.",
-    "categoryId": "<categoryId>",
-    "category": { "id": "<categoryId>", "name": "Energy", "slug": "energy" },
-    "contributorId": { "id": "userId", "fullName": "Jane Doe", "email": "jane@example.com" },
+    "id": "674a20109b8d4a0012a10010",
+    "pageName": "Solar Cold Storage Overview",
+    "title": "Community Produce Cooling Hub",
+    "description": "Combined overview with site photo, specs PDF, and briefing.",
+    "categoryId": "a8cad5ac-49c2-4670-87f6-a78bb4960bc5",
+    "category": {
+      "id": "a8cad5ac-49c2-4670-87f6-a78bb4960bc5",
+      "name": "Agriculture",
+      "slug": "agriculture"
+    },
     "templateId": "multimedia_page",
     "creationMethod": "mixed",
-    "blocks": [],
-    "metadata": {},
+    "metadata": {
+      "authorNote": "Updated for 2026 pilot sites",
+      "estimatedReadMinutes": 4,
+      "externalReferenceUrl": "https://merasaath.com/cold-storage",
+      "documentFormat": "PDF"
+    },
+    "blocks": [
+      {
+        "id": "hdg_2",
+        "type": "heading",
+        "level": 1,
+        "text": "Site Layout"
+      },
+      {
+        "id": "par_1",
+        "type": "paragraph",
+        "text": "The unit maintains **4°C–8°C** using battery-free thermal storage."
+      },
+      {
+        "id": "img_1",
+        "type": "image",
+        "uri": "https://devapi.merasaath.com/api/v1/media/674a1f2c9b8d4a0012a10005/file",
+        "caption": "2 kW solar panel roof array",
+        "fileName": "solar_roof.jpg",
+        "mimeType": "image/jpeg",
+        "fileSize": 195400
+      },
+      {
+        "id": "doc_2",
+        "type": "document",
+        "documentId": "674a1f2c9b8d4a0012a10006",
+        "uri": "https://devapi.merasaath.com/api/v1/media/674a1f2c9b8d4a0012a10006/file",
+        "fileName": "cooling_specs.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 310400
+      }
+    ],
     "status": "pending",
+    "rejectionReason": null,
+    "contributorId": {
+      "id": "6749a0109b8d4a0012a00001",
+      "fullName": "Jane Doe",
+      "email": "jane@example.com"
+    },
     "views": 0,
-    "createdAt": "2026-11-28T11:30:00.000Z",
-    "updatedAt": "2026-11-28T11:30:00.000Z"
+    "publishedAt": null,
+    "createdAt": "2026-11-28T12:15:00.000Z",
+    "updatedAt": "2026-11-28T12:15:00.000Z"
   }
 }
