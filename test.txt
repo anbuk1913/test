@@ -1,5 +1,50 @@
-{{base_url}}/videos
-
-/admin/videos/:id/approve
-
-{{base_url}}/admin/pdfs/{{pdf_id}}/review
+Create Dynamic Content Page
+- **Endpoint:** `POST /api/v1/content-pages`
+- **Auth:** `Bearer <token>` (`user`, `contributor`)
+- **Request (`application/json`):**
+```json
+{
+  "pageName": "Solar Microgrid Guide",
+  "title": "Community Solar Deployment Manual",
+  "description": "Step-by-step installation and maintenance guide.",
+  "categoryId": "<categoryId>",
+  "templateId": "article | document_page | video_lesson | multimedia_page",
+  "creationMethod": "type | paste | upload | mixed",
+  "blocks": [
+    { "id": "b1", "type": "heading", "level": 1, "text": "Overview" },
+    { "id": "b2", "type": "formatted_text", "body": "## Steps\nUse **clean** **bold** and *italic* formatting." },
+    { "id": "b3", "type": "list", "style": "numbered", "items": ["Site survey", "Panel setup"] },
+    { "id": "b4", "type": "image", "uri": "https://...", "caption": "Site layout" },
+    { "id": "b5", "type": "document", "documentId": "docId", "uri": "https://...", "fileName": "spec.docx", "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "fileSize": 24576 },
+    { "id": "b6", "type": "youtube_video", "youtubeUrl": "https://www.youtube.com/watch?v=VIDEO_ID", "videoId": "VIDEO_ID", "caption": "Walkthrough" }
+  ],
+  "metadata": {
+    "authorNote": "Updated for 2026",
+    "estimatedReadMinutes": 4,
+    "externalReferenceUrl": "https://merasaath.com/reference"
+  }
+}
+```
+- **Response (`201`):**
+```json
+{
+  "success": true,
+  "message": "Content page submitted successfully for review.",
+  "data": {
+    "id": "pageId",
+    "pageName": "Solar Microgrid Guide",
+    "title": "Community Solar Deployment Manual",
+    "description": "Step-by-step installation and maintenance guide.",
+    "categoryId": "<categoryId>",
+    "category": { "id": "<categoryId>", "name": "Energy", "slug": "energy" },
+    "contributorId": { "id": "userId", "fullName": "Jane Doe", "email": "jane@example.com" },
+    "templateId": "multimedia_page",
+    "creationMethod": "mixed",
+    "blocks": [],
+    "metadata": {},
+    "status": "pending",
+    "views": 0,
+    "createdAt": "2026-11-28T11:30:00.000Z",
+    "updatedAt": "2026-11-28T11:30:00.000Z"
+  }
+}
